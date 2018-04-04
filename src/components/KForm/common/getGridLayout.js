@@ -1,6 +1,6 @@
 /**
  * 设置表单栅格布局
- * @param  {number} columns     每行的表单元素个数
+ * @param  {number} columns     表单布局列数
  * @param  {number} colSpan     一个表单元素占几列
  * @return {object}             表格栅格布局属性
  */

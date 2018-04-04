@@ -35,7 +35,8 @@ class HFormItem extends Component {
     });
   }
 
-  getChildrenEle = () => {
+  // 生成渲染节点
+  getRenderChildrenEle = () => {
     const { config, subConfig, formItemParams, value } = this.props;
     const { id, type, params = {}, extMap = {} } = config;
     if (!type) return null;
@@ -56,39 +57,39 @@ class HFormItem extends Component {
         data: getData({ type, extMap })
       },
       onChange: e => this.getOnChange({ id: 'base', changeValue: e, extMap }),
-      value: getDefaultValue({ value, id: 'base' }),
+      value: value && value.base ? value.base || undefined,
     });
     if (is.array(subConfig)) {
       const AddEle = subConfig.map((val, i) => {
         const {
-          id: add_id,
-          type: add_type,
-          params: add_params = {},
-          extMap: add_extMap = {},
+          id: sub_id,
+          type: sub_type,
+          params: sub_params = {},
+          extMap: sub_extMap = {},
         } = val;
         return this.getFieldEle({
-          key: `add_type_${i}`,
-          type: add_type,
+          key: `sub_type_${i}`,
+          type: sub_type,
           params: {
-            ...add_params,
+            ...sub_params,
             placeholder: getPlaceholder({
-              id: add_id,
-              type: add_type,
+              id: sub_id,
+              type: sub_type,
               label: formItemParams.label,
-              placeholder: add_params.placeholder,
+              placeholder: sub_params.placeholder,
             }),
             style: getStyle({
-              type: add_type,
-              extMap: add_extMap,
-              style: { ...add_params.style, marginRight: 8, marginBottom: 8 },
+              type: sub_type,
+              extMap: sub_extMap,
+              style: { ...sub_params.style, marginRight: 8, marginBottom: 8 },
             }),
           },
           extMap: {
-            ...add_extMap,
-            data: getData({ type: add_type, extMap: add_extMap })
+            ...sub_extMap,
+            data: getData({ type: sub_type, extMap: sub_extMap })
           },
-          onChange: e => this.getOnChange({ id: add_id, changeValue: e, extMap: add_extMap }),
-          value: getDefaultValue({ value, id: add_id }),
+          onChange: e => this.getOnChange({ id: sub_id, changeValue: e, extMap: sub_extMap }),
+          value: getDefaultValue({ value, id: sub_id }),
         });
       });
       const childSpan = getChildGridLayout(extMap.childSpan);
@@ -103,21 +104,15 @@ class HFormItem extends Component {
     return ChildrenEle;
   }
 
+  // 生成表单元素内容
   getFieldEle = ({ key, type, params, extMap, onChange, value }) => {
-    const { form, config } = this.props;
+    const { form, config = {} } = this.props;
     const configType = configTypes[type];
     if (configType) {
       if (key || type === 'text') {
         return (
           <span key={key}>
-            {
-              configType({
-                params: { ...params, value },
-                extMap,
-                onChange,
-                value
-              })
-            }
+            {configType({ params: { ...params, value }, onChange, extMap, value })}
           </span>
         );
       }
@@ -130,15 +125,15 @@ class HFormItem extends Component {
   }
 
   render() {
-    const { space, formItemLayout, formItemParams, value } = this.props;
-    const formItemValue = getDefaultValue({ value, id: 'base' });
+    const { formItemSpace, formItemLayout, formItemParams } = this.props;
     const ChildrenEle = this.getChildrenEle();
+
     return (
       <FormItem
-        {...getFormItemParams(formItemValue, formItemParams)}
+        {...formItemParams}
         {...formItemLayout}
       >
-        <div style={{ paddingRight: space }}>
+        <div style={{ paddingRight: formItemSpace }}>
           { ChildrenEle }
         </div>
       </FormItem>
@@ -148,13 +143,6 @@ class HFormItem extends Component {
 }
 
 HFormItem.propTypes = {
-  subConfig: propTypes.arrayOf(propTypes.shape({
-    id: propTypes.string.isRequired,
-    type: propTypes.string.isRequired,
-    params: propTypes.object,
-    options: propTypes.object,
-    extMap: propTypes.object,
-  })),
   config: propTypes.shape({
     id: propTypes.string.isRequired,
     type: propTypes.string.isRequired,
@@ -162,6 +150,13 @@ HFormItem.propTypes = {
     options: propTypes.object,
     extMap: propTypes.object,
   }),
+  subConfig: propTypes.arrayOf(propTypes.shape({
+    id: propTypes.string.isRequired,
+    type: propTypes.string.isRequired,
+    params: propTypes.object,
+    options: propTypes.object,
+    extMap: propTypes.object,
+  })),
   form: propTypes.object.isRequired,
   formItemParams: propTypes.object,
   formItemLayout: propTypes.object,

@@ -8,6 +8,8 @@
 export default function getFormItemLayout(layout, colSpan = 1, columns = 1) {
 
   if (layout === 'horizontal') {
+    // 只有当表单布局为 horizontal 时，
+    // 表单元素才采用栅格布局
     colSpan = Math.min(columns, colSpan);
     switch (columns) {
       case 4:
@@ -46,7 +48,10 @@ export default function getFormItemLayout(layout, colSpan = 1, columns = 1) {
           },
         ][colSpan - 1];
       default:
-        return { labelCol: { xs: 24, sm: 6 }, wrapperCol: { xs: 24, sm: 16 } };
+        return {
+          labelCol: { xs: 24, sm: 6 },
+          wrapperCol: { xs: 24, sm: 16 }
+        };
     }
   }
   return null;

@@ -1,7 +1,8 @@
+/**
+ * 通过一个配置数组，生成一组表单元素
+ */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import lodash from 'lodash';
-import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
 import HFormItem from './HFormItem.jsx';
@@ -14,14 +15,22 @@ import getFormItemLayout from './common/getFormItemLayout.js';
 export default class HForm extends Component {
 
   static defaultProps = {
+    // 配置数组
     configs: [],
+    // 是否对配置数组进行排序
     isSort: false,
+    // 表单布局列数
     columns: 1,
+    // 表单元素布局类型
     layout: 'horizontal',
+    // 表单元素间隔距离
     space: 0,
+    // 表单值
     values: {},
   }
 
+  // 获取表单布局
+  // 默认为表单布局类型的第一种
   getFormLayoutType = () => {
     const { layout } = this.props;
     if (is.inArray(layout, formLayoutTypes)) {
@@ -31,31 +40,21 @@ export default class HForm extends Component {
   }
 
   render() {
-    const {
-      isSort,
-      columns,
-      configs,
-      layout,
-      space,
-      values,
-
-      form,
-      onChange,
-    } = this.props;
-
+    const { configs, isSort, columns, layout, space, values, form, onChange } = this.props;
     const newConfigs = getSortedConfigs(isSort, configs);
 
     const formEle = newConfigs.map((val, i) => {
       const key = `${layout}-${i}`;
-      const { config = {}, addConfig, formItemParams, formItemLayout } = val;
-      const colSpan = lodash.get(config, 'extMap.colSpan');
+      const { config = {}, subConfig, formItemParams, formItemLayout } = val;
+      const colSpan = _.get(config, 'extMap.colSpan');
+      const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
       const HFormItemProps = {
         form,
         config,
-        addConfig,
+        subConfig,
         formItemParams,
-        formItemLayout: formItemLayout || getFormItemLayout(layout, colSpan, columns),
-        space,
+        formItemLayout: newFormItemLayout,
+        formItemSpace: space,
         onChange,
         value: values[config.id],
       }
