@@ -5,17 +5,20 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Form, Row, Col } from 'antd';
 
-import HFormItem from './HFormItem.jsx';
+import KFormItem from './KFormItem.jsx';
+
+import formLayoutTypes from './common/formLayoutTypes.js';
 
 import getGridLayout from './common/getGridLayout.js';
 import getSortedConfigs from './common/getSortedConfigs.js';
-import formLayoutTypes from './common/formLayoutTypes.js';
 import getFormItemLayout from './common/getFormItemLayout.js';
 
-export default class HForm extends Component {
+const { is, _ } = window;
+
+export default class KForm extends Component {
 
   static defaultProps = {
-    // 配置数组
+    // 表单配置数组
     configs: [],
     // 是否对配置数组进行排序
     isSort: false,
@@ -48,7 +51,7 @@ export default class HForm extends Component {
       const { config = {}, subConfig, formItemParams, formItemLayout } = val;
       const colSpan = _.get(config, 'extMap.colSpan');
       const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
-      const HFormItemProps = {
+      const KFormItemProps = {
         form,
         config,
         subConfig,
@@ -61,14 +64,14 @@ export default class HForm extends Component {
       if (layout === 'inline') {
         return (
           <div key={ key } style={{ display: 'inline-block' }}>
-            <HFormItem {...HFormItemProps} />
+            <KFormItem {...KFormItemProps} />
           </div>
         )
       }
       const ColProps = getGridLayout(columns, colSpan);
       return (
         <Col key={ key } {...ColProps}>
-          <HFormItem {...HFormItemProps} />
+          <KFormItem {...KFormItemProps} />
         </Col>
       )
     });
@@ -76,14 +79,14 @@ export default class HForm extends Component {
     const formLayout = this.getFormLayoutType();
 
     return (
-      <Form layout={ formLayout }>
-        <Row type="flex">{ formEle }</Row>
+      <Form layout={formLayout}>
+        <Row type="flex">{formEle}</Row>
       </Form>
     );
   }
 }
 
-HForm.propTypes = {
+KForm.propTypes = {
   columns: propTypes.number,
   configs: propTypes.array.isRequired,
   form: propTypes.object.isRequired,

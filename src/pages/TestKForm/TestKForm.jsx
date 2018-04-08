@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { actions } from 'mirrorx';
 
-import TestHFormContent from './TestHFormContent.jsx';
+import TestKFormContent from './TestKFormContent.jsx';
 
 class TestHForm extends Component {
 
@@ -15,7 +15,8 @@ class TestHForm extends Component {
     }
   }
 
-  onChange = ({ id, value }) => {
+  onChange = ({ id, value, item }) => {
+    console.log('{ id, value }>>>', JSON.stringify({ id, value, item }));
     actions._report.updateHForm({ [id]: value })
   }
 
@@ -27,7 +28,7 @@ class TestHForm extends Component {
     // const { values } = this.state;
     const { values } = this.props;
     return (
-      <TestHFormContent
+      <TestKFormContent
         values={values}
         onChange={this.onChange}
         onReset={this.onReset}

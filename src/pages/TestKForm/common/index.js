@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { Button } from 'antd';
 
+const { _ } = window;
+
 // 用户调查字段配置
 export const UserSurvery = [
   {
@@ -10,7 +12,6 @@ export const UserSurvery = [
       id: 'userName',
       type: 'input',
       params: {
-        disabled: true,
       },
       options: {
         rules: [
@@ -25,16 +26,21 @@ export const UserSurvery = [
     },
     formItemParams: {
       extra: (value) => {
-        const num = value ? value.length : 0;
-        return `最多输入${20 - num}个字`;
+        let num = 0;
+        if (value) {
+          const baseValue = _.get(value, 'base', '');
+          num = Math.max(0, baseValue.length);
+        }
+        return `还可以输入${20 - num}个字`;
       },
       label: 'input',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'userName_1',
         type: 'select',
         params: {
+          disabled: true,
           placeholder: '请选择城市'
         },
         extMap: {
@@ -68,7 +74,7 @@ export const UserSurvery = [
     formItemParams: {
       label: 'input',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'button-1',
         type: 'button',
@@ -111,7 +117,7 @@ export const UserSurvery = [
     formItemParams: {
       label: 'input',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'radio-1',
         type: 'radio',
@@ -144,7 +150,7 @@ export const UserSurvery = [
     formItemParams: {
       label: 'cascader',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'accidentCity-1',
         type: 'input',
@@ -290,7 +296,7 @@ export const UserSurvery = [
     formItemParams: {
       label: 'phone',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'phoneNumber-button',
         type: 'button',
@@ -426,7 +432,7 @@ export const UserSurvery = [
       label: 'textarea',
       extra: '最多输入500个字',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'cascader-button-1',
         type: 'cascader',
@@ -435,7 +441,6 @@ export const UserSurvery = [
         },
         extMap: {
           city: 'quanGuo',
-          value: 'edit',
           render: (value) => {
             return <Button type="primary">编辑</Button>;
           }
@@ -449,7 +454,6 @@ export const UserSurvery = [
         },
         extMap: {
           city: 'quanGuo',
-          value: 'edit',
           render: (value) => {
             return <Button type="primary">参数</Button>;
           }
@@ -471,7 +475,7 @@ export const UserSurvery = [
       label: 'textarea',
       extra: '最多输入500个字',
     },
-    addConfig: [
+    subConfig: [
       {
         id: 'accidentCreate-button',
         type: 'button',
@@ -491,7 +495,7 @@ export const UserSurvery = [
       id: 'myName',
       type: 'text',
       extMap: {
-        render: (text) => 213,
+        render: (value) => _.get(value, 'base', 'null'),
       }
     },
     formItemParams: {

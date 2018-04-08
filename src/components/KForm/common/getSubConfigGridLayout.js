@@ -3,7 +3,7 @@
  * @param  {Number} childSpan [第一个子元素占栅格布局份数，总数24]
  * @return {object}           [获取表单子元素的栅格布局]
  */
-export default function getChildGridLayout (childSpan = 12) {
+export default function getSubConfigGridLayout (childSpan = 12) {
   const left = {
     xs: 24,
     sm: childSpan,

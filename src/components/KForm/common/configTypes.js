@@ -66,7 +66,7 @@ export default {
       return (
         <Cascader {...newProps}>
           <div style={newStyle}>
-            { extMap.render(value) }
+            {extMap.render(value)}
           </div>
         </Cascader>
       );

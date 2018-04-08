@@ -1,7 +1,7 @@
 import mirror, { connect } from 'mirrorx';
 
 import reportModel from '../../models/_report.js';
-import TestHForm from './TestHForm.jsx'
+import TestKForm from './TestKForm.jsx'
 
 mirror.model(reportModel);
 
@@ -15,5 +15,5 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(TestHForm);
+export default connect(mapStateToProps)(TestKForm);
 

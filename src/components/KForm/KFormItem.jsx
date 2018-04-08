@@ -7,13 +7,14 @@ import propTypes from 'prop-types';
 import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
+import configTypes from './common/configTypes.js';
+
 import getStyle from './common/getStyle.js';
-import { getValue, getDefaultValue } from './common/getValue.js';
+import getValue from './common/getValue.js';
 import getPlaceholder from './common/getPlaceholder.js';
 import getData from './common/getData.js';
 import getFormItemParams from './common/getFormItemParams.js';
-import getChildGridLayout from './common/getChildGridLayout.js';
-import configTypes from './common/configTypes.js';
+import getSubConfigGridLayout from './common/getSubConfigGridLayout.js';
 
 const FormItem = Form.Item;
 
@@ -31,77 +32,9 @@ class HFormItem extends Component {
     if (!onChange || is.not.function(onChange)) return null;
     onChange({
       id: config.id,
+      item: id,
       value: getValue({ value, id, changeValue, extMap }),
     });
-  }
-
-  // 生成渲染节点
-  getRenderChildrenEle = () => {
-    const { config, subConfig, formItemParams, value } = this.props;
-    const { id, type, params = {}, extMap = {} } = config;
-    if (!type) return null;
-    let ChildrenEle = this.getFieldEle({
-      type,
-      params: {
-        ...params,
-        placeholder: getPlaceholder({
-          id,
-          type,
-          label: formItemParams.label,
-          placeholder: params.placeholder,
-        }),
-        style: getStyle({ type, extMap, style: params.style }),
-      },
-      extMap: {
-        ...extMap,
-        data: getData({ type, extMap })
-      },
-      onChange: e => this.getOnChange({ id: 'base', changeValue: e, extMap }),
-      value: value && value.base ? value.base || undefined,
-    });
-    if (is.array(subConfig)) {
-      const AddEle = subConfig.map((val, i) => {
-        const {
-          id: sub_id,
-          type: sub_type,
-          params: sub_params = {},
-          extMap: sub_extMap = {},
-        } = val;
-        return this.getFieldEle({
-          key: `sub_type_${i}`,
-          type: sub_type,
-          params: {
-            ...sub_params,
-            placeholder: getPlaceholder({
-              id: sub_id,
-              type: sub_type,
-              label: formItemParams.label,
-              placeholder: sub_params.placeholder,
-            }),
-            style: getStyle({
-              type: sub_type,
-              extMap: sub_extMap,
-              style: { ...sub_params.style, marginRight: 8, marginBottom: 8 },
-            }),
-          },
-          extMap: {
-            ...sub_extMap,
-            data: getData({ type: sub_type, extMap: sub_extMap })
-          },
-          onChange: e => this.getOnChange({ id: sub_id, changeValue: e, extMap: sub_extMap }),
-          value: getDefaultValue({ value, id: sub_id }),
-        });
-      });
-      const childSpan = getChildGridLayout(extMap.childSpan);
-      const { childGutter = 16 } = extMap;
-      return (
-        <Row type="flex" gutter={ childGutter }>
-          <Col {...childSpan.left}>{ ChildrenEle }</Col>
-          <Col {...childSpan.right}>{ AddEle }</Col>
-        </Row>
-      );
-    }
-    return ChildrenEle;
   }
 
   // 生成表单元素内容
@@ -125,21 +58,69 @@ class HFormItem extends Component {
   }
 
   render() {
-    const { formItemSpace, formItemLayout, formItemParams } = this.props;
-    const ChildrenEle = this.getChildrenEle();
+    const { config, subConfig, formItemSpace, formItemLayout, formItemParams, value } = this.props;
+    const { id, type, params = {}, extMap = {} } = config;
+    if (!type) return null;
+
+    const new_style = getStyle({ type, extMap, style: params.style });
+    const new_placeholder = getPlaceholder({ id, type, label: formItemParams.label, placeholder: params.placeholder });
+    const new_data = getData({ type, extMap });
+    const new_value = value && value.base ? value.base : undefined;
+
+    let ChildrenEle = this.getFieldEle({
+      type,
+      params: { ...params, placeholder: new_placeholder, style: new_style },
+      extMap: { ...extMap, data: new_data },
+      onChange: e => this.getOnChange({ id: 'base', changeValue: e, extMap }),
+      value: new_value,
+    });
+
+    if (is.array(subConfig)) {
+      const subChildrenEle = subConfig.map((val, i) => {
+        const { id: sub_id, type: sub_type, params: sub_params = {}, extMap: sub_extMap = {} } = val;
+
+        const sub_ui_style = { ...sub_params.style, marginBottom: 8 };
+        if (i !== subConfig.length - 1) {
+          sub_ui_style.marginRight = 8;
+        }
+
+        const new_sub_placeholder = getPlaceholder({ id: sub_id, type: sub_type, label: formItemParams.label, placeholder: sub_params.placeholder });
+        const new_sub_style = getStyle({ type: sub_type, extMap: sub_extMap, style: sub_ui_style });
+        const new_sub_data = getData({ type: sub_type, extMap: sub_extMap });
+        const new_sub_value = value && value[sub_id] ? value[sub_id] : undefined;
+
+        return this.getFieldEle({
+          key: `sub_type_${i}`,
+          type: sub_type,
+          params: { ...sub_params, placeholder: new_sub_placeholder, style: new_sub_style },
+          extMap: { ...sub_extMap, data: new_sub_data },
+          onChange: e => this.getOnChange({ id: sub_id, changeValue: e, extMap: sub_extMap }),
+          value: new_sub_value,
+        });
+      });
+      const childSpan = getSubConfigGridLayout(extMap.childSpan);
+      const { childGutter = 8 } = extMap;
+      ChildrenEle = (
+        <Row type="flex" gutter={childGutter}>
+          <Col {...childSpan.left}>{ChildrenEle}</Col>
+          <Col {...childSpan.right}>{subChildrenEle}</Col>
+        </Row>
+      );
+    }
+
+    const newFormItemParams = getFormItemParams(value, formItemParams, config.options);
 
     return (
       <FormItem
-        {...formItemParams}
+        {...newFormItemParams}
         {...formItemLayout}
       >
         <div style={{ paddingRight: formItemSpace }}>
-          { ChildrenEle }
+          {ChildrenEle}
         </div>
       </FormItem>
     )
   }
-
 }
 
 HFormItem.propTypes = {

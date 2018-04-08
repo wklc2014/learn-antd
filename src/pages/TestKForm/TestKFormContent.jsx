@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Button, Form } from 'antd';
 
 import * as CONFIGS from './common/';
-import HForm from '../../components/HForm/HForm.jsx';
+import KForm from '../../components/KForm/KForm.jsx';
 
 class ReportContent extends Component {
 
@@ -71,7 +71,7 @@ class ReportContent extends Component {
     return (
       <section style={{ padding: 16 }}>
         <div style={commonStyle}>
-          <HForm
+          <KForm
             wrappedComponentRef={(inst) => this.instance = inst}
             configs={CONFIGS.UserSurvery}
             form={this.props.form}
@@ -93,7 +93,7 @@ class ReportContent extends Component {
           </Button>
         </p>
         <div style={commonStyle}>
-          <HForm
+          <KForm
             configs={inlineGroupConfigs}
             form={this.props.form}
             onChange={this.props.onChange}
