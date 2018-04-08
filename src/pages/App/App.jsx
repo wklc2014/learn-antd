@@ -4,6 +4,9 @@ import { connect, Router, Route, Switch } from 'mirrorx';
 import MainLayout from '../MainLayout/MainLayout.jsx';
 import Loading from '../Loading/Loading.jsx';
 import TestKForm from '../TestKForm/TestKFormContainer.jsx';
+import TestKFormLayout from '../TestKFormLayout/TestKFormLayout.jsx';
+import TestKFormItem from '../TestKFormItem/TestKFormItem.jsx';
+import TestKTable from '../TestKTable/TestKTableContainer.jsx';
 
 // import Test from '../Test/Test.jsx';
 
@@ -15,9 +18,12 @@ function App (props) {
           <Switch>
             {/*<Route path="/" exact component={ Index } />*/}
             <Route path="/k_form" component={ TestKForm } />
-            {/*<Route path="/h_form_item" component={ TestHFormItem } />
-            <Route path="/h_table" component={ TestHTable } />
-            <Route path="/h_form_layout" component={ TestHFormLayout } />
+            <Route path="/k_table" component={ TestKTable } />
+            <Route path="/k_form_layout" component={ TestKFormLayout } />
+            <Route path="/k_form_item" component={ TestKFormItem } />
+            {/*
+
+
             <Route path="/test" component={ Test } />*/}
           </Switch>
         </MainLayout>

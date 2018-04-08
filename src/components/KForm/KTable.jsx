@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import lodash from 'lodash';
 import propTypes from 'prop-types';
 import { Table } from 'antd';
-import HFormItem from './HFormItem.jsx';
+import KFormItem from './KFormItem.jsx';
 
 import getSortedConfigs from './common/getSortedConfigs.js';
 
@@ -28,7 +28,7 @@ class HTable extends Component {
               case 'ts':
                 return text;
               default:
-                const HFormItemProps = {
+                const KFormItemProps = {
                   form,
                   config: {
                     ...config,
@@ -44,7 +44,7 @@ class HTable extends Component {
                   formItemLayout: null,
                   value: { base: text },
                 }
-                return <HFormItem {...HFormItemProps} />;
+                return <KFormItem {...KFormItemProps} />;
             }
           }
         });

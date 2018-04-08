@@ -17,11 +17,11 @@ class TestHForm extends Component {
 
   onChange = ({ id, value, item }) => {
     console.log('{ id, value }>>>', JSON.stringify({ id, value, item }));
-    actions._report.updateHForm({ [id]: value })
+    actions._report.updateKForm({ [id]: value })
   }
 
   onReset = () => {
-    actions._report.resetHForm();
+    actions._report.resetKForm();
   }
 
   render() {

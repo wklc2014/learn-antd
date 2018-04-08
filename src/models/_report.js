@@ -3,10 +3,10 @@ import moment from 'moment';
 import * as reportServices from '../services/_report.js';
 
 const initialState = {
-  h_form: {
+  k_form: {
     userName: { base: '123' }
   },
-  h_table: [
+  k_table: [
     {
       key: 0,
       accident_time: moment('2017-09-10 12:20:45'),
@@ -30,23 +30,23 @@ export default {
   name: '_report',
   initialState,
   reducers: {
-    updateHForm(state, data) {
-      return { ...state, h_form: { ...state.h_form, ...data } }
+    updateKForm(state, data) {
+      return { ...state, k_form: { ...state.k_form, ...data } }
     },
-    updateHTable(state, data) {
-      const { h_table } = state;
+    updateKTable(state, data) {
+      const { k_table } = state;
       const { id, value, order } = data;
-      const new_h_table = h_table.map((val, i) => {
+      const new_k_table = k_table.map((val, i) => {
         const new_val = {...val};
         if (i === order) {
           new_val[id] = value.base;
         }
         return new_val;
       })
-      return { ...state, h_table: new_h_table }
+      return { ...state, k_table: new_k_table }
     },
-    resetHForm(state, data) {
-      return { ...state, h_form: initialState.h_form }
+    resetKForm(state, data) {
+      return { ...state, k_form: initialState.k_form }
     },
     update(state, data) {
       return { ...state, ...data };

@@ -1,9 +1,5 @@
 import mirror, { connect } from 'mirrorx';
-
-import reportModel from '../../models/_report.js';
 import TestKForm from './TestKForm.jsx'
-
-mirror.model(reportModel);
 
 mirror.hook((action, getState) => {
   // console.log('state', getState());
@@ -11,7 +7,7 @@ mirror.hook((action, getState) => {
 
 function mapStateToProps(state, ownProps) {
   return {
-    values: state._report.h_form,
+    values: state._report.k_form,
   }
 }
 
