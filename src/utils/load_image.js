@@ -9,8 +9,8 @@ export default function loadImage(url) {
     image.onload = function() {
       resolve(image);
     };
-    image.onerror = function() {
-      resolve(null);
+    image.onerror = function(err) {
+      reject(`图片加载错误`);
     };
     image.src = url;
   });

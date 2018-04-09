@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Spin, Alert } from 'antd';
