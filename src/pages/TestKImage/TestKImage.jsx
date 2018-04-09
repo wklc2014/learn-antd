@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
 
 import KImage from '../../components/KImage/KImage.jsx';
 
@@ -48,9 +47,5 @@ export default class TestKImage extends Component {
       </div>
     )
   }
-
-}
-
-TestKImage.propTypes = {
 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Row, Col, Slider, Button, Popover } from 'antd';
+import { Slider, Button, Popover } from 'antd';
 
 const ButtonGroup = Button.Group;
 const { is } = window;
@@ -60,5 +60,7 @@ export default function KImageBtns ({ btns = [], onChange, imgRotate = 0 }) {
 }
 
 KImageBtns.propTypes = {
-
+  btns: propTypes.array,
+  onChange: propTypes.func.isRequired,
+  imgRotate: propTypes.number,
 }

@@ -82,7 +82,7 @@ export default class KImage extends Component {
   }
 
   operating = (type, num) => {
-    const { imgOriginWidth, imgWidth, imgRotate } = this.state;
+    const { imgOriginWidth, imgWidth } = this.state;
     switch (type) {
       case 'zoomOut':
         this.setState({ imgWidth: _.round(imgWidth * 1.1) });
@@ -100,6 +100,7 @@ export default class KImage extends Component {
       case 'rotate':
         this.setState({ imgRotate: num })
         break;
+      default:
     }
   }
 
