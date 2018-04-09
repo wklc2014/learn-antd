@@ -8,7 +8,7 @@ import pic_3 from './common/3.jpg';
 import pic_4 from './common/4.jpg';
 import pic_5 from './common/5.jpg';
 
-const paths = [pic_1, pic_2, pic_3, pic_4, pic_5];
+const paths = [pic_1, pic_2, pic_3, pic_4, pic_5, '2'];
 
 export default class TestKImage extends Component {
 

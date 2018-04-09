@@ -104,6 +104,13 @@ export default class KPicture extends Component {
     }
   }
 
+  onDrag = (e, data) => {
+    this.setState({
+      positionX: data.x,
+      positionY: data.y,
+    });
+  }
+
   getImageBtns = () => {
     const { onSwitch } = this.props;
     if (onSwitch) {
@@ -114,7 +121,7 @@ export default class KPicture extends Component {
 
   render() {
     const { imgSrc, wraperStyle } = this.props;
-    const { imgWidth, imgRotate, imgErrors, imgLoading } = this.state;
+    const { imgWidth, imgRotate, imgErrors, imgLoading, positionX, positionY } = this.state;
     const imgBtns = this.getImageBtns();
 
     return (
@@ -125,10 +132,14 @@ export default class KPicture extends Component {
           imgRotate={imgRotate}
           imgErrors={imgErrors}
           imgLoading={imgLoading}
+          positionX={positionX}
+          positionY={positionY}
           onWheel={this.onMouseWheel}
           onDoubleClick={this.onDoubleClick}
+          onDrag={this.onDrag}
         />
         <KPictureBtns
+          disabled={imgErrors}
           imgRotate={imgRotate}
           onChange={this.operating}
           btns={imgBtns}

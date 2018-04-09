@@ -14,7 +14,7 @@ const K_PICTURE_BTNS = [
   { label: '下一张', value: 'next' },
 ]
 
-export default function KPictureBtns ({ btns = [], onChange, imgRotate = 0 }) {
+export default function KPictureBtns ({ btns = [], onChange, imgRotate = 0, disabled = false }) {
 
   const PopoverContent = (
     <Slider
