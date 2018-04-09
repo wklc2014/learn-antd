@@ -3,15 +3,15 @@ import propTypes from 'prop-types';
 
 import loadImage from '../../utils/load_image.js';
 
-import KImageBtns from './KImageBtns.jsx';
-import KImageArea from './KImageArea.jsx';
+import KPictureBtns from './KPictureBtns.jsx';
+import KPictureArea from './KPictureArea.jsx';
 
-import './kImage.less';
+import './KPicture.less';
 
 const { _ } = window;
 const kImgBtns = ['zoomOut', 'zoomIn', 'rotate', 'reset', 'prev', 'next'];
 
-export default class KImage extends Component {
+export default class KPicture extends Component {
 
   static defaultProps = {
     wraperStyle: {},
@@ -118,8 +118,8 @@ export default class KImage extends Component {
     const imgBtns = this.getImageBtns();
 
     return (
-      <section className="k-image-wraper" style={wraperStyle}>
-        <KImageArea
+      <section className="k-picture-wraper" style={wraperStyle}>
+        <KPictureArea
           imgSrc={imgSrc}
           imgWidth={imgWidth}
           imgRotate={imgRotate}
@@ -128,7 +128,7 @@ export default class KImage extends Component {
           onWheel={this.onMouseWheel}
           onDoubleClick={this.onDoubleClick}
         />
-        <KImageBtns
+        <KPictureBtns
           imgRotate={imgRotate}
           onChange={this.operating}
           btns={imgBtns}
@@ -139,7 +139,7 @@ export default class KImage extends Component {
 
 }
 
-KImage.propTypes = {
+KPicture.propTypes = {
   wraperStyle: propTypes.object,
   bodyStyle: propTypes.object,
   imgSrc: propTypes.string.isRequired,

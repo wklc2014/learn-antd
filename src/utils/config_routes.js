@@ -29,11 +29,11 @@ export default [
     label: 'KTable',
   },
   {
-    path: '/k_image',
+    path: '/k_picture',
     exact: true,
     show: true,
     icon: 'hdd',
-    label: 'K_Image',
+    label: 'K_Picture',
   },
   // {
   //   path: '/test',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import KImage from '../../components/KImage/KImage.jsx';
+import KPicture from '../../components/KPicture/KPicture.jsx';
 
 import pic_1 from './common/1.jpg';
 import pic_2 from './common/2.jpg';
@@ -40,7 +40,7 @@ export default class TestKImage extends Component {
 
     return (
       <div style={divStyle}>
-        <KImage
+        <KPicture
           imgSrc={paths[index]}
           onSwitch={this.onSwitch}
         />

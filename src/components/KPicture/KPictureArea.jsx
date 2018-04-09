@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Spin, Alert } from 'antd';
 
-export default class KImageArea extends Component {
+export default class KPictureArea extends Component {
 
   static defaultProps = {
     positionX: 0,
@@ -42,19 +42,19 @@ export default class KImageArea extends Component {
 
     return (
       <Spin spinning={imgLoading} tip="图片加载中">
-        <div className="k-image-box" style={{ height: areaHeight }}>
+        <div className="k-picture-box" style={{ height: areaHeight }}>
           { imgErrors ? (
             <Alert message={imgErrors} type="error" />
           ) : (
             <Draggable
               position={{ x: positionX, y: positionY }}
               onDrag={this.onDrag}
-              handle=".k-image-handle"
+              handle=".k-picture-handle"
             >
-              <div className="k-image-drag">
-                <div className="k-image-pic" style={picStyle} />
+              <div className="k-picture-drag">
+                <div className="k-picture-pic" style={picStyle} />
                 <div
-                  className="k-image-handle"
+                  className="k-picture-handle"
                   onWheel={this.props.onWheel}
                   onDoubleClick={this.props.onDoubleClick}
                 />
@@ -69,7 +69,7 @@ export default class KImageArea extends Component {
 
 }
 
-KImageArea.propTypes = {
+KPictureArea.propTypes = {
   positionX: propTypes.number,
   positionY: propTypes.number,
   areaHeight: propTypes.number,

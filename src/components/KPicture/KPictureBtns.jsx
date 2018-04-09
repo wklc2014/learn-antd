@@ -5,7 +5,7 @@ import { Slider, Button, Popover } from 'antd';
 const ButtonGroup = Button.Group;
 const { is } = window;
 
-const KIMAGE_BTNS = [
+const K_PICTURE_BTNS = [
   { label: '放大', value: 'zoomOut' },
   { label: '缩小', value: 'zoomIn' },
   { label: '旋转', value: 'rotate' },
@@ -14,7 +14,7 @@ const KIMAGE_BTNS = [
   { label: '下一张', value: 'next' },
 ]
 
-export default function KImageBtns ({ btns = [], onChange, imgRotate = 0 }) {
+export default function KPictureBtns ({ btns = [], onChange, imgRotate = 0 }) {
 
   const PopoverContent = (
     <Slider
@@ -28,7 +28,7 @@ export default function KImageBtns ({ btns = [], onChange, imgRotate = 0 }) {
 
   const PopoverStyle = { width: 300 };
 
-  const btnEle = KIMAGE_BTNS.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
+  const btnEle = K_PICTURE_BTNS.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
     if (btn.value === 'rotate') {
       return (
         <Popover
@@ -53,13 +53,13 @@ export default function KImageBtns ({ btns = [], onChange, imgRotate = 0 }) {
   })
 
   return (
-    <div className="k-image-btn">
+    <div className="k-picture-btn">
       <ButtonGroup>{btnEle}</ButtonGroup>
     </div>
   )
 }
 
-KImageBtns.propTypes = {
+KPictureBtns.propTypes = {
   btns: propTypes.array,
   onChange: propTypes.func.isRequired,
   imgRotate: propTypes.number,
