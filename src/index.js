@@ -4,12 +4,12 @@ import moment from 'moment';
 import { createLogger } from 'redux-logger';
 
 import App from './pages/App/App.jsx';
-import registerServiceWorker from './registerServiceWorker';
-import mirrorLoading from './utils/mirror-loading.js';
+import registerServiceWorker from './registerServiceWorker.js';
+import mirrorLoading from './utils/mirror_loading.js';
 import * as env from './utils/env.js';
 
 import 'moment/locale/zh-cn';
-import './assets/less/common.less';
+import './assets/common.less';
 import './models/';
 
 moment.locale('zh-cn');

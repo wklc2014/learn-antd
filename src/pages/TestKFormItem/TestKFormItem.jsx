@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { actions } from 'mirrorx';
 
 import KFormItem from '../../components/KForm/KFormItem.jsx';
-// import KFormItemExt from '../../components/HForm/KFormItemExt.jsx';
+// import KFormItemExt from '../../components/KForm/KFormItemExt.jsx';
 
 const formItemLayout = {
   labelCol: {
@@ -32,14 +32,6 @@ const tailFormItemLayout = {
 class TestKFormItem extends Component {
 
   static defaultProps = {
-
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      editor: '巴拉巴拉',
-    }
 
   }
 

@@ -28,13 +28,13 @@ export default [
     icon: 'user',
     label: 'KTable',
   },
-  // {
-  //   path: '/piceffect',
-  //   exact: true,
-  //   show: true,
-  //   icon: 'hdd',
-  //   label: '图片效果',
-  // },
+  {
+    path: '/k_image',
+    exact: true,
+    show: true,
+    icon: 'hdd',
+    label: 'K_Image',
+  },
   // {
   //   path: '/test',
   //   exact: true,
