@@ -8,7 +8,6 @@ import KPictureArea from './KPictureArea.jsx';
 
 import './KPicture.less';
 
-const { _ } = window;
 const kImgBtns = ['zoom', 'rotate', 'reset', 'prev', 'next'];
 
 export default class KPicture extends Component {

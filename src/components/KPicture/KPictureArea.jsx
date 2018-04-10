@@ -10,7 +10,6 @@ export default function KPictureArea(props) {
     areaHeight = 400,
     imgSrc,
     imgWidth,
-    imgZoom = 1,
     imgRotate = 0,
     imgErrors = '',
     positionX = 0,
