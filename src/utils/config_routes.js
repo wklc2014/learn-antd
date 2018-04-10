@@ -32,16 +32,16 @@ export default [
     path: '/k_picture',
     exact: true,
     show: true,
-    icon: 'hdd',
+    icon: 'user',
     label: 'KPicture',
   },
-  // {
-  //   path: '/test',
-  //   exact: true,
-  //   show: true,
-  //   icon: 'upload',
-  //   label: '测试页面',
-  // },
+  {
+    path: '/k_search',
+    exact: true,
+    show: true,
+    icon: 'user',
+    label: 'KSearch',
+  },
 ]
 
 

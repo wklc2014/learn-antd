@@ -1,6 +1,7 @@
 /**
  * 接口地址
  */
-const domain = 'http://10.63.68.129:15000/learn-create-react-app';
+const domain = 'http://10.63.68.129:15000/learn-antd';
 
-export const example = `${domain}/user`;
+export const example = `${domain}/example`;
+export const getUser = `${domain}/user`;

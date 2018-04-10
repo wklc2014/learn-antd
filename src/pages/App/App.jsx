@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect, Router, Route, Switch } from 'mirrorx';
 
-import MainLayout from '../MainLayout/MainLayout.jsx';
-import Loading from '../Loading/Loading.jsx';
-import TestKForm from '../TestKForm/TestKFormContainer.jsx';
-import TestKFormLayout from '../TestKFormLayout/TestKFormLayout.jsx';
-import TestKFormItem from '../TestKFormItem/TestKFormItem.jsx';
-import TestKTable from '../TestKTable/TestKTableContainer.jsx';
-import TestKPicture from '../TestKPicture/TestKPicture.jsx';
+import MainLayout from '../MainLayout/Index.jsx';
+import Loading from '../Loading/Index.jsx';
+import TestKForm from '../TestKForm/IndexContainer.jsx';
+import TestKFormLayout from '../TestKFormLayout/Index.jsx';
+import TestKFormItem from '../TestKFormItem/Index.jsx';
+import TestKTable from '../TestKTable/IndexContainer.jsx';
+import TestKPicture from '../TestKPicture/Index.jsx';
+import TestKSearch from '../TestKSearch/Index.jsx';
 
 // import Test from '../Test/Test.jsx';
 
@@ -23,6 +24,7 @@ function App (props) {
             <Route path="/k_form_layout" component={ TestKFormLayout } />
             <Route path="/k_form_item" component={ TestKFormItem } />
             <Route path="/k_picture" component={ TestKPicture } />
+            <Route path="/k_search" component={ TestKSearch } />
           </Switch>
         </MainLayout>
       </Loading>

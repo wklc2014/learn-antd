@@ -1,5 +1,5 @@
 import { connect } from 'mirrorx';
-import TestKTable from './TestKTable.jsx';
+import TestKTable from './Index.jsx';
 
 function mapStateToProps(state, ownProps) {
   return {

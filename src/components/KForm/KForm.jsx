@@ -48,16 +48,17 @@ export default class KForm extends Component {
 
     const formEle = newConfigs.map((val, i) => {
       const key = `${layout}-${i}`;
-      const { config = {}, subConfig, formItemParams, formItemLayout } = val;
+      const { config = {}, subConfig, formItemParams, formItemLayout, formItemSpace } = val;
       const colSpan = _.get(config, 'extMap.colSpan');
       const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
+      const newFormItemSpace = space || formItemSpace;
       const KFormItemProps = {
         form,
         config,
         subConfig,
         formItemParams,
         formItemLayout: newFormItemLayout,
-        formItemSpace: space,
+        formItemSpace: newFormItemSpace,
         onChange,
         value: values[config.id],
       }

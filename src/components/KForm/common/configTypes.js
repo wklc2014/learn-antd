@@ -1,5 +1,4 @@
 import React from 'react';
-import is from 'is_js';
 import {
   Button,
   Cascader,
@@ -21,6 +20,8 @@ const { RangePicker, MonthPicker } = DatePicker;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
+
+const { is } = window;
 
 export default {
   input: ({ params, onChange }) => {
@@ -117,10 +118,14 @@ export default {
     ))
     return <RadioGroup {...newProps}>{ChildEle}</RadioGroup>;
   },
-  text: ({ params, onChange, extMap, value }) => {
-    const newProps = {...params, className: 'ant-form-text'};
+  text: ({ extMap, value }) => {
+    const newProps = { className: 'ant-form-text' };
+    const { data } = extMap;
     if (is.function(extMap.render)) {
       value = extMap.render(value);
+    } else if (is.array(data) && data.length) {
+      const targetValue = data.find(v => v.value === value) || {};
+      value = targetValue.label;
     }
     return <span {...newProps}>{value}</span>;
   },

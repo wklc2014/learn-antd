@@ -1,5 +1,5 @@
 import mirror, { connect } from 'mirrorx';
-import TestKForm from './TestKForm.jsx'
+import TestKForm from './Index.jsx'
 
 mirror.hook((action, getState) => {
   // console.log('state', getState());

@@ -6,7 +6,7 @@ import KFormItem from './KFormItem.jsx';
 
 import getSortedConfigs from './common/getSortedConfigs.js';
 
-class HTable extends Component {
+class KTable extends Component {
 
   static defaultProps = {
     configs: []
@@ -21,7 +21,7 @@ class HTable extends Component {
       if (!extMap.isHide) {
         newColumns.push({
           ...column,
-          key: `HTable-${i}`,
+          key: `KTable-${i}`,
           dataIndex: config.id,
           render: (text, record) => {
             switch (record.key) {
@@ -101,26 +101,35 @@ class HTable extends Component {
     return newDataSource;
   }
 
+  getTableRowClassName = () => {
+    const { configs } = this.props;
+    const notAllText = configs.some(val => {
+      const { config = {}, subConfig = [] } = val;
+      return config.type !== 'text' || subConfig.some(v => v.type !== 'text');
+    })
+    return notAllText ? '' : 'no-margin-bottom';
+  }
+
   render() {
-    const { rowKey, pagination } = this.props;
+    const { pagination } = this.props;
     const newColumns = this.getTableColumns();
     const newDataSource = this.getTableDataSource();
 
     return (
       <Table
-        rowKey={rowKey}
         pagination={pagination}
         columns={newColumns}
         dataSource={newDataSource}
         bordered
+        rowClassName={this.getTableRowClassName}
       />
     )
   }
 }
 
 
-HTable.propTypes = {
-  form: propTypes.object.isRequired,
+KTable.propTypes = {
+  form: propTypes.object,
   configs: propTypes.arrayOf(propTypes.shape({
     column: propTypes.object.isRequired,
     config: propTypes.object.isRequired,
@@ -132,4 +141,4 @@ HTable.propTypes = {
   isTotal: propTypes.bool,
 };
 
-export default HTable;
+export default KTable;
