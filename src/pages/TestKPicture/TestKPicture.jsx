@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Modal, Button } from 'antd';
 
 import KPicture from '../../components/KPicture/KPicture.jsx';
 
@@ -18,6 +19,7 @@ export default class TestKImage extends Component {
     super(props);
     this.state = {
       index: 0,
+      visible: false,
     }
 
   }
@@ -31,8 +33,16 @@ export default class TestKImage extends Component {
     }
   }
 
+  onBtnClick = () => {
+    this.setState({ visible: true });
+  }
+
+  onCancel = () => {
+    this.setState({ visible: false });
+  }
+
   render() {
-    const { index } = this.state;
+    const { index, visible } = this.state;
 
     const divStyle = {
       padding: 16
@@ -40,10 +50,20 @@ export default class TestKImage extends Component {
 
     return (
       <div style={divStyle}>
-        <KPicture
-          imgSrc={paths[index]}
-          onSwitch={this.onSwitch}
-        />
+        <Button onClick={this.onBtnClick}>切换</Button>
+        <Modal
+          visible={visible}
+          title="审核凭证"
+          width="95vw"
+          footer={false}
+          onCancel={this.onCancel}
+        >
+          <KPicture
+            imgSrc={paths[index]}
+            areaHeight="60vh"
+            onSwitch={this.onSwitch}
+          />
+        </Modal>
       </div>
     )
   }

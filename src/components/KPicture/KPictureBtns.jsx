@@ -1,54 +1,87 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Slider, Button, Popover } from 'antd';
+import { Slider, Button, Popover, InputNumber, Row, Col } from 'antd';
+import Display from '../Display/Display.jsx';
 
 const ButtonGroup = Button.Group;
 const { is } = window;
 
 const K_PICTURE_BTNS = [
-  { label: '放大', value: 'zoomOut' },
-  { label: '缩小', value: 'zoomIn' },
+  { label: '放缩', value: 'zoom' },
   { label: '旋转', value: 'rotate' },
   { label: '还原', value: 'reset' },
   { label: '上一张', value: 'prev' },
   { label: '下一张', value: 'next' },
 ]
 
-export default function KPictureBtns ({ btns = [], onChange, imgRotate = 0, disabled = false }) {
+function getPopoverContent(type, values, onChange) {
+  const SliderProps = {
+    onChange: (e) => onChange(type, e),
+    value: values[type],
+  };
+  if (type === 'rotate') {
+    SliderProps.marks = { 0: '0', 90: '90', 180: '180', 270: '270', 360: '360' };
+    SliderProps.min = 0;
+    SliderProps.max = 360;
+  } else if (type === 'zoom') {
+    SliderProps.marks = { 0: '0', 50: '50', 100: '100', 150: '150', 200: '200', 250: '250', 300: '300' };
+    SliderProps.min = 0;
+    SliderProps.max = 300;
+  }
+  return (
+    <Row type="flex" gutter={24} >
+      <Col span={18}><Slider {...SliderProps} /></Col>
+      <Col span={6} style={{ paddingTop: 5 }}><InputNumber {...SliderProps} style={{ width: '100%' }} /></Col>
+    </Row>
+  )
+}
 
-  const PopoverContent = (
-    <Slider
-      marks={{ 0: '0', 90: '90', 180: '180', 270: '270', 360: '360' }}
-      min={0}
-      max={360}
-      value={imgRotate}
-      onChange={(e) => onChange('rotate', e)}
-    />
-  );
+function getPopoverTitle(type) {
+  if (type === 'rotate') {
+    return '旋转角度(deg)';
+  } else if (type === 'zoom') {
+    return '缩放比例(%)';
+  }
+}
 
-  const PopoverStyle = { width: 300 };
+export default function KPictureBtns (props) {
+
+  const {
+    btns = [],
+    onChange,
+    imgRotate = 0,
+    imgZoom = 1,
+    disabled = false,
+  } = props;
+
+  const PopoverStyle = { width: 400 };
+  const values = {
+    rotate: imgRotate,
+    zoom: imgZoom,
+  }
 
   const btnEle = K_PICTURE_BTNS.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
-    if (btn.value === 'rotate') {
-      return (
+    const btnDisabled = btn.value !== 'prev' && btn.value !== 'next' && disabled;
+    const content = getPopoverContent(btn.value, values, onChange);
+    const title = getPopoverTitle(btn.value);
+    const condition = btn.value === 'rotate' || btn.value === 'zoom';
+    return (
+      <Display condition={condition} key={i}>
         <Popover
-          key={i}
-          content={PopoverContent}
+          content={content}
           overlayStyle={PopoverStyle}
-          title="旋转角度(deg)"
+          title={title}
           trigger="click"
         >
-          <Button>{btn.label}</Button>
+          <Button disabled={btnDisabled}>{btn.label}</Button>
         </Popover>
-      )
-    }
-    return (
-      <Button
-        key={i}
-        onClick={() => onChange(btn.value)}
-      >
-        {btn.label}
-      </Button>
+        <Button
+          onClick={() => onChange(btn.value)}
+          disabled={btnDisabled}
+        >
+          {btn.label}
+        </Button>
+      </Display>
     )
   })
 
@@ -63,4 +96,6 @@ KPictureBtns.propTypes = {
   btns: propTypes.array,
   onChange: propTypes.func.isRequired,
   imgRotate: propTypes.number,
+  imgZoom: propTypes.number,
+  disabled: propTypes.bool,
 }

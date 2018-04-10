@@ -16,7 +16,7 @@ class MainLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: true,
+      collapsed: false,
     };
   }
 

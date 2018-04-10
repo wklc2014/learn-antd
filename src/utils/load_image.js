@@ -10,7 +10,7 @@ export default function loadImage(url) {
       resolve(image);
     };
     image.onerror = function(err) {
-      reject(`图片加载错误`);
+      reject(`图片加载错误，图片地址为${url}`);
     };
     image.src = url;
   });

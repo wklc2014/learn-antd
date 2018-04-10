@@ -33,7 +33,7 @@ export default [
     exact: true,
     show: true,
     icon: 'hdd',
-    label: 'K_Picture',
+    label: 'KPicture',
   },
   // {
   //   path: '/test',

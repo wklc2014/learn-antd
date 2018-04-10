@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
-import { Spin, Alert } from 'antd';
+import { Alert } from 'antd';
 import Display from '../Display/Display.jsx';
 
 export default function KPictureArea(props) {
@@ -10,9 +10,9 @@ export default function KPictureArea(props) {
     areaHeight = 400,
     imgSrc,
     imgWidth,
+    imgZoom = 1,
     imgRotate = 0,
     imgErrors = '',
-    imgLoading = false,
     positionX = 0,
     positionY = 0,
     onDrag,
@@ -27,34 +27,31 @@ export default function KPictureArea(props) {
   }
 
   return (
-    <Spin spinning={imgLoading} tip="图片加载中">
-      <div className="k-picture-box" style={{ height: areaHeight }}>
-        <Display condition={imgErrors}>
-          <Alert message={imgErrors} type="error" />
-          <Draggable
-            position={{ x: positionX, y: positionY }}
-            onDrag={onDrag}
-            handle=".k-picture-handle"
-          >
-            <div className="k-picture-drag">
-              <div className="k-picture-pic" style={picStyle} />
-              <div
-                className="k-picture-handle"
-                onWheel={onWheel}
-                onDoubleClick={onDoubleClick}
-              />
-            </div>
-          </Draggable>
-        </Display>
-      </div>
-    </Spin>
+    <div className="k-picture-box" style={{ height: areaHeight }}>
+      <Display condition={imgErrors}>
+        <Alert message={imgErrors} type="error" showIcon />
+        <Draggable
+          position={{ x: positionX, y: positionY }}
+          onDrag={onDrag}
+          handle=".k-picture-handle"
+        >
+          <div className="k-picture-drag">
+            <div key="1" className="k-picture-pic" style={picStyle} />
+            <div
+              className="k-picture-handle"
+              onWheel={onWheel}
+              onDoubleClick={onDoubleClick}
+            />
+          </div>
+        </Draggable>
+      </Display>
+    </div>
   )
 }
 
 KPictureArea.propTypes = {
-  areaHeight: propTypes.number,
+  areaHeight: propTypes.string,
   imgErrors: propTypes.string,
-  imgLoading: propTypes.bool,
   imgSrc: propTypes.string.isRequired,
   imgWidth: propTypes.number.isRequired,
   imgRotate: propTypes.number,

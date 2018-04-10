@@ -9,7 +9,7 @@ import KPictureArea from './KPictureArea.jsx';
 import './KPicture.less';
 
 const { _ } = window;
-const kImgBtns = ['zoomOut', 'zoomIn', 'rotate', 'reset', 'prev', 'next'];
+const kImgBtns = ['zoom', 'rotate', 'reset', 'prev', 'next'];
 
 export default class KPicture extends Component {
 
@@ -21,13 +21,12 @@ export default class KPicture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgOriginWidth: 0,
       imgWidth: 0,
+      imgZoom: 1,
       imgRotate: 0,
       positionX: 0,
       positionY: 0,
       imgErrors: '',
-      imgLoading: false,
     }
   }
 
@@ -44,36 +43,35 @@ export default class KPicture extends Component {
   }
 
   planRender = (imgSrc) => {
-    this.setState({ imgLoading: true });
     loadImage(imgSrc).then((image) => {
       this.setState({
-        imgOriginWidth: image.width,
         imgWidth: image.width,
         imgRotate: 0,
+        imgZoom: 100,
         positionX: 0,
         positionY: 0,
         imgErrors: '',
-        imgLoading: false,
       });
     }).catch((e) => {
       console.log(e);
       this.setState({
-        imgOriginWidth: 0,
         imgWidth: 0,
+        imgZoom: 1,
         imgRotate: 0,
         positionX: 0,
         positionY: 0,
         imgErrors: e.toString(),
-        imgLoading: false,
       });
     });
   }
 
   onMouseWheel = (event) => {
-    if (event.deltaX > 0) {
-      this.operating('zoomOut');
+    const { imgZoom } = this.state;
+    const zoomRate = 2;
+    if (event.deltaY > 0) {
+      this.operating('zoom', imgZoom + zoomRate);
     } else {
-      this.operating('zoomIn');
+      this.operating('zoom', imgZoom - zoomRate);
     }
   }
 
@@ -82,16 +80,12 @@ export default class KPicture extends Component {
   }
 
   operating = (type, num) => {
-    const { imgOriginWidth, imgWidth } = this.state;
     switch (type) {
-      case 'zoomOut':
-        this.setState({ imgWidth: _.round(imgWidth * 1.1) });
-        break;
-      case 'zoomIn':
-        this.setState({ imgWidth: _.round(imgWidth * 0.9) });
+      case 'zoom':
+        this.setState({ imgZoom: num });
         break;
       case 'reset':
-        this.setState({ positionX: 0, positionY: 0, imgRotate: 0, imgWidth: imgOriginWidth });
+        this.setState({ positionX: 0, positionY: 0, imgRotate: 0, imgZoom: 100 });
         break;
       case 'prev':
       case 'next':
@@ -116,31 +110,33 @@ export default class KPicture extends Component {
     if (onSwitch) {
       return [...kImgBtns, 'prev', 'next']
     }
-    return kImgBtns;
+    return [...kImgBtns];
   }
 
   render() {
-    const { imgSrc, wraperStyle } = this.props;
-    const { imgWidth, imgRotate, imgErrors, imgLoading, positionX, positionY } = this.state;
+    const { imgSrc, wraperStyle, areaHeight } = this.props;
+    const { imgWidth, imgRotate, imgZoom, imgErrors, positionX, positionY } = this.state;
     const imgBtns = this.getImageBtns();
+    const width = imgWidth * imgZoom * 0.01;
 
     return (
       <section className="k-picture-wraper" style={wraperStyle}>
         <KPictureArea
           imgSrc={imgSrc}
-          imgWidth={imgWidth}
+          imgWidth={width}
           imgRotate={imgRotate}
           imgErrors={imgErrors}
-          imgLoading={imgLoading}
+          areaHeight={areaHeight}
           positionX={positionX}
           positionY={positionY}
-          onWheel={this.onMouseWheel}
           onDoubleClick={this.onDoubleClick}
           onDrag={this.onDrag}
+          onWheel={this.onMouseWheel}
         />
         <KPictureBtns
-          disabled={imgErrors}
+          disabled={!!imgErrors}
           imgRotate={imgRotate}
+          imgZoom={imgZoom}
           onChange={this.operating}
           btns={imgBtns}
         />
@@ -152,7 +148,7 @@ export default class KPicture extends Component {
 
 KPicture.propTypes = {
   wraperStyle: propTypes.object,
-  bodyStyle: propTypes.object,
+  areaHeight: propTypes.string,
   imgSrc: propTypes.string.isRequired,
   onSwitch: propTypes.func,
 }
