@@ -66,65 +66,10 @@ export const search_query = [
 ];
 
 export const search_result = [
-  {
-    column: {
-      title: '命中时间',
-    },
-    config: {
-      id: 'hitTime',
-      type: 'text',
-    }
-  },
-  {
-    column: {
-      title: '策略编号',
-    },
-    config: {
-      id: 'id',
-      type: 'text',
-    }
-  },
-  {
-    config: {
-      id: 'hitMemo',
-      type: 'text',
-    },
-    column: {
-      title: '策略备注',
-    },
-  },
-  {
-    config: {
-      id: 'bizId',
-      type: 'text',
-    },
-    column: {
-      title: '业务编号',
-    },
-  },
-  {
-    config: {
-      id: 'bizType',
-      type: 'text',
-      extMap: {
-        data: [
-          { value: '01', label: '拒赔' },
-          { value: '02', label: '赔付' },
-          { value: '03', label: '打标' },
-        ],
-      },
-    },
-    column: {
-      title: '业务类型',
-    },
-  },
-  {
-    config: {
-      id: 'bizScene',
-      type: 'text',
-    },
-    column: {
-      title: '业务场景',
-    },
-  },
+  { title: '命中时间', dataIndex: 'hitTime', key: 'hitTime' },
+  { title: '策略编号', dataIndex: 'id', key: 'id' },
+  { title: '策略备注', dataIndex: 'hitMemo', key: 'hitMemo' },
+  { title: '业务编号', dataIndex: 'bizId', key: 'bizId' },
+  { title: '业务类型', dataIndex: 'bizType', key: 'bizType' },
+  { title: '业务场景', dataIndex: 'bizScene', key: 'bizScene' },
 ]

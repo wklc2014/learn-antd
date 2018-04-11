@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import lodash from 'lodash';
 import propTypes from 'prop-types';
 import { Table } from 'antd';
-import KFormItem from './KFormItem.jsx';
+import KFormItem from '../KForm/KFormItem.jsx';
 
-import getSortedConfigs from './common/getSortedConfigs.js';
+import getSortedConfigs from '../KForm/common/getSortedConfigs.js';
 
-class KTable extends Component {
+class KTotalTable extends Component {
 
   static defaultProps = {
-    configs: []
+    configs: [],
   }
 
   getTableColumns = () => {
@@ -17,11 +16,13 @@ class KTable extends Component {
     const newConfigs = getSortedConfigs(isSort, configs);
     const newColumns = [];
     newConfigs.forEach((val, i) => {
-      const { column, config, extMap = {} } = val;
-      if (!extMap.isHide) {
+      const { tableParams, config } = val;
+      const { width, title, isHide } = tableParams;
+      if (!isHide) {
         newColumns.push({
-          ...column,
-          key: `KTable-${i}`,
+          key: `KTotalTable-${i}`,
+          width,
+          title,
           dataIndex: config.id,
           render: (text, record) => {
             switch (record.key) {
@@ -61,40 +62,33 @@ class KTable extends Component {
     }
     let newDataSource = [...dataSource];
     const newConfigs = getSortedConfigs(isSort, configs);
-    const totalId = lodash.get(newConfigs, '[0].config.id');
-    const totalData = { [totalId]: '汇总：' };
+    const totalData = {};
     newConfigs.forEach((val, i) => {
-      const { config, extMap = {} } = val;
-      if (extMap.eval) {
+      const { config, tableParams } = val;
+      if (tableParams.eval) {
         newDataSource = newDataSource.map((m) => {
           // eslint-disable-next-line
-          const evalText = eval(extMap.eval.replace(/\$/g, 'm'));
+          const evalText = eval(tableParams.eval.replace(/\$/g, 'm'));
           if (!isNaN(evalText)) {
             m[config.id] = parseFloat(evalText).toFixed(2);
           }
           return m;
         })
       }
-      if (extMap.total) {
+      if (tableParams.total) {
         totalData[config.id] = 0;
       }
     });
     Object.keys(totalData).forEach((m) => {
-      if (m !== totalId) {
-        dataSource.forEach((v) => {
-          if (v[m]) {
-            totalData[m] += parseFloat(v[m]);
-          }
-        });
-      }
+      dataSource.forEach((v) => {
+        if (v[m]) {
+          totalData[m] += parseFloat(v[m]);
+        }
+      });
     });
     const newTotalData = {...totalData};
     Object.keys(totalData).forEach((m) => {
-      if (m !== totalId) {
-        newTotalData[m] = parseFloat(totalData[m]).toFixed(2);
-      } else {
-        newTotalData[m] = totalData[m];
-      }
+      newTotalData[m] = parseFloat(totalData[m]).toFixed(2);
     })
     newDataSource.push({ key: 'ts', ...newTotalData });
     // console.log(JSON.stringify(newDataSource))
@@ -104,8 +98,8 @@ class KTable extends Component {
   getTableRowClassName = () => {
     const { configs } = this.props;
     const notAllText = configs.some(val => {
-      const { config = {}, subConfig = [] } = val;
-      return config.type !== 'text' || subConfig.some(v => v.type !== 'text');
+      const { config = {} } = val;
+      return config.type !== 'text';
     })
     return notAllText ? '' : 'no-margin-bottom';
   }
@@ -128,12 +122,11 @@ class KTable extends Component {
 }
 
 
-KTable.propTypes = {
+KTotalTable.propTypes = {
   form: propTypes.object,
   configs: propTypes.arrayOf(propTypes.shape({
-    column: propTypes.object.isRequired,
+    tableParams: propTypes.object.isRequired,
     config: propTypes.object.isRequired,
-    extMap: propTypes.object,
   })),
   dataSource: propTypes.array.isRequired,
   onChange: propTypes.func,
@@ -141,4 +134,4 @@ KTable.propTypes = {
   isTotal: propTypes.bool,
 };
 
-export default KTable;
+export default KTotalTable;

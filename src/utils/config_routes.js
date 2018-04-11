@@ -22,11 +22,11 @@ export default [
     label: 'KFormItem',
   },
   {
-    path: '/k_table',
+    path: '/k_total_table',
     exact: true,
     show: true,
     icon: 'user',
-    label: 'KTable',
+    label: 'KTotalTable',
   },
   {
     path: '/k_picture',
@@ -36,11 +36,11 @@ export default [
     label: 'KPicture',
   },
   {
-    path: '/k_search',
+    path: '/k_ajax',
     exact: true,
     show: true,
     icon: 'user',
-    label: 'KSearch',
+    label: 'ajax',
   },
 ]
 

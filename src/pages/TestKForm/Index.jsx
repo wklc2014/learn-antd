@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { actions } from 'mirrorx';
+import { actions, connect } from 'mirrorx';
 
 import TestKFormContent from './TestKFormContent.jsx';
 
-class TestHForm extends Component {
+class Index extends Component {
 
   static defaultProps = {
   }
@@ -37,4 +37,10 @@ class TestHForm extends Component {
   }
 }
 
-export default TestHForm;
+function mapStateToProps(state, ownProps) {
+  return {
+    values: state._report.k_form,
+  }
+}
+
+export default connect(mapStateToProps)(Index);
