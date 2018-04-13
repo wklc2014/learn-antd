@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
 import { Form } from 'antd';
 
-import KTotalTable from '../../components/KTotalTable/KTotalTable.jsx';
+import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
 import configs from './common/index.js';
 
-class TestKTotalTable extends Component {
+class Index extends Component {
 
   static defaultProps = {
   }
@@ -19,7 +19,7 @@ class TestKTotalTable extends Component {
 
     return (
       <div style={{ padding: 16 }}>
-        <KTotalTable
+        <KSummaryTable
           configs={configs}
           form={this.props.form}
           dataSource={values}
@@ -32,7 +32,7 @@ class TestKTotalTable extends Component {
   }
 }
 
-const Wraper = Form.create()(TestKTotalTable);
+const Wraper = Form.create()(Index);
 
 
 function mapStateToProps(state, ownProps) {

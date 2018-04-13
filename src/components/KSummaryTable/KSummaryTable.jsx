@@ -5,7 +5,7 @@ import KFormItem from '../KForm/KFormItem.jsx';
 
 import getSortedConfigs from '../KForm/common/getSortedConfigs.js';
 
-class KTotalTable extends Component {
+class KSummaryTable extends Component {
 
   static defaultProps = {
     configs: [],
@@ -20,7 +20,7 @@ class KTotalTable extends Component {
       const { width, title, isHide } = tableParams;
       if (!isHide) {
         newColumns.push({
-          key: `KTotalTable-${i}`,
+          key: `KSummaryTable-${i}`,
           width,
           title,
           dataIndex: config.id,
@@ -122,7 +122,7 @@ class KTotalTable extends Component {
 }
 
 
-KTotalTable.propTypes = {
+KSummaryTable.propTypes = {
   form: propTypes.object,
   configs: propTypes.arrayOf(propTypes.shape({
     tableParams: propTypes.object.isRequired,
@@ -134,4 +134,4 @@ KTotalTable.propTypes = {
   isTotal: propTypes.bool,
 };
 
-export default KTotalTable;
+export default KSummaryTable;

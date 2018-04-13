@@ -6,7 +6,7 @@ import Loading from '../Loading/Index.jsx';
 import TestKForm from '../TestKForm/Index.jsx';
 import TestKFormLayout from '../TestKFormLayout/Index.jsx';
 import TestKFormItem from '../TestKFormItem/Index.jsx';
-import TestKTotalTable from '../TestKTotalTable/Index.jsx';
+import TestKSummaryTable from '../TestKSummaryTable/Index.jsx';
 import TestKPicture from '../TestKPicture/Index.jsx';
 import TestAjax from '../TestAjax/Index.jsx';
 
@@ -17,7 +17,7 @@ function App (props) {
         <MainLayout>
           <Switch>
             <Route path="/k_form" component={ TestKForm } />
-            <Route path="/k_total_table" component={ TestKTotalTable } />
+            <Route path="/k_summary_table" component={ TestKSummaryTable } />
             <Route path="/k_form_layout" component={ TestKFormLayout } />
             <Route path="/k_form_item" component={ TestKFormItem } />
             <Route path="/k_picture" component={ TestKPicture } />

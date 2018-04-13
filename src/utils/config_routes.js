@@ -22,11 +22,11 @@ export default [
     label: 'KFormItem',
   },
   {
-    path: '/k_total_table',
+    path: '/k_summary_table',
     exact: true,
     show: true,
     icon: 'user',
-    label: 'KTotalTable',
+    label: 'KSummaryTable',
   },
   {
     path: '/k_picture',
