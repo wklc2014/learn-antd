@@ -1,12 +1,13 @@
 import { actions } from 'mirrorx';
 import moment from 'moment';
 import * as reportServices from '../services/_report.js';
+import utils from '../utils/utils.js';
 
 const initialState = {
   k_form: {
     userName: { base: '123' }
   },
-  k_total_table: [
+  k_summary_table: [
     {
       key: 0,
       accident_time: moment('2017-09-10 12:20:45'),
@@ -37,16 +38,16 @@ export default {
       return { ...state, k_form: { ...state.k_form, ...data } }
     },
     updateKTotalTable(state, data) {
-      const { k_total_table } = state;
+      const { k_summary_table } = state;
       const { id, value, order } = data;
-      const new_k_total_table = k_total_table.map((val, i) => {
+      const new_k_summary_table = k_summary_table.map((val, i) => {
         const new_val = {...val};
         if (i === order) {
           new_val[id] = value.base;
         }
         return new_val;
       })
-      return { ...state, k_total_table: new_k_total_table }
+      return { ...state, k_summary_table: new_k_summary_table }
     },
     resetKForm(state, data) {
       return { ...state, k_form: initialState.k_form }
@@ -67,7 +68,11 @@ export default {
         params[v] = base || _report.values;
       })
       const resp = await reportServices.getUser();
-      actions._report.update({ dataSource: resp.data });
+      if (resp.stat === 'ok') {
+        actions._report.update({ dataSource: resp.data });
+      } else {
+        utils.messageTips('info', resp.msg || 'ajax 错误');
+      }
     }
   }
 }

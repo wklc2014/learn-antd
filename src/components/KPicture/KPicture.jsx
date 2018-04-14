@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import loadImage from '../../utils/load_image.js';
+import utils from '../../utils/utils.js';
 
 import KPictureBtns from './KPictureBtns.jsx';
 import KPictureArea from './KPictureArea.jsx';
@@ -42,7 +42,7 @@ export default class KPicture extends Component {
   }
 
   planRender = (imgSrc) => {
-    loadImage(imgSrc).then((image) => {
+    utils.asyncLoadImage(imgSrc).then((image) => {
       this.setState({
         imgWidth: image.width,
         imgRotate: 0,

@@ -5,11 +5,11 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink, withRouter } from 'mirrorx';
 import Logo from '../../components/Logo/Logo.jsx';
-import config_routes from '../../utils/config_routes.js';
+import sidebarRoutes from '../../utils/configs/sidebarRoutes.js';
 
 const Sidebar = ({ collapsed, location }) => {
   const { pathname } = location;
-  const menuItemEle = config_routes.filter((route) => route.show).map((route, i) => {
+  const menuItemEle = sidebarRoutes.filter((route) => route.show).map((route, i) => {
     const iconEle = route.icon ? <Icon type={ route.icon } /> : null;
     const spanEle = route.className ? <span className={`${route.className}`} /> : null;
     return (

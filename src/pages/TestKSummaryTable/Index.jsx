@@ -37,7 +37,7 @@ const Wraper = Form.create()(Index);
 
 function mapStateToProps(state, ownProps) {
   return {
-    values: state._report.k_total_table,
+    values: state._report.k_summary_table,
   }
 }
 

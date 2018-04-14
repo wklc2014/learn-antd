@@ -5,8 +5,8 @@ import { createLogger } from 'redux-logger';
 
 import App from './pages/App/App.jsx';
 import registerServiceWorker from './registerServiceWorker.js';
-import mirrorLoading from './utils/mirror_loading.js';
-import * as env from './utils/env.js';
+import mirrorLoading from './utils/mirrorLoading.js';
+import * as env from './utils/configs/env.js';
 
 import 'moment/locale/zh-cn';
 import './assets/common.less';

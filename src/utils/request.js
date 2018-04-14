@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ajaxErrorResponse from './configs/ajaxErrorResponse.js';
 
 export default function request(url, params = {}, options = {}) {
 
@@ -9,6 +10,7 @@ export default function request(url, params = {}, options = {}) {
 
   const axios_options = {
     url,
+    timeout: 2000,
     ...options,
   }
 
@@ -24,7 +26,8 @@ export default function request(url, params = {}, options = {}) {
     axios(axios_options).then((resp) => {
       resolve(resp.data);
     }).catch((error) => {
-      reject(error);
+      const myErrors = ajaxErrorResponse(error);
+      resolve(myErrors);
     });
   })
 }
