@@ -64,10 +64,10 @@ export default {
       const { _report } = getState();
       const params = {};
       Object.keys(_report.values).forEach(v => {
-        const { base } = _report.values || {};
-        params[v] = base || _report.values;
+        const { base } = _report.values[v] || {};
+        params[v] = base || _report.values[v];
       })
-      const resp = await reportServices.getUser();
+      const resp = await reportServices.getUser(params);
       if (resp.stat === 'ok') {
         actions._report.update({ dataSource: resp.data });
       } else {

@@ -318,7 +318,7 @@ export const UserSurvery = [
       type: 'number',
       options: {
         rules: [{
-          required: true,
+          required: false,
           message: '保单金额必填'
         }],
       }
