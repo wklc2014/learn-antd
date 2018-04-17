@@ -15,13 +15,13 @@ class Index extends Component {
     }
   }
 
-  onChange = ({ id, value, item }) => {
-    console.log('{ id, value }>>>', JSON.stringify({ id, value, item }));
-    actions._report.updateKForm({ [id]: value })
+  onChange = ({ id, value, type }) => {
+    console.log('{ id, value }>>>', JSON.stringify({ id, value, type }));
+    actions._form.updateValues({ [id]: value })
   }
 
   onReset = () => {
-    actions._report.resetKForm();
+    actions._form.resetValues();
   }
 
   render() {
@@ -39,7 +39,7 @@ class Index extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    values: state._report.k_form,
+    values: state._form.values,
   }
 }
 

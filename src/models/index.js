@@ -1,5 +1,9 @@
 import mirror from 'mirrorx';
 
-import reportModel from './_report.js';
+import ajax from './_ajax.js';
+import form from './_form.js';
+import summary from './_summary.js';
 
-mirror.model(reportModel);
+mirror.model(summary);
+mirror.model(form);
+mirror.model(ajax);

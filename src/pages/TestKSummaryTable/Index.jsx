@@ -11,7 +11,7 @@ class Index extends Component {
   }
 
   onChange = ({ id, value, order }) => {
-    actions._report.updateKTotalTable({ id, value, order })
+    actions._summary.updateDataSource({ id, value, order })
   }
 
   render() {
@@ -37,7 +37,7 @@ const Wraper = Form.create()(Index);
 
 function mapStateToProps(state, ownProps) {
   return {
-    values: state._report.k_summary_table,
+    values: state._summary.dataSource,
   }
 }
 

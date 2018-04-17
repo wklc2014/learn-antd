@@ -1,12 +1,12 @@
 // 前端 ajax 请求出错时，自定义返回
 
-export default function ajaxErrorResponse(errors, stat = 'error') {
-  let msg;
+export default function ajaxErrorResponse(errors, success = false) {
+  let message;
   try {
-    msg = errors.toString();
+    message = errors.toString();
   } catch (e) {
-    msg = `ajaxErrorResponse ${errors}`;
+    message = `ajaxErrorResponse ${errors}`;
   }
 
-  return { stat, msg }
+  return { success, message }
 }

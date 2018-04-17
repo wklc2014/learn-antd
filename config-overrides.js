@@ -15,8 +15,8 @@ module.exports = function override(config, env) {
     })
 
     config = rewireProvidePlugin(config, env, {
-      'window._': 'lodash',
-      'window.is': 'is_js',
+      // 'window._': 'lodash',
+      // 'window.is': 'is_js',
     })
 
     return config;

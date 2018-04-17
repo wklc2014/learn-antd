@@ -10,17 +10,17 @@ class Index extends Component {
   static defaultProps = {}
 
   onSubmit = () => {
-    actions._report.getUser();
+    actions._ajax.getUser();
   }
 
   onChange = ({ id, value, item }) => {
-    actions._report.updateValues({ [id]: value });
+    actions._ajax.updateValues({ [id]: value });
   }
 
   onReset = () => {
-    actions._report.update({ values: {} });
+    actions._ajax.update({ values: {} });
     const ids = search_query.map((val => val.config.id));
-    this.inst.props.form.resetFields(ids);
+    this.inst.props.form.resetValues(ids);
   }
 
   render() {
@@ -60,8 +60,8 @@ Index.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    dataSource: state._report.dataSource,
-    values: state._report.values,
+    dataSource: state._ajax.dataSource,
+    values: state._ajax.values,
   }
 }
 

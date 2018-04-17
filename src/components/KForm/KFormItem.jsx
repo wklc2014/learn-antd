@@ -10,18 +10,19 @@ import { Form, Row, Col } from 'antd';
 import configTypes from './common/configTypes.js';
 
 import getStyle from './common/getStyle.js';
-import getValue from './common/getValue.js';
+import getValue, { setValue } from './common/getValue.js';
 import getPlaceholder from './common/getPlaceholder.js';
 import getData from './common/getData.js';
 import getFormItemParams from './common/getFormItemParams.js';
 import getSubConfigGridLayout from './common/getSubConfigGridLayout.js';
+import __formItemLayout from './common/__formItemLayout.js';
 
 const FormItem = Form.Item;
 
 class HFormItem extends Component {
 
   static defaultProps = {
-    formItemLayout: { labelCol: { xs: 24, sm: 6 }, wrapperCol: { xs: 24, sm: 16 } },
+    formItemLayout: __formItemLayout,
     formItemParams: {},
     formItemSpace: 0,
   }
@@ -32,8 +33,8 @@ class HFormItem extends Component {
     if (!onChange || is.not.function(onChange)) return null;
     onChange({
       id: config.id,
-      item: id,
       value: getValue({ value, id, changeValue, extMap }),
+      type: id,
     });
   }
 
@@ -65,7 +66,7 @@ class HFormItem extends Component {
     const new_style = getStyle({ type, extMap, style: params.style });
     const new_placeholder = getPlaceholder({ id, type, label: formItemParams.label, placeholder: params.placeholder });
     const new_data = getData({ type, extMap });
-    const new_value = value && value.base ? value.base : undefined;
+    const new_value = setValue(value, 'base');
 
     let ChildrenEle = this.getFieldEle({
       type,
@@ -87,7 +88,7 @@ class HFormItem extends Component {
         const new_sub_placeholder = getPlaceholder({ id: sub_id, type: sub_type, label: formItemParams.label, placeholder: sub_params.placeholder });
         const new_sub_style = getStyle({ type: sub_type, extMap: sub_extMap, style: sub_ui_style });
         const new_sub_data = getData({ type: sub_type, extMap: sub_extMap });
-        const new_sub_value = value && value[sub_id] ? value[sub_id] : undefined;
+        const new_sub_value = setValue(value, sub_id);
 
         return this.getFieldEle({
           key: `sub_type_${i}`,
@@ -143,7 +144,7 @@ HFormItem.propTypes = {
   formItemLayout: propTypes.object,
   formItemSpace: propTypes.number,
   onChange: propTypes.func,
-  value: propTypes.object,
+  // value: propTypes.object,
 };
 
 export default HFormItem;

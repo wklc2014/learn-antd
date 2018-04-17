@@ -52,7 +52,6 @@ export default class KPicture extends Component {
         imgErrors: '',
       });
     }).catch((e) => {
-      console.log(e);
       this.setState({
         imgWidth: 0,
         imgZoom: 1,
