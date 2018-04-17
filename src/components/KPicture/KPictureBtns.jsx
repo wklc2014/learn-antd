@@ -1,10 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import is from 'is_js';
 import { Slider, Button, Popover, InputNumber, Row, Col } from 'antd';
 import Display from '../Display/Display.jsx';
 
 const ButtonGroup = Button.Group;
-const { is } = window;
 
 const K_PICTURE_BTNS = [
   { label: '放缩', value: 'zoom' },

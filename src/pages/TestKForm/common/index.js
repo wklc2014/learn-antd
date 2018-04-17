@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
+import lodash from 'lodash';
 import { Button } from 'antd';
-
-const { _ } = window;
 
 // 用户调查字段配置
 export const UserSurvery = [
@@ -28,7 +27,7 @@ export const UserSurvery = [
       extra: (value) => {
         let num = 0;
         if (value) {
-          const baseValue = _.get(value, 'base', '');
+          const baseValue = lodash.get(value, 'base', '');
           num = Math.max(0, baseValue.length);
         }
         return `还可以输入${20 - num}个字`;
@@ -495,7 +494,7 @@ export const UserSurvery = [
       id: 'myName',
       type: 'text',
       extMap: {
-        render: (value) => _.get(value, 'base', 'null'),
+        render: (value) => lodash.get(value, 'base', 'null'),
       }
     },
     formItemParams: {

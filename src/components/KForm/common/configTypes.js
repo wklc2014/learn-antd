@@ -1,4 +1,5 @@
 import React from 'react';
+import is from 'is_js';
 import {
   Button,
   Cascader,
@@ -20,8 +21,6 @@ const { RangePicker, MonthPicker } = DatePicker;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
-
-const { is } = window;
 
 export default {
   input: ({ params, onChange }) => {

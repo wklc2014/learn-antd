@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Form, Row, Col } from 'antd';
+import is from 'is_js';
+import lodash from 'lodash';
 
 import KFormItem from './KFormItem.jsx';
 
@@ -12,8 +14,6 @@ import formLayoutTypes from './common/formLayoutTypes.js';
 import getGridLayout from './common/getGridLayout.js';
 import getSortedConfigs from './common/getSortedConfigs.js';
 import getFormItemLayout from './common/getFormItemLayout.js';
-
-const { is, _ } = window;
 
 export default class KForm extends Component {
 
@@ -49,7 +49,7 @@ export default class KForm extends Component {
     const formEle = newConfigs.map((val, i) => {
       const key = `${layout}-${i}`;
       const { config = {}, subConfig, formItemParams, formItemLayout, formItemSpace } = val;
-      const colSpan = _.get(config, 'extMap.colSpan');
+      const colSpan = lodash.get(config, 'extMap.colSpan');
       const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
       const newFormItemSpace = space || formItemSpace;
       const KFormItemProps = {
