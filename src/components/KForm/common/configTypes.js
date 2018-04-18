@@ -1,19 +1,9 @@
+/**
+ * KFormItem 支持的各种表单元素输入类型
+ */
 import React from 'react';
 import is from 'is_js';
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Input,
-  InputNumber,
-  Radio,
-  Rate,
-  Select,
-  Slider,
-  Switch,
-  TimePicker,
-} from 'antd';
+import { Button, Cascader, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
 const { TextArea } = Input;
 const { Option } = Select;

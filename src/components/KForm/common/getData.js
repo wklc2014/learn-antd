@@ -1,3 +1,6 @@
+/**
+ * 获取 KFormItem data 属性
+ */
 import chineseCities from '../common/__chineseCities.js';
 
 export default function getData({ type, extMap }) {

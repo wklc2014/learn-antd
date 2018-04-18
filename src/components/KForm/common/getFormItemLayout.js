@@ -1,5 +1,5 @@
 /**
- * 获取表单元素栅格布局
+ * 获取 KFormItem 表单元素栅格布局
  * @param  {string} layout    表单布局类型
  * @param  {number} colSpan   该表单元素横跨几列，默认为1
  * @param  {number} columns   表单几列布局，默认为1
