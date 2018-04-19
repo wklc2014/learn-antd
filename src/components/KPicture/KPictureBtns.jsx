@@ -1,46 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import is from 'is_js';
-import { Slider, Button, Popover, InputNumber, Row, Col } from 'antd';
+import { Button, Popover } from 'antd';
 import Display from '../Display/Display.jsx';
 
 import __kPictureBtns from './common/__kPictureBtns.js';
+import getPopoverContent from './common/getPopoverContent.js';
+import getPopoverTitle from './common/getPopoverTitle.js';
 
 const ButtonGroup = Button.Group;
-
-function getPopoverContent(type, values, onChange) {
-  const SliderProps = {
-    onChange: (e) => onChange(type, e),
-    value: values[type],
-  };
-  if (type === 'rotate') {
-    SliderProps.marks = { 0: '0', 90: '90', 180: '180', 270: '270', 360: '360' };
-    SliderProps.min = 0;
-    SliderProps.max = 360;
-  } else if (type === 'zoom') {
-    SliderProps.marks = { 0: '0', 50: '50', 100: '100', 150: '150', 200: '200', 250: '250', 300: '300' };
-    SliderProps.min = 0;
-    SliderProps.max = 300;
-  }
-  return (
-    <Row type="flex" gutter={24} >
-      <Col span={18}>
-        <Slider {...SliderProps} />
-      </Col>
-      <Col span={6} style={{ paddingTop: 5 }}>
-        <InputNumber {...SliderProps} style={{ width: '100%' }} />
-      </Col>
-    </Row>
-  )
-}
-
-function getPopoverTitle(type) {
-  if (type === 'rotate') {
-    return '旋转角度(deg)';
-  } else if (type === 'zoom') {
-    return '缩放比例(%)';
-  }
-}
 
 export default function KPictureBtns (props) {
 
@@ -89,8 +57,8 @@ export default function KPictureBtns (props) {
 
 KPictureBtns.propTypes = {
   btns: propTypes.array,
-  onChange: propTypes.func.isRequired,
   rotate: propTypes.number,
   zoom: propTypes.number,
   disabled: propTypes.bool,
+  onChange: propTypes.func.isRequired,
 }

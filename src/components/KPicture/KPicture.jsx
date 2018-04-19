@@ -108,12 +108,12 @@ export default class KPicture extends Component {
   }
 
   onMouseWheel = (event) => {
-    const { imgZoom } = this.state;
+    const { picZoom } = this.state;
     const zoomRate = 2;
     if (event.deltaY > 0) {
-      this.operating('zoom', imgZoom + zoomRate);
+      this.operating('zoom', picZoom + zoomRate);
     } else {
-      this.operating('zoom', imgZoom - zoomRate);
+      this.operating('zoom', picZoom - zoomRate);
     }
   }
 
@@ -134,7 +134,7 @@ export default class KPicture extends Component {
         this.props.onSwitch(type);
         break;
       case 'rotate':
-        this.setState({ picRotate: num })
+        this.setState({ picRotate: num });
         break;
       default:
     }
@@ -191,8 +191,8 @@ export default class KPicture extends Component {
 KPicture.propTypes = {
   wraperStyle: propTypes.object,
   areaHeight: propTypes.oneOfType([
-      propTypes.string,
-      propTypes.number,
+    propTypes.string,
+    propTypes.number,
   ]),
   picSrc: propTypes.string.isRequired,
   picRotate: propTypes.number,

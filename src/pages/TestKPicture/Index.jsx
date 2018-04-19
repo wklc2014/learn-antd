@@ -63,7 +63,7 @@ export default class TestKPicture extends Component {
             picRotate={20}
             picWidth={300}
             picPositionX={300}
-            areaHeight="65vh"
+            areaHeight="60vh"
             onSwitch={this.onSwitch}
           />
         </Modal>

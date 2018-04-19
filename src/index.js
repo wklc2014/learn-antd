@@ -9,7 +9,7 @@ import mirrorLoading from './common/utils/mirrorLoading.js';
 import * as env from './common/configs/env.js';
 
 import 'moment/locale/zh-cn';
-import './assets/common.less';
+import './common/less/common.less';
 import './models/';
 
 moment.locale('zh-cn');

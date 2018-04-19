@@ -23,7 +23,7 @@ export default function getSummaryData(configs = [], dataSource = []) {
         }
         const parseData = parseFloat(data[id]);
         if (is.not.nan(parseData)) {
-          summaryLine[id] += parseData
+          summaryLine[id] += parseData;
         }
       }
 
@@ -32,8 +32,9 @@ export default function getSummaryData(configs = [], dataSource = []) {
         try {
           // eslint-disable-next-line
           const num = new Function('data', tableParams.render)(data);
-          data[id] = parseFloat(num).toFixed(2);
-          data[id] = lodash.round(parseFloat(num));
+          if (is.not.nan(num)) {
+            data[id] = lodash.round(parseFloat(num), 2);
+          }
         } catch (e) {
         }
       }

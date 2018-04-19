@@ -32,7 +32,7 @@ export default {
       if (resp.success) {
         actions._ajax.update({ dataSource: resp.data });
       } else {
-        utils.messageTips('info', resp.message || 'ajax 错误');
+        utils.infos('info', resp.message || 'ajax 错误');
       }
     }
   }
