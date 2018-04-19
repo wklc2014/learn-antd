@@ -18,12 +18,12 @@ import getFormItemLayout from './common/getFormItemLayout.js';
 export default class KForm extends Component {
 
   static defaultProps = {
+    // 表单布局列数
+    columns: 1,
     // 表单配置数组
     configs: [],
     // 是否对配置数组进行排序
     isSort: false,
-    // 表单布局列数
-    columns: 1,
     // 表单元素布局类型
     layout: 'horizontal',
     // 表单元素间隔距离
@@ -43,7 +43,7 @@ export default class KForm extends Component {
   }
 
   render() {
-    const { configs, isSort, columns, layout, space, values, form, onChange } = this.props;
+    const { columns, configs, form, isSort, layout, onChange, space, values } = this.props;
     const newConfigs = getSortedConfigs(isSort, configs);
 
     const formEle = newConfigs.map((val, i) => {
@@ -89,11 +89,11 @@ export default class KForm extends Component {
 
 KForm.propTypes = {
   columns: propTypes.number,
-  configs: propTypes.array.isRequired,
+  configs: propTypes.array,
   form: propTypes.object.isRequired,
   isSort: propTypes.bool,
   layout: propTypes.string,
-  onChange: propTypes.func,
+  // onChange: propTypes.func,
   space: propTypes.number,
   values: propTypes.object,
 };

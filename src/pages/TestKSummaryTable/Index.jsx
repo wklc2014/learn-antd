@@ -5,7 +5,7 @@ import { Form } from 'antd';
 import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
 import configs from './common/index.js';
 
-class Index extends Component {
+class TestKSummaryTable extends Component {
 
   static defaultProps = {
   }
@@ -32,13 +32,12 @@ class Index extends Component {
   }
 }
 
-const Wraper = Form.create()(Index);
-
-
 function mapStateToProps(state, ownProps) {
   return {
     values: state._summary.dataSource,
   }
 }
+
+const Wraper = Form.create()(TestKSummaryTable);
 
 export default connect(mapStateToProps)(Wraper);

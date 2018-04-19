@@ -1,3 +1,9 @@
+/**
+ * 获取 FormItem 参数
+ * value 表单元素值
+ * formItemParams FormItem 默认配置
+ * options FormItem 默认验证
+ */
 import is from 'is_js';
 
 export default function getFormItemParams(value, formItemParams = {}, options = {}) {

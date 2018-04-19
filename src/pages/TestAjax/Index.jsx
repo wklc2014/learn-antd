@@ -5,7 +5,7 @@ import { Button, Form, Table } from 'antd';
 import KForm from '../../components/KForm/KForm.jsx';
 import { search_query, search_result } from './common/index.js';
 
-class Index extends Component {
+class TestAjax extends Component {
 
   static defaultProps = {}
 
@@ -54,7 +54,7 @@ class Index extends Component {
   }
 }
 
-Index.propTypes = {
+TestAjax.propTypes = {
 
 }
 
@@ -65,6 +65,6 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-const Wraper = Form.create()(Index);
+const Wraper = Form.create()(TestAjax);
 
 export default connect(mapStateToProps)(Wraper);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
 
-import TestKFormContent from './TestKFormContent.jsx';
+import Content from './Content.jsx';
 
-class Index extends Component {
+class TestKForm extends Component {
 
   static defaultProps = {
   }
@@ -28,7 +28,7 @@ class Index extends Component {
     // const { values } = this.state;
     const { values } = this.props;
     return (
-      <TestKFormContent
+      <Content
         values={values}
         onChange={this.onChange}
         onReset={this.onReset}
@@ -43,4 +43,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(TestKForm);

@@ -1,3 +1,10 @@
+/**
+ * 获取 KFormItem 表单元素 style 属性
+ * type 表单元素输入类型
+ * extMap 表单元素扩展配置
+ * style 表单元素默认 style
+ */
+
 export default function getStyle({ type, extMap, style }) {
   const { toUpperCase, toLowerCase } = extMap;
   const newStyle = {...style};

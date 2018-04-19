@@ -1,9 +1,13 @@
+/**
+ * 配合 KFormItem 生成的汇总表格
+ */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Table } from 'antd';
-import KFormItem from '../KForm/KFormItem.jsx';
 
+import KFormItem from '../KForm/KFormItem.jsx';
 import getSortedConfigs from '../KForm/common/getSortedConfigs.js';
+import getSummaryData from './common/getSummaryData.js';
 
 class KSummaryTable extends Component {
 
@@ -38,7 +42,7 @@ class KSummaryTable extends Component {
                   onChange: ({ id, value }) => {
                     this.props.onChange({
                       id: id.split('__')[0],
-                      value,
+                      value: value.base,
                       order: record.key,
                     });
                   },
@@ -60,38 +64,8 @@ class KSummaryTable extends Component {
     if (!isTotal || !dataSource.length) {
       return dataSource;
     }
-    let newDataSource = [...dataSource];
     const newConfigs = getSortedConfigs(isSort, configs);
-    const totalData = {};
-    newConfigs.forEach((val, i) => {
-      const { config, tableParams } = val;
-      if (tableParams.eval) {
-        newDataSource = newDataSource.map((m) => {
-          // eslint-disable-next-line
-          const evalText = eval(tableParams.eval.replace(/\$/g, 'm'));
-          if (!isNaN(evalText)) {
-            m[config.id] = parseFloat(evalText).toFixed(2);
-          }
-          return m;
-        })
-      }
-      if (tableParams.total) {
-        totalData[config.id] = 0;
-      }
-    });
-    Object.keys(totalData).forEach((m) => {
-      dataSource.forEach((v) => {
-        if (v[m]) {
-          totalData[m] += parseFloat(v[m]);
-        }
-      });
-    });
-    const newTotalData = {...totalData};
-    Object.keys(totalData).forEach((m) => {
-      newTotalData[m] = parseFloat(totalData[m]).toFixed(2);
-    })
-    newDataSource.push({ key: 'ts', ...newTotalData });
-    // console.log(JSON.stringify(newDataSource))
+    const newDataSource = getSummaryData(newConfigs, dataSource);
     return newDataSource;
   }
 
@@ -105,7 +79,7 @@ class KSummaryTable extends Component {
   }
 
   render() {
-    const { pagination } = this.props;
+    const { pagination, } = this.props;
     const newColumns = this.getTableColumns();
     const newDataSource = this.getTableDataSource();
 

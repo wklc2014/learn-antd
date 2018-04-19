@@ -16,12 +16,12 @@ function App (props) {
       <Loading>
         <MainLayout>
           <Switch>
-            <Route path="/k_form" component={ TestKForm } />
-            <Route path="/k_summary_table" component={ TestKSummaryTable } />
-            <Route path="/k_form_layout" component={ TestKFormLayout } />
-            <Route path="/k_form_item" component={ TestKFormItem } />
-            <Route path="/k_picture" component={ TestKPicture } />
-            <Route path="/k_ajax" component={ TestAjax } />
+            <Route path="/form" component={ TestKForm } />
+            <Route path="/summaryTable" component={ TestKSummaryTable } />
+            <Route path="/formLayout" component={ TestKFormLayout } />
+            <Route path="/formItem" component={ TestKFormItem } />
+            <Route path="/picture" component={ TestKPicture } />
+            <Route path="/ajax" component={ TestAjax } />
           </Switch>
         </MainLayout>
       </Loading>

@@ -66,7 +66,7 @@ class HFormItem extends Component {
     const new_style = getStyle({ type, extMap, style: params.style });
     const new_placeholder = getPlaceholder({ id, type, label: formItemParams.label, placeholder: params.placeholder });
     const new_data = getData({ type, extMap });
-    const new_value = setValue(value, 'base');
+    const new_value = setValue(value);
 
     let ChildrenEle = this.getFieldEle({
       type,
@@ -143,7 +143,7 @@ HFormItem.propTypes = {
   formItemParams: propTypes.object,
   formItemLayout: propTypes.object,
   formItemSpace: propTypes.number,
-  onChange: propTypes.func,
+  // onChange: propTypes.func,
   // value: propTypes.object,
 };
 

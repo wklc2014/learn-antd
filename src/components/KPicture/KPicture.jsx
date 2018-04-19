@@ -1,66 +1,110 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import utils from '../../utils/utils.js';
-
-import KPictureBtns from './KPictureBtns.jsx';
 import KPictureArea from './KPictureArea.jsx';
+import KPictureBtns from './KPictureBtns.jsx';
+
+import utils from '../../common/utils/utils.js';
 
 import './KPicture.less';
-
-const kImgBtns = ['zoom', 'rotate', 'reset', 'prev', 'next'];
 
 export default class KPicture extends Component {
 
   static defaultProps = {
     wraperStyle: {},
-    bodyStyle: {},
+    areaHeight: 400,
+    picWidth: 0,
+    picRotate: 0,
+    picPositionX: 0,
+    picPositionY: 0,
+    picZoom: 100,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      imgWidth: 0,
-      imgZoom: 1,
-      imgRotate: 0,
+      picWidth: 0,
+      picRotate: 0,
       positionX: 0,
       positionY: 0,
-      imgErrors: '',
+      picZoom: 1,
+      picErrors: '',
     }
   }
 
   componentDidMount() {
-    this.planRender(this.props.imgSrc);
+    const { picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom } = this.props;
+    this.planRender({ picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { imgSrc: prevImg } = this.props;
-    const { imgSrc: nextImg } = nextProps;
-    if (nextImg && prevImg !== nextImg) {
-      this.planRender(nextImg);
+    const canRender = this.getRenderParams(this.props, nextProps);
+    if (!!canRender) {
+      this.planRender(canRender);
     }
   }
 
-  planRender = (imgSrc) => {
-    utils.asyncLoadImage(imgSrc).then((image) => {
-      this.setState({
-        imgWidth: image.width,
-        imgRotate: 0,
-        imgZoom: 100,
-        positionX: 0,
-        positionY: 0,
-        imgErrors: '',
+  getRenderParams = (prevProps = {}, nextProps = {}) => {
+    const {
+      picSrc: prevSrc,
+      picWidth: prevWidth,
+      picRotate: prevRotate,
+      picPositionX: prevPositionX,
+      picPositionY: prevPositionY,
+      picZoom: prevZoom,
+    } = prevProps;
+    const {
+      picSrc: nextSrc,
+      picWidth: nextWidth,
+      picRotate: nextRotate,
+      picPositionX: nextPositionX,
+      picPositionY: nextPositionY,
+      picZoom: nextZoom,
+    } = nextProps;
+    if (nextSrc &&
+      (prevSrc !== nextSrc ||
+      prevWidth !== nextWidth ||
+      prevRotate !== nextRotate ||
+      prevPositionX !== nextPositionX ||
+      prevPositionY !== nextPositionY ||
+      prevZoom !== nextZoom)
+      ) {
+      return {
+        picSrc: nextSrc,
+        picWidth: nextWidth,
+        picRotate: nextRotate,
+        picPositionX: nextPositionX,
+        picPositionY: nextPositionY,
+        picZoom: nextZoom,
+      }
+    }
+    return false;
+  }
+
+  planRender = (params) => {
+    if (params) {
+      const { picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom } = params;
+      utils.asyncLoadImage(picSrc).then((image) => {
+        console.log('picWidth || image.width>>>', picWidth , image.width);
+        this.setState({
+          picWidth: picWidth || image.width,
+          picRotate: picRotate,
+          picPositionX: picPositionX,
+          picPositionY: picPositionY,
+          picZoom: picZoom,
+          picErrors: '',
+        });
+      }).catch((e) => {
+        this.setState({
+          picWidth: 0,
+          picRotate: 0,
+          positionX: 0,
+          positionY: 0,
+          picZoom: 100,
+          picErrors: e.toString(),
+        });
       });
-    }).catch((e) => {
-      this.setState({
-        imgWidth: 0,
-        imgZoom: 1,
-        imgRotate: 0,
-        positionX: 0,
-        positionY: 0,
-        imgErrors: e.toString(),
-      });
-    });
+    }
   }
 
   onMouseWheel = (event) => {
@@ -80,17 +124,17 @@ export default class KPicture extends Component {
   operating = (type, num) => {
     switch (type) {
       case 'zoom':
-        this.setState({ imgZoom: num });
+        this.setState({ picZoom: num });
         break;
       case 'reset':
-        this.setState({ positionX: 0, positionY: 0, imgRotate: 0, imgZoom: 100 });
+        this.setState({ picPositionX: 0, picPositionY: 0, picRotate: 0, picZoom: 100 });
         break;
       case 'prev':
       case 'next':
         this.props.onSwitch(type);
         break;
       case 'rotate':
-        this.setState({ imgRotate: num })
+        this.setState({ picRotate: num })
         break;
       default:
     }
@@ -98,45 +142,45 @@ export default class KPicture extends Component {
 
   onDrag = (e, data) => {
     this.setState({
-      positionX: data.x,
-      positionY: data.y,
+      picPositionX: data.x,
+      picPositionY: data.y,
     });
   }
 
-  getImageBtns = () => {
+  getPictureBtns = () => {
     const { onSwitch } = this.props;
-    if (onSwitch) {
-      return [...kImgBtns, 'prev', 'next']
+    if (!!onSwitch) {
+      return ['zoom', 'rotate', 'reset', 'prev', 'next']
     }
-    return [...kImgBtns];
+    return ['zoom', 'rotate', 'reset'];
   }
 
   render() {
-    const { imgSrc, wraperStyle, areaHeight } = this.props;
-    const { imgWidth, imgRotate, imgZoom, imgErrors, positionX, positionY } = this.state;
-    const imgBtns = this.getImageBtns();
-    const width = imgWidth * imgZoom * 0.01;
+    const { picSrc, wraperStyle, areaHeight } = this.props;
+    const { picWidth, picRotate, picZoom, picErrors, picPositionX, picPositionY } = this.state;
+    const picBtns = this.getPictureBtns();
+    const width = picWidth * picZoom * 0.01;
 
     return (
       <section className="k-picture-wraper" style={wraperStyle}>
         <KPictureArea
-          imgSrc={imgSrc}
-          imgWidth={width}
-          imgRotate={imgRotate}
-          imgErrors={imgErrors}
-          areaHeight={areaHeight}
-          positionX={positionX}
-          positionY={positionY}
+          src={picSrc}
+          width={width}
+          rotate={picRotate}
+          errors={picErrors}
+          height={areaHeight}
+          positionX={picPositionX}
+          positionY={picPositionY}
           onDoubleClick={this.onDoubleClick}
           onDrag={this.onDrag}
           onWheel={this.onMouseWheel}
         />
         <KPictureBtns
-          disabled={!!imgErrors}
-          imgRotate={imgRotate}
-          imgZoom={imgZoom}
+          disabled={!!picErrors}
+          rotate={picRotate}
+          zoom={picZoom}
+          btns={picBtns}
           onChange={this.operating}
-          btns={imgBtns}
         />
       </section>
     )
@@ -146,7 +190,15 @@ export default class KPicture extends Component {
 
 KPicture.propTypes = {
   wraperStyle: propTypes.object,
-  areaHeight: propTypes.string,
-  imgSrc: propTypes.string.isRequired,
+  areaHeight: propTypes.oneOfType([
+      propTypes.string,
+      propTypes.number,
+  ]),
+  picSrc: propTypes.string.isRequired,
+  picRotate: propTypes.number,
+  picWidth: propTypes.number,
+  picPositionX: propTypes.number,
+  picPositionY: propTypes.number,
+  picZoom: propTypes.number,
   onSwitch: propTypes.func,
 }

@@ -37,7 +37,7 @@ class TestKFormItem extends Component {
 
   onChange = ({ id, value }) => {
     if (id === 'user_name_3') {
-      actions._report.example();
+      actions._ajax.getUser();
     }
   }
 

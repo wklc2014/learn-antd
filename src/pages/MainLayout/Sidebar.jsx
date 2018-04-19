@@ -5,7 +5,7 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink, withRouter } from 'mirrorx';
 import Logo from '../../components/Logo/Logo.jsx';
-import sidebarRoutes from '../../utils/configs/sidebarRoutes.js';
+import sidebarRoutes from '../../common/configs/sidebarRoutes.js';
 
 const Sidebar = ({ collapsed, location }) => {
   const { pathname } = location;

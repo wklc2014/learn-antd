@@ -1,3 +1,6 @@
+/**
+ * 常用工具函数
+ */
 import { message } from 'antd';
 
 export default {
@@ -19,7 +22,18 @@ export default {
     });
   },
   // 前端提示信息
-  messageTips: (tipType, tipText = '错误信息') => {
+  infos: (tipType, tipText = '错误信息') => {
     message.info(tipText);
+  },
+  // 前端 ajax 请求出错时，自定义返回
+  ajaxErrorResponse: (errors, success = false) => {
+    let message;
+    try {
+      message = errors.toString();
+    } catch (e) {
+      message = `ajaxErrorResponse ${errors}`;
+    }
+
+    return { success, message }
   }
 }

@@ -1,8 +1,9 @@
 /**
  * logo
  */
-import { Link } from 'mirrorx';
 import React from 'react';
+import { Link } from 'mirrorx';
+
 import './logo.less';
 
 export default function Logo ({ collapsed }) {

@@ -7,7 +7,7 @@ import { Button, Form } from 'antd';
 import * as CONFIGS from './common/';
 import KForm from '../../components/KForm/KForm.jsx';
 
-class ReportContent extends Component {
+class Content extends Component {
 
   static defaultProps = {
     values: {},
@@ -106,4 +106,4 @@ class ReportContent extends Component {
   }
 }
 
-export default Form.create()(ReportContent);
+export default Form.create()(Content);

@@ -4,15 +4,9 @@ import is from 'is_js';
 import { Slider, Button, Popover, InputNumber, Row, Col } from 'antd';
 import Display from '../Display/Display.jsx';
 
-const ButtonGroup = Button.Group;
+import __kPictureBtns from './common/__kPictureBtns.js';
 
-const K_PICTURE_BTNS = [
-  { label: '放缩', value: 'zoom' },
-  { label: '旋转', value: 'rotate' },
-  { label: '还原', value: 'reset' },
-  { label: '上一张', value: 'prev' },
-  { label: '下一张', value: 'next' },
-]
+const ButtonGroup = Button.Group;
 
 function getPopoverContent(type, values, onChange) {
   const SliderProps = {
@@ -30,8 +24,12 @@ function getPopoverContent(type, values, onChange) {
   }
   return (
     <Row type="flex" gutter={24} >
-      <Col span={18}><Slider {...SliderProps} /></Col>
-      <Col span={6} style={{ paddingTop: 5 }}><InputNumber {...SliderProps} style={{ width: '100%' }} /></Col>
+      <Col span={18}>
+        <Slider {...SliderProps} />
+      </Col>
+      <Col span={6} style={{ paddingTop: 5 }}>
+        <InputNumber {...SliderProps} style={{ width: '100%' }} />
+      </Col>
     </Row>
   )
 }
@@ -48,19 +46,16 @@ export default function KPictureBtns (props) {
 
   const {
     btns = [],
-    onChange,
-    imgRotate = 0,
-    imgZoom = 1,
+    rotate = 0,
+    zoom = 1,
     disabled = false,
+    onChange,
   } = props;
 
   const PopoverStyle = { width: 400 };
-  const values = {
-    rotate: imgRotate,
-    zoom: imgZoom,
-  }
+  const values = { rotate, zoom };
 
-  const btnEle = K_PICTURE_BTNS.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
+  const btnEle = __kPictureBtns.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
     const btnDisabled = btn.value !== 'prev' && btn.value !== 'next' && disabled;
     const content = getPopoverContent(btn.value, values, onChange);
     const title = getPopoverTitle(btn.value);
@@ -95,7 +90,7 @@ export default function KPictureBtns (props) {
 KPictureBtns.propTypes = {
   btns: propTypes.array,
   onChange: propTypes.func.isRequired,
-  imgRotate: propTypes.number,
-  imgZoom: propTypes.number,
+  rotate: propTypes.number,
+  zoom: propTypes.number,
   disabled: propTypes.bool,
 }

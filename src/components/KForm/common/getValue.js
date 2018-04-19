@@ -1,3 +1,6 @@
+/**
+ * 获取 KFormItem 表单元素相关值操作
+ */
 import is from 'is_js';
 
 export default function getValue ({ value, id, changeValue, extMap }) {
@@ -21,6 +24,6 @@ export default function getValue ({ value, id, changeValue, extMap }) {
   }
 }
 
-export function setValue(value, id) {
+export function setValue(value, id = 'base') {
   return is.object(value) ? value[id] : { base: value }[id];
 }

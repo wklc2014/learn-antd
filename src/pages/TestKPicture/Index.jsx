@@ -11,7 +11,7 @@ import pic_5 from './common/5.jpg';
 
 const paths = [pic_1, pic_2, pic_3, pic_4, pic_5, '2'];
 
-export default class TestKImage extends Component {
+export default class TestKPicture extends Component {
 
   static defaultProps = {}
 
@@ -59,13 +59,15 @@ export default class TestKImage extends Component {
           onCancel={this.onCancel}
         >
           <KPicture
-            imgSrc={paths[index]}
-            areaHeight="60vh"
+            picSrc={paths[index]}
+            picRotate={20}
+            picWidth={300}
+            picPositionX={300}
+            areaHeight="65vh"
             onSwitch={this.onSwitch}
           />
         </Modal>
       </div>
     )
   }
-
 }

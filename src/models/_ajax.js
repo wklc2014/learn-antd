@@ -1,6 +1,6 @@
 import { actions } from 'mirrorx';
-import * as reportServices from '../services/_report.js';
-import utils from '../utils/utils.js';
+import * as ajaxServices from '../services/_ajax.js';
+import utils from '../common/utils/utils.js';
 import { setValue } from '../components/KForm/common/getValue.js';
 import state from './state/_ajax.js';
 
@@ -28,7 +28,7 @@ export default {
           params[v] = val;
         }
       })
-      const resp = await reportServices.getUser(params);
+      const resp = await ajaxServices.getUser(params);
       if (resp.success) {
         actions._ajax.update({ dataSource: resp.data });
       } else {

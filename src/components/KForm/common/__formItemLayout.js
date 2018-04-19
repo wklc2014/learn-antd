@@ -1,5 +1,5 @@
 /**
- * 表单元素默认布局
+ * KFormItem 表单元素默认布局
  */
 export default {
   labelCol: {

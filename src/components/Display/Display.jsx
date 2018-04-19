@@ -5,6 +5,7 @@
  * @param {boolean} options.condition 渲染条件
  * @param {ReactNode} options.children  渲染元素
  */
+
 export default function Display({ condition, children }) {
   if (condition) {
     return children[0];

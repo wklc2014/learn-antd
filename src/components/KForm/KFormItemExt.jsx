@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Form } from 'antd';
 
+import __formItemLayout from './common/__formItemLayout.js';
+
 const FormItem = Form.Item;
 
 export default class KFormItemExt extends Component {
 
   static defaultProps = {
-    formItemLayout: { labelCol: { xs: 24, sm: 6 }, wrapperCol: { xs: 24, sm: 16 } },
+    formItemLayout: __formItemLayout,
     formItemParams: {},
     formItemSpace: 0,
   }
@@ -26,7 +28,6 @@ export default class KFormItemExt extends Component {
       </FormItem>
     )
   }
-
 }
 
 KFormItemExt.propTypes = {

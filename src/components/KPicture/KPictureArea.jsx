@@ -7,11 +7,11 @@ import Display from '../Display/Display.jsx';
 export default function KPictureArea(props) {
 
   const {
-    areaHeight = 400,
-    imgSrc,
-    imgWidth,
-    imgRotate = 0,
-    imgErrors = '',
+    height = 400,
+    src,
+    width,
+    rotate = 0,
+    errors = '',
     positionX = 0,
     positionY = 0,
     onDrag,
@@ -20,15 +20,15 @@ export default function KPictureArea(props) {
   } = props;
 
   const picStyle = {
-    backgroundImage: `url(${imgSrc})`,
-    width: imgWidth,
-    transform: `rotate(${imgRotate}deg)`,
+    backgroundImage: `url(${src})`,
+    width,
+    transform: `rotate(${rotate}deg)`,
   }
 
   return (
-    <div className="k-picture-box" style={{ height: areaHeight }}>
-      <Display condition={imgErrors}>
-        <Alert message={imgErrors} type="error" showIcon />
+    <div className="k-picture-box" style={{ height: height }}>
+      <Display condition={errors}>
+        <Alert message={errors} showIcon type="error" />
         <Draggable
           position={{ x: positionX, y: positionY }}
           onDrag={onDrag}
@@ -49,11 +49,11 @@ export default function KPictureArea(props) {
 }
 
 KPictureArea.propTypes = {
-  areaHeight: propTypes.string,
-  imgErrors: propTypes.string,
-  imgSrc: propTypes.string.isRequired,
-  imgWidth: propTypes.number.isRequired,
-  imgRotate: propTypes.number,
+  height: propTypes.string,
+  errors: propTypes.string,
+  src: propTypes.string.isRequired,
+  width: propTypes.number.isRequired,
+  rotate: propTypes.number,
   positionX: propTypes.number,
   positionY: propTypes.number,
   onWheel: propTypes.func.isRequired,

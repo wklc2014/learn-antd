@@ -1,5 +1,5 @@
-import request from '../utils/request.js';
-import * as api from '../utils/configs/api.js';
+import request from '../common/utils/request.js';
+import * as api from '../common/configs/api.js';
 
 export function getUser(params) {
   return request(`${api.getUser}`, params, {

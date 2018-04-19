@@ -1524,16 +1524,16 @@ const shangHai = __chineseCities.filter(city => city.name === '上海市').map((
 // 北京
 const beiJing = __chineseCities.filter(city => city.name === '北京市').map((v) => {
 
-    const children = v.city.map((m) => {
-      const area = m.area.map((n) => ({ value: n, label: n }));
-      return { value: m.name, label: m.name, children: area }
-    })
+  const children = v.city.map((m) => {
+    const area = m.area.map((n) => ({ value: n, label: n }));
+    return { value: m.name, label: m.name, children: area }
+  })
 
-    return { value: v.name, label: v.name, children }
+  return { value: v.name, label: v.name, children }
 });
 
 export default {
-    beiJing,
-    shangHai,
-    quanGuo,
+  beiJing,
+  shangHai,
+  quanGuo,
 }

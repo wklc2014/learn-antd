@@ -1,42 +1,44 @@
-// 侧边导航配置
+/**
+ * 侧边导航配置
+ */
 export default [
   {
-    path: '/k_form',
+    path: '/form',
     exact: true,
     show: true,
     icon: 'user',
     label: 'KForm',
   },
   {
-    path: '/k_form_layout',
+    path: '/formLayout',
     exact: true,
     show: true,
     icon: 'upload',
     label: 'KForm Layout',
   },
   {
-    path: '/k_form_item',
+    path: '/formItem',
     exact: true,
     show: true,
     icon: 'user',
     label: 'KFormItem',
   },
   {
-    path: '/k_summary_table',
+    path: '/summaryTable',
     exact: true,
     show: true,
     icon: 'user',
     label: 'KSummaryTable',
   },
   {
-    path: '/k_picture',
+    path: '/picture',
     exact: true,
     show: true,
     icon: 'user',
     label: 'KPicture',
   },
   {
-    path: '/k_ajax',
+    path: '/ajax',
     exact: true,
     show: true,
     icon: 'user',

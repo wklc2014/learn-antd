@@ -106,7 +106,7 @@ export default [
       width: '10%',
       title: '订单实付金额(元)',
       total: true,
-      eval: '$.lossAmount*$.multiplier',
+      render: `return data.lossAmount * data.multiplier`,
     },
     config: {
       type: 'text',
