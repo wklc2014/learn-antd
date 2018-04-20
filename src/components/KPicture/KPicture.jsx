@@ -85,13 +85,12 @@ export default class KPicture extends Component {
     if (params) {
       const { picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom } = params;
       utils.asyncLoadImage(picSrc).then((image) => {
-        console.log('picWidth || image.width>>>', picWidth , image.width);
         this.setState({
-          picWidth: picWidth || image.width,
+          picWidth: image.width,
           picRotate: picRotate,
           picPositionX: picPositionX,
           picPositionY: picPositionY,
-          picZoom: picZoom,
+          picZoom: (picWidth / image.width * 100) ||picZoom,
           picErrors: '',
         });
       }).catch((e) => {

@@ -16,17 +16,6 @@ export default function getSummaryData(configs = [], dataSource = []) {
 
     newDataSource.forEach((data) => {
 
-      // 汇总列
-      if (tableParams.total) {
-        if (summaryLine[id] === undefined) {
-          summaryLine[id] = 0;
-        }
-        const parseData = parseFloat(data[id]);
-        if (is.not.nan(parseData)) {
-          summaryLine[id] += parseData;
-        }
-      }
-
       // 计算行
       if (tableParams.render) {
         try {
@@ -36,6 +25,17 @@ export default function getSummaryData(configs = [], dataSource = []) {
             data[id] = lodash.round(parseFloat(num), 2);
           }
         } catch (e) {
+        }
+      }
+
+      // 汇总列
+      if (tableParams.total) {
+        if (summaryLine[id] === undefined) {
+          summaryLine[id] = 0;
+        }
+        const parseData = parseFloat(data[id]);
+        if (is.not.nan(parseData)) {
+          summaryLine[id] += parseData;
         }
       }
 

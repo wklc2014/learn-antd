@@ -12,6 +12,14 @@ export default function getPopoverContent(type, values, onChange) {
     onChange: (e) => onChange(type, e),
     value: values[type],
   };
+  const InputNumberProps = {
+    ...SliderProps,
+    precision: 2,
+    step: 0.01,
+    style: {
+      width: '100%',
+    }
+  }
   if (type === 'rotate') {
     SliderProps.marks = { 0: '0', 90: '90', 180: '180', 270: '270', 360: '360' };
     SliderProps.min = 0;
@@ -30,7 +38,7 @@ export default function getPopoverContent(type, values, onChange) {
         <Slider {...SliderProps} />
       </Col>
       <Col span={6} style={{ paddingTop: 5 }}>
-        <InputNumber {...SliderProps} style={{ width: '100%' }} />
+        <InputNumber {...InputNumberProps} />
       </Col>
     </Row>
   )

@@ -62,7 +62,6 @@ export default class TestKPicture extends Component {
             picSrc={paths[index]}
             picRotate={20}
             picWidth={300}
-            picPositionX={300}
             areaHeight="60vh"
             onSwitch={this.onSwitch}
           />
