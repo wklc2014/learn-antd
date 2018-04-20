@@ -9,6 +9,7 @@ import TestKFormItem from '../TestKFormItem/Index.jsx';
 import TestKSummaryTable from '../TestKSummaryTable/Index.jsx';
 import TestKPicture from '../TestKPicture/Index.jsx';
 import TestAjax from '../TestAjax/Index.jsx';
+import Test from '../Test/Index.jsx';
 
 function App (props) {
   return (
@@ -22,6 +23,7 @@ function App (props) {
             <Route path="/formItem" component={ TestKFormItem } />
             <Route path="/picture" component={ TestKPicture } />
             <Route path="/ajax" component={ TestAjax } />
+            <Route path="/test" component={ Test } />
           </Switch>
         </MainLayout>
       </Loading>

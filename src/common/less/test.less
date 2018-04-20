@@ -1,0 +1,17 @@
+.testWraper {
+  margin: 10px;
+  border: 1px solid #ddd;
+  height: 60px;
+  .left,
+  .right {
+    height: 60px;
+    float: left;
+  }
+  .left {
+    width: 100px;
+    border-right: 1px solid #ddd;
+  }
+  .right {
+    width: calc(~"100% - 100px");
+  }
+}

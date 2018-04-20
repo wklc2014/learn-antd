@@ -42,7 +42,14 @@ export default [
     exact: true,
     show: true,
     icon: 'user',
-    label: 'ajax',
+    label: 'Ajax',
+  },
+  {
+    path: '/test',
+    exact: true,
+    show: true,
+    icon: 'user',
+    label: 'Test',
   },
 ]
 
