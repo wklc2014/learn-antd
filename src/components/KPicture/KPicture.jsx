@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import lodash from 'lodash';
 
 import KPictureArea from './KPictureArea.jsx';
 import KPictureBtns from './KPictureBtns.jsx';
@@ -94,12 +95,13 @@ export default class KPicture extends Component {
 
   // 鼠标缩放
   onMouseWheel = (event) => {
-    const { picZoom } = this.state;
-    const zoomRate = 2;
+    event.preventDefault();
+    const picZoom = this.getPicZoom();
+    const zoomRate = 1;
     if (event.deltaY > 0) {
-      this.operating('zoom', picZoom + zoomRate);
-    } else {
       this.operating('zoom', picZoom - zoomRate);
+    } else {
+      this.operating('zoom', picZoom + zoomRate);
     }
   }
 
@@ -125,7 +127,7 @@ export default class KPicture extends Component {
     const { picOriginWidth } = this.state;
     switch (type) {
       case 'zoom':
-        this.setState({ picWidth: picOriginWidth * num * 0.01 });
+        this.setState({ picWidth: lodash.round(picOriginWidth * num * 0.01) });
         break;
       case 'reset':
         this.setState({
@@ -179,10 +181,16 @@ export default class KPicture extends Component {
     })
   }
 
+  // 获取缩放级别
+  getPicZoom = () => {
+    const { picWidth, picOriginWidth } = this.state;
+    return picWidth / picOriginWidth * 100;
+  }
+
   render() {
     const { picSrc, wraperStyle, areaHeight } = this.props;
-    const { picOriginWidth, picNumber, picWidth, picRotate, picErrors, picPositionX, picPositionY } = this.state;
-    const zoom = picWidth / picOriginWidth * 100;
+    const { picNumber, picWidth, picRotate, picErrors, picPositionX, picPositionY } = this.state;
+    const zoom = this.getPicZoom();
     const picBtns = this.getPictureBtns();
 
     return (
