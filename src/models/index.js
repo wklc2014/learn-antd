@@ -1,3 +1,6 @@
+/**
+ * 注入 models
+ */
 import mirror from 'mirrorx';
 
 import ajax from './_ajax.js';

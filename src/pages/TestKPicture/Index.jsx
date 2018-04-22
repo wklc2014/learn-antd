@@ -9,7 +9,7 @@ import pic_3 from './common/3.jpg';
 import pic_4 from './common/4.jpg';
 import pic_5 from './common/5.jpg';
 
-const paths = [pic_1, pic_2, pic_3, pic_4, pic_5, '2'];
+const paths = [pic_1, pic_2, pic_3, pic_4, 'error image path', pic_5];
 
 export default class TestKPicture extends Component {
 
@@ -18,18 +18,11 @@ export default class TestKPicture extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0,
+      width: 300,
+      rotate: 45,
+      x: 20,
+      y: 10,
       visible: false,
-    }
-
-  }
-
-  onSwitch = (type) => {
-    const { index } = this.state;
-    if (type === 'prev' && index > 0) {
-      this.setState({ index: index - 1 });
-    } else if (type === 'next' && index < paths.length - 1) {
-      this.setState({ index: index + 1 });
     }
   }
 
@@ -41,16 +34,33 @@ export default class TestKPicture extends Component {
     this.setState({ visible: false });
   }
 
-  render() {
-    const { index, visible } = this.state;
+  onChange = (stateKey) => {
+    this.setState({
+      [stateKey]: this.state[stateKey] + 1
+    });
+  }
 
-    const divStyle = {
-      padding: 16
-    }
+  render() {
+    const { visible } = this.state;
+    const divStyle = { padding: 16 };
 
     return (
       <div style={divStyle}>
-        <Button onClick={this.onBtnClick}>切换</Button>
+        <p>
+          <Button style={{ marginRight: 8 }} onClick={this.onBtnClick}>切换</Button>
+          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('width')}>增加宽度</Button>
+          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('rotate')}>增加旋转角度</Button>
+          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
+          <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
+        </p>
+        <KPicture
+          picSrc={paths}
+          picWidth={this.state.width}
+          picRotate={this.state.rotate}
+          picPositionX={this.state.x}
+          picPositionY={this.state.y}
+          areaHeight="60vh"
+        />
         <Modal
           visible={visible}
           title="审核凭证"
@@ -59,11 +69,8 @@ export default class TestKPicture extends Component {
           onCancel={this.onCancel}
         >
           <KPicture
-            picSrc={paths[index]}
-            picRotate={20}
-            picWidth={300}
+            picSrc={paths}
             areaHeight="60vh"
-            onSwitch={this.onSwitch}
           />
         </Modal>
       </div>

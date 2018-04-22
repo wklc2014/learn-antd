@@ -16,12 +16,12 @@ export default class Test extends Component {
       }
     }
 
-    // console.log('obj>>>', obj);
+    console.log('obj>>>', obj);
 
-    const a = obj.class && obj.class.name || 'none';
+    const a = (obj.class && obj.class.name) || 'none';
     const b = obj.age && obj.age.name;
-    // console.log('a>>>', a);
-    // console.log('b>>>', b);
+    console.log('a>>>', a);
+    console.log('b>>>', b);
 
     const t = typeof obj.toString
     console.log('t>>>', t);

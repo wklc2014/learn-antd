@@ -5,6 +5,7 @@ import KPictureArea from './KPictureArea.jsx';
 import KPictureBtns from './KPictureBtns.jsx';
 
 import utils from '../../common/utils/utils.js';
+import __kPictureBtns from './common/__kPictureBtns.js';
 
 import './KPicture.less';
 
@@ -13,99 +14,85 @@ export default class KPicture extends Component {
   static defaultProps = {
     wraperStyle: {},
     areaHeight: 400,
+    picSrc: [],
+    picNumber: 0,
     picWidth: 0,
     picRotate: 0,
     picPositionX: 0,
     picPositionY: 0,
-    picZoom: 100,
   }
 
   constructor(props) {
     super(props);
+    const {
+      picNumber = 0,
+      picWidth = 0,
+      picRotate = 0,
+      picPositionX = 0,
+      picPositionY = 0,
+    } = props;
     this.state = {
-      picWidth: 0,
-      picRotate: 0,
-      positionX: 0,
-      positionY: 0,
-      picZoom: 1,
-      picErrors: '',
+      picOriginWidth: 0,  // 图片原始宽度
+      picNumber,          // 当前图片序号
+      picWidth,           // 图片显示宽度
+      picRotate,          // 图片显示旋转角度
+      picPositionX,          // 图片显示 x 坐标
+      picPositionY,          // 图片显示 y 坐标
+      picErrors: '',      // 图片加载错误信息
     }
   }
 
   componentDidMount() {
-    const { picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom } = this.props;
-    this.planRender({ picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom });
+    const { picSrc } = this.props;
+    const { picNumber } = this.state;
+    const params = this.getRenderState({}, this.props);
+    this.planRender(picSrc[picNumber], params);
   }
 
   componentWillReceiveProps(nextProps) {
-    const canRender = this.getRenderParams(this.props, nextProps);
-    if (!!canRender) {
-      this.planRender(canRender);
+    const { picSrc: prevSrc, picNumber: prevNumber = 0 } = this.props;
+    const { picSrc: nextSrc, picNumber: nextNumber = 0 } = nextProps;
+    const prevPic = prevSrc[prevNumber];
+    const nextPic = nextSrc[nextNumber];
+    const params = this.getRenderState(this.props, nextProps);
+    if (nextPic && prevPic !== nextPic) {
+      // 图片地址改变后，重新 planRender
+      this.planRender(nextPic, params);
+    } else {
+      // 仅仅是其他 props 改变
+      this.setState(params);
     }
   }
 
-  getRenderParams = (prevProps = {}, nextProps = {}) => {
-    const {
-      picSrc: prevSrc,
-      picWidth: prevWidth,
-      picRotate: prevRotate,
-      picPositionX: prevPositionX,
-      picPositionY: prevPositionY,
-      picZoom: prevZoom,
-    } = prevProps;
-    const {
-      picSrc: nextSrc,
-      picWidth: nextWidth,
-      picRotate: nextRotate,
-      picPositionX: nextPositionX,
-      picPositionY: nextPositionY,
-      picZoom: nextZoom,
-    } = nextProps;
-    if (nextSrc &&
-      (prevSrc !== nextSrc ||
-      prevWidth !== nextWidth ||
-      prevRotate !== nextRotate ||
-      prevPositionX !== nextPositionX ||
-      prevPositionY !== nextPositionY ||
-      prevZoom !== nextZoom)
-      ) {
-      return {
-        picSrc: nextSrc,
-        picWidth: nextWidth,
-        picRotate: nextRotate,
-        picPositionX: nextPositionX,
-        picPositionY: nextPositionY,
-        picZoom: nextZoom,
+  // props 改变时，引起 state 改变
+  getRenderState = (prev = {}, next = {}) => {
+    const params = {};
+    ['Number', 'Width', 'Rotate', 'PositionX', 'PositionY'].forEach(key => {
+      if (next[`pic${key}`] && prev[`pic${key}`] !== next[`pic${key}`]) {
+        params[`pic${key}`] = next[`pic${key}`];
       }
-    }
-    return false;
+    })
+    return params;
   }
 
-  planRender = (params) => {
-    if (params) {
-      const { picSrc, picWidth, picRotate, picPositionX, picPositionY, picZoom } = params;
-      utils.asyncLoadImage(picSrc).then((image) => {
-        this.setState({
-          picWidth: image.width,
-          picRotate: picRotate,
-          picPositionX: picPositionX,
-          picPositionY: picPositionY,
-          picZoom: (picWidth / image.width * 100) ||picZoom,
-          picErrors: '',
-        });
-      }).catch((e) => {
-        this.setState({
-          picWidth: 0,
-          picRotate: 0,
-          positionX: 0,
-          positionY: 0,
-          picZoom: 100,
-          picErrors: e.toString(),
-        });
+  // 渲染新的图片
+  planRender = (src, params = {}) => {
+    utils.asyncLoadImage(src).then((image) => {
+      this.setState({
+        picOriginWidth: image.width,
+        ...params,
+        picErrors: '',
       });
-    }
+    }).catch((e) => {
+      let picErrors = '图片加载错误！';
+      try {
+        picErrors = e.toString();
+      } catch (e) {}
+      this.setState({ picErrors, ...params });
+    });
   }
 
+  // 鼠标缩放
   onMouseWheel = (event) => {
     const { picZoom } = this.state;
     const zoomRate = 2;
@@ -116,21 +103,41 @@ export default class KPicture extends Component {
     }
   }
 
+  // 上一张，下一张
+  onSwitch = (type) => {
+    const { picSrc } = this.props;
+    const { picNumber } = this.state;
+    if (type === 'prev' && picNumber > 0) {
+      this.planRender(picSrc[picNumber - 1], { picNumber: picNumber - 1 });
+    } else if (type === 'next' && picNumber < picSrc.length - 1) {
+      this.planRender(picSrc[picNumber + 1], { picNumber: picNumber + 1 });
+    }
+  }
+
+  // 双击图片
   onDoubleClick = () => {
     this.operating('reset');
   }
 
+  // 执行各种变化
+  // zoom, rotate, prev, next, reset
   operating = (type, num) => {
+    const { picOriginWidth } = this.state;
     switch (type) {
       case 'zoom':
-        this.setState({ picZoom: num });
+        this.setState({ picWidth: picOriginWidth * num * 0.01 });
         break;
       case 'reset':
-        this.setState({ picPositionX: 0, picPositionY: 0, picRotate: 0, picZoom: 100 });
+        this.setState({
+          picWidth: picOriginWidth,
+          picRotate: 0,
+          picPositionX: 0,
+          picPositionY: 0,
+        });
         break;
       case 'prev':
       case 'next':
-        this.props.onSwitch(type);
+        this.onSwitch(type);
         break;
       case 'rotate':
         this.setState({ picRotate: num });
@@ -139,6 +146,7 @@ export default class KPicture extends Component {
     }
   }
 
+  // 拖动
   onDrag = (e, data) => {
     this.setState({
       picPositionX: data.x,
@@ -146,25 +154,42 @@ export default class KPicture extends Component {
     });
   }
 
+  // 获取操作按钮
   getPictureBtns = () => {
-    const { onSwitch } = this.props;
-    if (!!onSwitch) {
-      return ['zoom', 'rotate', 'reset', 'prev', 'next']
-    }
-    return ['zoom', 'rotate', 'reset'];
+    const { picErrors, picNumber } = this.state;
+    const { picSrc, picBtns = __kPictureBtns } = this.props;
+    const length = picSrc.length;
+    return picBtns.map((btn) => {
+      let disabled = false;
+      switch (btn.value) {
+        case 'zoom':
+        case 'rotate':
+        case 'reset':
+          disabled = !!picErrors;
+          break;
+        case 'prev':
+          disabled = picNumber <= 0;
+          break;
+        case 'next':
+          disabled = picNumber >= length - 1;
+          break;
+        default:
+      }
+      return { ...btn, disabled };
+    })
   }
 
   render() {
     const { picSrc, wraperStyle, areaHeight } = this.props;
-    const { picWidth, picRotate, picZoom, picErrors, picPositionX, picPositionY } = this.state;
+    const { picOriginWidth, picNumber, picWidth, picRotate, picErrors, picPositionX, picPositionY } = this.state;
+    const zoom = picWidth / picOriginWidth * 100;
     const picBtns = this.getPictureBtns();
-    const width = picWidth * picZoom * 0.01;
 
     return (
       <section className="k-picture-wraper" style={wraperStyle}>
         <KPictureArea
-          src={picSrc}
-          width={width}
+          src={picSrc[picNumber]}
+          width={picWidth}
           rotate={picRotate}
           errors={picErrors}
           height={areaHeight}
@@ -175,9 +200,8 @@ export default class KPicture extends Component {
           onWheel={this.onMouseWheel}
         />
         <KPictureBtns
-          disabled={!!picErrors}
           rotate={picRotate}
-          zoom={picZoom}
+          zoom={zoom}
           btns={picBtns}
           onChange={this.operating}
         />
@@ -193,11 +217,14 @@ KPicture.propTypes = {
     propTypes.string,
     propTypes.number,
   ]),
-  picSrc: propTypes.string.isRequired,
-  picRotate: propTypes.number,
+  picBtns: propTypes.shape({
+    value: propTypes.string.isRequired,
+    label: propTypes.string.isRequired,
+  }),
+  picSrc: propTypes.array,
   picWidth: propTypes.number,
+  picRotate: propTypes.number,
   picPositionX: propTypes.number,
   picPositionY: propTypes.number,
-  picZoom: propTypes.number,
   onSwitch: propTypes.func,
 }

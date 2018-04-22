@@ -1,10 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import is from 'is_js';
 import { Button, Popover } from 'antd';
-import Display from '../Display/Display.jsx';
 
-import __kPictureBtns from './common/__kPictureBtns.js';
+import Display from '../Display/Display.jsx';
 import getPopoverContent from './common/getPopoverContent.js';
 import getPopoverTitle from './common/getPopoverTitle.js';
 
@@ -15,16 +13,14 @@ export default function KPictureBtns (props) {
   const {
     btns = [],
     rotate = 0,
-    zoom = 1,
-    disabled = false,
+    zoom = 100,
     onChange,
   } = props;
 
   const PopoverStyle = { width: 400 };
   const values = { rotate, zoom };
 
-  const btnEle = __kPictureBtns.filter(v => is.inArray(v.value, btns)).map((btn, i) => {
-    const btnDisabled = btn.value !== 'prev' && btn.value !== 'next' && disabled;
+  const btnEle = btns.map((btn, i) => {
     const content = getPopoverContent(btn.value, values, onChange);
     const title = getPopoverTitle(btn.value);
     const condition = btn.value === 'rotate' || btn.value === 'zoom';
@@ -36,11 +32,11 @@ export default function KPictureBtns (props) {
           title={title}
           trigger="click"
         >
-          <Button disabled={btnDisabled}>{btn.label}</Button>
+          <Button disabled={btn.disabled}>{btn.label}</Button>
         </Popover>
         <Button
           onClick={() => onChange(btn.value)}
-          disabled={btnDisabled}
+          disabled={btn.disabled}
         >
           {btn.label}
         </Button>
@@ -59,6 +55,5 @@ KPictureBtns.propTypes = {
   btns: propTypes.array,
   rotate: propTypes.number,
   zoom: propTypes.number,
-  disabled: propTypes.bool,
   onChange: propTypes.func.isRequired,
 }

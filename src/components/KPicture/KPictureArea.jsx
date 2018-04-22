@@ -27,7 +27,7 @@ export default function KPictureArea(props) {
 
   return (
     <div className="k-picture-box" style={{ height: height }}>
-      <Display condition={errors}>
+      <Display condition={!!errors}>
         <Alert message={errors} showIcon type="error" />
         <Draggable
           position={{ x: positionX, y: positionY }}
