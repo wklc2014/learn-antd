@@ -494,7 +494,12 @@ export const UserSurvery = [
       id: 'myName',
       type: 'text',
       extMap: {
-        render: (value) => lodash.get(value, 'base', 'null'),
+        options: [
+          { value: '111', label: '111成都' },
+          { value: '222', label: '222成都' },
+          { value: '333', label: '333成都' },
+          { value: '444', label: '444成都' },
+        ]
       }
     },
     formItemParams: {

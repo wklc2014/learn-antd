@@ -5,5 +5,6 @@
 export default {
   values: {
     userName: '成都',
+    myName: '222',
   }
 }
