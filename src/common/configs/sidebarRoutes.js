@@ -3,54 +3,18 @@
  */
 export default [
   {
-    path: '/form',
-    exact: true,
-    show: true,
+    isSidebar: true,
     icon: 'user',
-    label: 'KForm',
-  },
-  {
-    path: '/formLayout',
-    exact: true,
-    show: true,
-    icon: 'upload',
-    label: 'KForm Layout',
-  },
-  {
-    path: '/formItem',
-    exact: true,
-    show: true,
-    icon: 'user',
-    label: 'KFormItem',
-  },
-  {
-    path: '/summaryTable',
-    exact: true,
-    show: true,
-    icon: 'user',
-    label: 'KSummaryTable',
-  },
-  {
-    path: '/picture',
-    exact: true,
-    show: true,
-    icon: 'user',
-    label: 'KPicture',
-  },
-  {
-    path: '/ajax',
-    exact: true,
-    show: true,
-    icon: 'user',
-    label: 'Ajax',
-  },
-  {
-    path: '/test',
-    exact: true,
-    show: true,
-    icon: 'user',
-    label: 'Test',
-  },
+    label: '组件库',
+    subMenus: [
+      { path: '/form', label: 'KForm' },
+      { path: '/formLayout', label: 'KForm Layout' },
+      { path: '/formItem', label: 'KFormItem' },
+      { path: '/summaryTable', label: 'KSummaryTable' },
+      { path: '/picture', label: 'KPicture' },
+      { path: '/ajax', label: 'Ajax' },
+    ]
+  }
 ]
 
 

@@ -5,21 +5,26 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import { NavLink, withRouter } from 'mirrorx';
 import Logo from '../../components/Logo/Logo.jsx';
+import Display from '../../components/Display/Display.jsx';
 import sidebarRoutes from '../../common/configs/sidebarRoutes.js';
 
+import MyMenuItem from './MyMenuItem.jsx';
+
+const { SubMenu } = Menu;
+
 const Sidebar = ({ collapsed, location }) => {
+
   const { pathname } = location;
-  const menuItemEle = sidebarRoutes.filter((route) => route.show).map((route, i) => {
-    const iconEle = route.icon ? <Icon type={ route.icon } /> : null;
-    const spanEle = route.className ? <span className={`${route.className}`} /> : null;
+  console.log("pathname", pathname);
+
+  const menuItemEle = sidebarRoutes.filter((route) => route.isSidebar).map((route, i) => {
+    console.log("route", route);
     return (
-      <Menu.Item key={ route.path }>
-          <NavLink to={ route.path } replace={ route.path === pathname }>
-            { iconEle }
-            { spanEle }
-            <span>{ route.label }</span>
-          </NavLink>
-      </Menu.Item>
+      <Display condition={route.subMenus} key={i}>
+        <div>
+        </div>
+        <MyMenuItem route={route} pathname={pathname} />
+      </Display>
     );
   });
 
