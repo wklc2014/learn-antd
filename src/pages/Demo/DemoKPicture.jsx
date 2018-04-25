@@ -11,7 +11,7 @@ import pic_5 from './common/5.jpg';
 
 const paths = [pic_1, pic_2, pic_3, pic_4, 'error image path', pic_5];
 
-export default class TestKPicture extends Component {
+export default class DemoKPicture extends Component {
 
   static defaultProps = {}
 

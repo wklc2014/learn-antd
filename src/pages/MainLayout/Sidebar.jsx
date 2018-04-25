@@ -1,45 +1,65 @@
 /**
  * 侧边导航内容
  */
-import React from 'react';
-import { Menu, Icon } from 'antd';
-import { NavLink, withRouter } from 'mirrorx';
+import React, { Component } from 'react';
+import { Menu } from 'antd';
+import { withRouter } from 'mirrorx';
+
 import Logo from '../../components/Logo/Logo.jsx';
-import Display from '../../components/Display/Display.jsx';
+import MyNavLink from './MyNavLink.jsx';
+
 import sidebarRoutes from '../../common/configs/sidebarRoutes.js';
 
-import MyMenuItem from './MyMenuItem.jsx';
+const { SubMenu, Item } = Menu;
 
-const { SubMenu } = Menu;
+class Sidebar extends Component {
+  static defaultProps = {
 
-const Sidebar = ({ collapsed, location }) => {
+  }
 
-  const { pathname } = location;
-  console.log("pathname", pathname);
+  constructor(props) {
+    super(props);
+    this.state = {
+      openKeys: [],
+    }
+  }
 
-  const menuItemEle = sidebarRoutes.filter((route) => route.isSidebar).map((route, i) => {
-    console.log("route", route);
+  onOpenChange = (openKeys) => {
+    this.setState({ openKeys });
+  }
+
+  render() {
+    const { openKeys } = this.state;
+    const { collapsed, location } = this.props;
+    const { pathname } = location;
+
+    const menuItemEle = sidebarRoutes.filter((route) => route.isSidebar).map((route, i) => {
+      if (route.subMenus) {
+        return (
+          <SubMenu title={route.title} key={i}>
+            {route.subMenus.map((r, j) => <Item key={r.path}><MyNavLink route={r} /></Item>)}
+          </SubMenu>
+        )
+      }
+      return <Item key={route.path}><MyNavLink route={route} /></Item>;
+    });
+
     return (
-      <Display condition={route.subMenus} key={i}>
-        <div>
-        </div>
-        <MyMenuItem route={route} pathname={pathname} />
-      </Display>
+      <section>
+        <Logo collapsed={collapsed} />
+        <Menu
+          theme="dark"
+          mode="inline"
+          inlineCollapsed
+          selectedKeys={[pathname]}
+          openKeys={openKeys}
+          onOpenChange={this.onOpenChange}
+        >
+          {menuItemEle}
+        </Menu>
+      </section>
     );
-  });
-
-  return (
-    <section>
-      <Logo collapsed={collapsed} />
-      <Menu
-        theme="dark"
-        mode="inline"
-        selectedKeys={[ pathname ]}
-      >
-        { menuItemEle }
-      </Menu>
-    </section>
-  );
-};
+  }
+}
 
 export default withRouter(Sidebar);

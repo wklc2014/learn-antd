@@ -1,13 +1,15 @@
 /**
  * 用户调查
  */
+import { actions, connect } from 'mirrorx';
 import React, { Component } from 'react';
 import { Button, Form } from 'antd';
 
-import * as CONFIGS from './common/';
+import * as CONFIGS from './common/kFormConfig.js';
 import KForm from '../../components/KForm/KForm.jsx';
+import { getValueById } from '../../components/KForm/common/getValue.js';
 
-class Content extends Component {
+class DemoKForm extends Component {
 
   static defaultProps = {
     values: {},
@@ -31,10 +33,15 @@ class Content extends Component {
     });
   }
 
+  onChange = ({ id, value, type }) => {
+    console.log('{ id, value }>>>', JSON.stringify({ id, value, type }));
+    actions._form.updateValues({ [id]: value })
+  }
+
   onReset = () => {
     const ids = this.getConfigIds();
     this.props.form.resetFields(ids);
-    this.props.onReset();
+    actions._form.resetValues();
   }
 
   render() {
@@ -45,6 +52,7 @@ class Content extends Component {
     }
 
     const { formLayout = {} } = this.props.values;
+    const layout = getValueById(formLayout);
 
     const btnConfig = {
       config: {
@@ -62,7 +70,7 @@ class Content extends Component {
       },
       formItemLayout: {}
     };
-    if (!formLayout.base || formLayout.base === 'horizontal') {
+    if (!layout || layout === 'horizontal') {
       btnConfig.formItemLayout.wrapperCol = { xs: 24, sm: { span: 16, offset: 6 } };
     }
 
@@ -76,7 +84,7 @@ class Content extends Component {
             configs={CONFIGS.UserSurvery}
             form={this.props.form}
             columns={2}
-            onChange={this.props.onChange}
+            onChange={this.onChange}
             values={this.props.values}
             spacing={16}
           />
@@ -95,9 +103,8 @@ class Content extends Component {
         <div style={commonStyle}>
           <KForm
             configs={inlineGroupConfigs}
-            form={this.props.form}
-            onChange={this.props.onChange}
-            layout={formLayout.base}
+            onChange={this.onChange}
+            layout={layout}
             values={this.props.values}
           />
         </div>
@@ -106,4 +113,12 @@ class Content extends Component {
   }
 }
 
-export default Form.create()(Content);
+const Wraper = Form.create()(DemoKForm);
+
+function mapStateToProps(state, ownProps) {
+  return {
+    values: state._form.values,
+  }
+}
+
+export default connect(mapStateToProps)(Wraper);

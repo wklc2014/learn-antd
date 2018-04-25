@@ -19,11 +19,11 @@ export default function getValue ({ value, id, changeValue, extMap }) {
     };
   }
   return {
-    base: value,
+    main: value,
     [id]: changeValue,
   }
 }
 
-export function setValue(value, id = 'base') {
-  return is.object(value) ? value[id] : { base: value }[id];
+export function getValueById(value, id = 'main') {
+  return is.object(value) ? value[id] : { main: value }[id];
 }

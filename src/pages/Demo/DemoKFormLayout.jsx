@@ -2,9 +2,9 @@ import React from 'react';
 import { Form } from 'antd';
 
 import KForm from '../../components/KForm/KForm.jsx';
-import configs from './common/';
+import configs from './common/kFormLayoutConfig.js';
 
-function TestKFormLayout({ form }) {
+function DemoKFormLayout({ form }) {
   return (
     <section style={{ padding: 16 }}>
       <div>
@@ -18,4 +18,4 @@ function TestKFormLayout({ form }) {
   )
 }
 
-export default Form.create()(TestKFormLayout);
+export default Form.create()(DemoKFormLayout);

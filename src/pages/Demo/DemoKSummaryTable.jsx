@@ -3,7 +3,7 @@ import { actions, connect } from 'mirrorx';
 import { Form } from 'antd';
 
 import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
-import configs from './common/index.js';
+import configs from './common/kSummaryTableConfig.js';
 
 class TestKSummaryTable extends Component {
 

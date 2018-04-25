@@ -3,25 +3,33 @@
  */
 import React from 'react';
 import is from 'is_js';
-import { Button, Cascader, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
+import { Button, Cascader, TreeSelect, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
-const { TextArea } = Input;
+const { TextArea, Search } = Input;
 const { Option } = Select;
 const { RangePicker, MonthPicker } = DatePicker;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
+export default function configTypes({ type, params, onChange, extMap, value }) {
+  const { subType } = extMap;
+  switch (type) {
+
+  }
+}
+
 export default {
-  input: ({ params, onChange }) => {
+  input: ({ params, onChange, extMap }) => {
     const newProps = {...params};
+    const { subType } = extMap;
     onChange && Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
+    if (subType === 'textarea') {
+      return <TextArea rows={5} {...newProps} />;
+    } else if (subType === 'search') {
+      return <Search {...newProps} />
+    }
     return <Input {...newProps} />
-  },
-  textarea: ({ params, onChange }) => {
-    const newProps = { rows: 4, ...params };
-    onChange && Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
-    return <TextArea {...newProps} />;
   },
   rate: ({ params, onChange }) => {
     const newProps = {...params};
@@ -49,7 +57,7 @@ export default {
     return <CheckboxGroup {...newProps} />;
   },
   cascader: ({ params, onChange, extMap, value }) => {
-    const newProps = { ...params, options: extMap.data };
+    const newProps = { options: extMap.data, ...params };
     onChange && Object.assign(newProps, { onChange });
     if (is.function(extMap.render)) {
       const newStyle = {...newProps.style, display: 'inline'};
@@ -71,25 +79,18 @@ export default {
     ));
     return <Select {...newProps}>{ChildEle}</Select>;
   },
-  date: ({ params, onChange }) => {
+  date: ({ params, onChange, extMap }) => {
+    const { subType } = extMap;
     const newProps = {...params};
     onChange && Object.assign(newProps, { onChange: (_, e) => onChange(e) });
+    if (subType === 'range') {
+      return <RangePicker {...newProps} />;
+    } else if (subType === 'month') {
+      return <MonthPicker {...newProps} />;
+    } else if (subType === 'time') {
+      return <TimePicker {...newProps} />;
+    }
     return <DatePicker {...newProps} />;
-  },
-  dateRange: ({ params, onChange }) => {
-    const newProps = {...params};
-    onChange && Object.assign(newProps, { onChange: (_, e) => onChange(e) });
-    return <RangePicker {...newProps} />;
-  },
-  dateMonth: ({ params, onChange }) => {
-    const newProps = {...params};
-    onChange && Object.assign(newProps, { onChange: (_, e) => onChange(e) });
-    return <MonthPicker {...newProps} />;
-  },
-  time: ({ params, onChange }) => {
-    const newProps = {...params};
-    onChange && Object.assign(newProps, { onChange: (_, e) => onChange(e) });
-    return <TimePicker {...newProps} />;
   },
   radioButton: ({ params, onChange, extMap }) => {
     const newProps = {...params};
@@ -112,9 +113,11 @@ export default {
     const { data } = extMap;
     if (is.function(extMap.render)) {
       value = extMap.render(value);
-    } else if (is.array(data) && data.length) {
-      const targetValue = data.find(v => v.value === value) || {};
-      value = targetValue.label;
+    } else if (is.array(data)) {
+      const targetValue = data.find(v => v.value === value);
+      if (targetValue) {
+        value = targetValue.label;
+      }
     }
     return <span {...newProps}>{value}</span>;
   },
@@ -122,5 +125,14 @@ export default {
     const newProps = {...params};
     onChange && Object.assign(newProps, { onClick: (e) => onChange(extMap.value) });
     return <Button {...newProps}>{extMap.label}</Button>;
+  },
+  treeSelect: ({ params, onChange, extMap }) => {
+    const newProps = {
+      treeData: extMap.data,
+      dropdownStyle: { maxHeight: 400, overflow: 'auto' },
+      ...params
+    };
+    onChange && Object.assign(newProps, { onChange: (e) => onChange(e) });
+    return <TreeSelect {...newProps} />;
   },
 }

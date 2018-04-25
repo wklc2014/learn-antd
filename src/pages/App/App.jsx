@@ -3,13 +3,12 @@ import { connect, Router, Route, Switch } from 'mirrorx';
 
 import MainLayout from '../MainLayout/Index.jsx';
 import Loading from '../Loading/Index.jsx';
-import TestKForm from '../TestKForm/Index.jsx';
-import TestKFormLayout from '../TestKFormLayout/Index.jsx';
-import TestKFormItem from '../TestKFormItem/Index.jsx';
-import TestKSummaryTable from '../TestKSummaryTable/Index.jsx';
-import TestKPicture from '../TestKPicture/Index.jsx';
-import TestAjax from '../TestAjax/Index.jsx';
-import Test from '../Test/Index.jsx';
+
+import DemoKForm from '../Demo/DemoKForm.jsx';
+import DemoKFormLayout from '../Demo/DemoKFormLayout.jsx';
+import DemoKFormItem from '../Demo/DemoKFormItem.jsx';
+import DemoKSummaryTable from '../Demo/DemoKSummaryTable.jsx';
+import DemoKPicture from '../Demo/DemoKPicture.jsx';
 
 function App (props) {
   return (
@@ -17,13 +16,11 @@ function App (props) {
       <Loading>
         <MainLayout>
           <Switch>
-            <Route path="/form" component={ TestKForm } />
-            <Route path="/summaryTable" component={ TestKSummaryTable } />
-            <Route path="/formLayout" component={ TestKFormLayout } />
-            <Route path="/formItem" component={ TestKFormItem } />
-            <Route path="/picture" component={ TestKPicture } />
-            <Route path="/ajax" component={ TestAjax } />
-            <Route path="/test" component={ Test } />
+            <Route path="/form" component={ DemoKForm } />
+            <Route path="/summaryTable" component={ DemoKSummaryTable } />
+            <Route path="/formLayout" component={ DemoKFormLayout } />
+            <Route path="/formItem" component={ DemoKFormItem } />
+            <Route path="/picture" component={ DemoKPicture } />
           </Switch>
         </MainLayout>
       </Loading>

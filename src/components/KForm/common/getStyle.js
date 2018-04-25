@@ -25,6 +25,7 @@ export default function getStyle({ type, extMap, style }) {
     case 'number':
     case 'select':
     case 'editor':
+    case 'treeSelect':
       Object.assign(newStyle, { width: '100%' });
       break;
     default:

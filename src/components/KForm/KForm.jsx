@@ -43,7 +43,7 @@ export default class KForm extends Component {
   }
 
   render() {
-    const { columns, configs, form, isSort, layout, onChange, space, values } = this.props;
+    const { columns, configs, isSort, layout, space, values, form, onChange } = this.props;
     const newConfigs = getSortedConfigs(isSort, configs);
 
     const formEle = newConfigs.map((val, i) => {
@@ -90,10 +90,11 @@ export default class KForm extends Component {
 KForm.propTypes = {
   columns: propTypes.number,
   configs: propTypes.array,
-  form: propTypes.object.isRequired,
   isSort: propTypes.bool,
   layout: propTypes.string,
-  // onChange: propTypes.func,
   space: propTypes.number,
   values: propTypes.object,
+
+  // onChange: propTypes.func,
+  form: propTypes.object,
 };

@@ -1,17 +1,24 @@
 import React from 'react';
 import moment from 'moment';
-import lodash from 'lodash';
 import { Button } from 'antd';
 
 // 用户调查字段配置
 export const UserSurvery = [
   {
+    // 排序字段
     order: 1,
+
+    /**
+     * 主表单元素配置
+     * @type {Object}
+     */
     config: {
       id: 'userName',
       type: 'input',
+      // 表单元素属性
       params: {
       },
+      // 输入验证相关
       options: {
         rules: [
           { required: true, message: '用户姓名必填' },
@@ -19,21 +26,26 @@ export const UserSurvery = [
           { min: 2, message: '用户姓名至少2位' },
         ],
       },
+      // 扩展字段
       extMap: {
         toLowerCase: true,
+        subType: 'textarea', // search
       },
     },
+
+    /**
+     * FormItem 属性
+     * @type {Object}
+     */
     formItemParams: {
-      extra: (value) => {
-        let num = 0;
-        if (value) {
-          const baseValue = lodash.get(value, 'base', '');
-          num = Math.max(0, baseValue.length);
-        }
-        return `还可以输入${20 - num}个字`;
-      },
       label: 'input',
+      extra: '帮助信息',
     },
+
+    /**
+     * 子表单元素配置
+     * @type {Array}
+     */
     subConfig: [
       {
         id: 'userName_1',
@@ -414,11 +426,11 @@ export const UserSurvery = [
     order: 17,
     config: {
       id: 'accidentDescription',
-      type: 'textarea',
+      type: 'input',
       extMap: {
         colSpan: 2,
         childSpan: 18,
-
+        subType: 'textarea',
       },
       options: {
         rules: [{
@@ -464,10 +476,11 @@ export const UserSurvery = [
     order: 18,
     config: {
       id: 'accidentCreate',
-      type: 'textarea',
+      type: 'input',
       extMap: {
         colSpan: 2,
         childSpan: 18,
+        subType: 'textarea',
       }
     },
     formItemParams: {
@@ -494,7 +507,7 @@ export const UserSurvery = [
       id: 'myName',
       type: 'text',
       extMap: {
-        options: [
+        data: [
           { value: '111', label: '111成都' },
           { value: '222', label: '222成都' },
           { value: '333', label: '333成都' },
@@ -553,6 +566,32 @@ export const UserSurvery = [
       label: 'switch',
     },
   },
+  {
+    config: {
+      id: 'treeSelect',
+      type: 'treeSelect',
+      params: {
+      },
+      extMap: {
+        city: 'quanGuo'
+      }
+    },
+    formItemParams: {
+      label: 'treeSelect',
+    },
+  },
+  {
+    config: {
+      id: 'searchInput-1',
+      type: 'searchInput',
+      extMap: {
+        url: 'fetch',
+      }
+    },
+    formItemParams: {
+      label: 'searchInput',
+    },
+  }
 ];
 
 export const UserRegister = [

@@ -1,7 +1,7 @@
 import { actions } from 'mirrorx';
 import * as ajaxServices from '../services/_ajax.js';
 import utils from '../common/utils/utils.js';
-import { setValue } from '../components/KForm/common/getValue.js';
+import { getValueById } from '../components/KForm/common/getValue.js';
 import state from './state/_ajax.js';
 
 export default {
@@ -23,7 +23,7 @@ export default {
       const { values } = getState()._ajax;
       const params = {};
       Object.keys(values).forEach(v => {
-        const val = setValue(values[v]);
+        const val = getValueById(values[v]);
         if (val) {
           params[v] = val;
         }
