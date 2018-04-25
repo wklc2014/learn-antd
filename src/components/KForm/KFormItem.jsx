@@ -7,7 +7,7 @@ import propTypes from 'prop-types';
 import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
-import configTypes from './Items/index.js';
+import renderFormItemByType from './Items/renderFormItemByType.js';
 
 import getStyle from './common/getStyle.js';
 import getValue, { getValueById } from './common/getValue.js';
@@ -40,30 +40,27 @@ export default class KFormItem extends Component {
   // 生成表单元素内容
   getFieldEle = ({ key, type, params, extMap, onChange, value }) => {
     const { form = {}, config = {} } = this.props;
-    const configType = configTypes[type];
-    if (configType) {
-      if (key || type === 'text') {
-        return (
-          <span key={key}>
-            {configType({ params: { ...params, value }, onChange, extMap, value })}
-          </span>
-        );
-      }
-      const { getFieldDecorator } = form;
+    if (key || type === 'text') {
+      return (
+        <span key={key}>
+          {renderFormItemByType({ type, params: { ...params, value }, onChange, extMap, value })}
+        </span>
+      );
+    }
+    const { getFieldDecorator } = form;
 
-      // 如果全局没有对应 form 注册函数
-      // 或者表单元素配置中指明不使用 form 注册函数
-      if (!getFieldDecorator || !extMap.form) {
-        return configType({ params: { ...params, value }, extMap, onChange, value });
-      }
+    // 如果全局没有对应 form 注册函数
+    // 或者表单元素配置中指明不使用 form 注册函数
+    if (!getFieldDecorator || !extMap.form) {
+      return renderFormItemByType({ type, params: { ...params, value }, extMap, onChange, value });
+    }
 
-      // 全局设置了 form 的注册函数
-      if (getFieldDecorator) {
-        return getFieldDecorator(config.id, {
-          ...config.options,
-          initialValue: value,
-        })(configType({ params, extMap, onChange, value }))
-      }
+    // 全局设置了 form 的注册函数
+    if (getFieldDecorator) {
+      return getFieldDecorator(config.id, {
+        ...config.options,
+        initialValue: value,
+      })(renderFormItemByType({ type, params, extMap, onChange, value }))
     }
   }
 

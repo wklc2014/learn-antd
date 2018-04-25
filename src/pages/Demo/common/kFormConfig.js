@@ -17,20 +17,16 @@ export const UserSurvery = [
       type: 'input',
       // 表单元素属性
       params: {
+        placeholder: '单行文本输入框'
       },
       // 输入验证相关
       options: {
         rules: [
           { required: true, message: '用户姓名必填' },
-          { max: 20, message: '用户姓名最多20位' },
-          { min: 2, message: '用户姓名至少2位' },
         ],
       },
       // 扩展字段
-      extMap: {
-        toLowerCase: true,
-        subType: 'textarea', // search
-      },
+      extMap: { toLowerCase: true },
     },
 
     /**
@@ -39,7 +35,7 @@ export const UserSurvery = [
      */
     formItemParams: {
       label: 'input',
-      extra: '帮助信息',
+      extra: '这里是帮助提示信息',
     },
 
     /**
@@ -51,7 +47,7 @@ export const UserSurvery = [
         id: 'userName_1',
         type: 'select',
         params: {
-          disabled: true,
+          disabled: false,
           placeholder: '请选择城市'
         },
         extMap: {
@@ -66,11 +62,9 @@ export const UserSurvery = [
   {
     order: 2,
     config: {
-      type: 'input',
       id: 'address',
-      params: {
-        disabled: false,
-      },
+      type: 'input',
+      params: {},
       options: {
         rules: [
           { required: true, message: '用户姓名必填' },
@@ -78,9 +72,7 @@ export const UserSurvery = [
           { min: 2, message: '用户姓名至少2位' },
         ],
       },
-      extMap: {
-        childSpan: 10,
-      },
+      extMap: { childSpan: 10 },
     },
     formItemParams: {
       label: 'input',
@@ -134,7 +126,8 @@ export const UserSurvery = [
         type: 'radio',
         extMap: {
           data: [
-            { label: '同标的', value: '02' }
+            { label: '同标的', value: '01' },
+            { label: '同三者', value: '02' }
           ]
         }
       },
@@ -149,10 +142,9 @@ export const UserSurvery = [
         placeholder: '这是一个三级联动选择',
       },
       options: {
-        rules: [{
-          required: true,
-          message: '出险城市不能为空'
-        }]
+        rules: [
+          { required: true, message: '出险城市不能为空' }
+        ]
       },
       extMap: {
         city: 'quanGuo',
@@ -170,28 +162,6 @@ export const UserSurvery = [
         }
       }
     ]
-  },
-  {
-    order: 4,
-    config: {
-      id: 'accidentCity1',
-      type: 'cascader',
-      params: {
-        placeholder: '这是一个三级联动选择',
-      },
-      options: {
-        rules: [{
-          required: true,
-          message: '出险城市不能为空'
-        }]
-      },
-      extMap: {
-        city: 'quanGuo',
-      },
-    },
-    formItemParams: {
-      label: 'cascader1',
-    },
   },
   {
     order: 5,
@@ -234,7 +204,7 @@ export const UserSurvery = [
     order: 7,
     config: {
       id: 'translateDate',
-      type: 'dateRange',
+      type: 'range',
       params: {
         placeholder: '运输日期',
         showTime: true,
@@ -254,7 +224,7 @@ export const UserSurvery = [
     order: 8,
     config: {
       id: 'translateDate1',
-      type: 'dateMonth',
+      type: 'month',
       params: {
         placeholder: '请选择月份',
       },
@@ -363,7 +333,7 @@ export const UserSurvery = [
       type: 'radioButton',
       extMap: {
         data: [
-          { label: '车险', value: '01', selected: true },
+          { label: '车险', value: '01' },
           { label: '非车险', value: '02' },
         ]
       },
@@ -393,7 +363,7 @@ export const UserSurvery = [
           { value: '03', label: '使馆汽车号牌' },
           { value: '04', label: '领馆汽车号牌' },
           { value: '05', label: '境外汽车号牌' },
-          { value: '06', label: '外籍汽车号牌', selected: true },
+          { value: '06', label: '外籍汽车号牌' },
           { value: '07', label: '两、三轮摩托车号牌' },
           { value: '08', label: '轻便摩托车号牌' },
           { value: '09', label: '使馆摩托车号牌' },
@@ -405,32 +375,13 @@ export const UserSurvery = [
     },
   },
   {
-    order: 16,
-    config: {
-      id: 'carNoAddress',
-      type: 'input',
-      extMap: {
-        data: [
-          { value: '01', label: '+86' },
-          { value: '02', label: '+87', selected: true },
-          { value: '03', label: '+88' },
-        ],
-        selectWidth: 60,
-      },
-    },
-    formItemParams: {
-      label: 'beforeSelect',
-    },
-  },
-  {
     order: 17,
     config: {
       id: 'accidentDescription',
-      type: 'input',
+      type: 'textarea',
       extMap: {
         colSpan: 2,
         childSpan: 18,
-        subType: 'textarea',
       },
       options: {
         rules: [{
@@ -476,11 +427,10 @@ export const UserSurvery = [
     order: 18,
     config: {
       id: 'accidentCreate',
-      type: 'input',
+      type: 'textarea',
       extMap: {
         colSpan: 2,
         childSpan: 18,
-        subType: 'textarea',
       }
     },
     formItemParams: {
