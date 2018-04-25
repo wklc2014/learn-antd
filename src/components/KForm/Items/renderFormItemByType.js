@@ -81,17 +81,13 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     }
     return <span {...newProps}>{value}</span>;
   } else if (type === 'treeSelect') {
-    const newProps = {
-      treeData: extMap.data,
-      dropdownStyle: { maxHeight: 400, overflow: 'auto' },
-      ...params
-    };
+    Object.assign(newProps, { treeData: extMap.data });
     return <TreeSelect {...newProps} />;
   } else if (type === 'button') {
     return <Button {...newProps}>{extMap.label}</Button>;
   } else if (type === 'cascader') {
     if (is.function(extMap.render)) {
-      const newProps = { options: extMap.data, ...params };
+      Object.assign(newProps, { options: extMap.data });
       const newStyle = {...newProps.style, display: 'inline'};
       return (
         <Cascader {...newProps}>

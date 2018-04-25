@@ -8,6 +8,7 @@ export default function getData({ type, extMap }) {
   let newData = data || [];
   switch (type) {
     case 'cascader':
+    case 'treeSelect':
       if (city && __chineseCities[city]) {
         newData = [...__chineseCities[city]];
       }
