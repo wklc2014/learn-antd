@@ -14,6 +14,7 @@ import getValue, { getValueById } from './common/getValue.js';
 import getPlaceholder from './common/getPlaceholder.js';
 import getData from './common/getData.js';
 import getSubConfigGridLayout from './common/getSubConfigGridLayout.js';
+import getFormItemValidate from './common/getFormItemValidate.js';
 import { getFormItemOffset } from './common/getFormItemLayout.js';
 import __formItemLayout from './common/__formItemLayout.js';
 
@@ -27,10 +28,29 @@ export default class KFormItem extends Component {
     formItemSpace: 0,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      touched: false,
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const next = JSON.stringify(nextProps);
+    const prev = JSON.stringify(this.props);
+    if (next !== prev) {
+      return true;
+    }
+    return false;
+  }
+
   // 获取 FormItem onChange 属性
   getOnChange = ({ id, changeValue, extMap }) => {
     const { onChange, config, value } = this.props;
-    if (!onChange || is.not.function(onChange)) return null;
+    const { touched } = this.state;
+    if (!touched) {
+      this.setState({ touched: true });
+    }
     onChange({
       id: config.id,
       value: getValue({ value, id, changeValue, extMap }),
@@ -38,34 +58,8 @@ export default class KFormItem extends Component {
     });
   }
 
-  // 生成表单元素内容
-  getFieldEle = ({ key, type, params, extMap, onChange, value }) => {
-    const { form = {}, config = {} } = this.props;
-    if (key || type === 'text') {
-      return (
-        <span key={key}>
-          {renderFormItemByType({ type, params: { ...params, value }, onChange, extMap, value })}
-        </span>
-      );
-    }
-    const { getFieldDecorator } = form;
-
-    // 如果全局没有对应 form 注册函数
-    // 或者表单元素配置中指明不使用 form 注册函数
-    if (!getFieldDecorator || !extMap.form) {
-      return renderFormItemByType({ type, params: { ...params, value }, extMap, onChange, value });
-    }
-
-    // 全局设置了 form 的注册函数
-    if (getFieldDecorator) {
-      return getFieldDecorator(config.id, {
-        ...config.options,
-        initialValue: value,
-      })(renderFormItemByType({ type, params, extMap, onChange, value }))
-    }
-  }
-
   render() {
+    const { touched } = this.state;
     const { config, subConfig, formItemSpace, formItemLayout, formItemParams, value } = this.props;
     const { id, type, params = {}, extMap = {} } = config;
     if (!type) return null;
@@ -77,7 +71,7 @@ export default class KFormItem extends Component {
     const new_value = getValueById(value);
 
     // 生成主题表单元素
-    let ChildrenEle = this.getFieldEle({
+    let ChildrenEle = renderFormItemByType({
       type,
       params: { ...params, placeholder: new_placeholder, style: new_style },
       extMap: { ...extMap, data: new_data },
@@ -101,14 +95,17 @@ export default class KFormItem extends Component {
         const new_sub_value = getValueById(value, sub_id);
 
         // 生成子表单元素
-        return this.getFieldEle({
-          key: `sub_type_${i}`,
-          type: sub_type,
-          params: { ...sub_params, placeholder: new_sub_placeholder, style: new_sub_style },
-          extMap: { ...sub_extMap, data: new_sub_data },
-          onChange: e => this.getOnChange({ id: sub_id, changeValue: e, extMap: sub_extMap }),
-          value: new_sub_value,
-        });
+        return (
+          <span key={`sub_type_${i}`}>
+            {renderFormItemByType({
+              type: sub_type,
+              params: { ...sub_params, placeholder: new_sub_placeholder, style: new_sub_style },
+              extMap: { ...sub_extMap, data: new_sub_data },
+              onChange: e => this.getOnChange({ id: sub_id, changeValue: e, extMap: sub_extMap }),
+              value: new_sub_value,
+            })}
+          </span>
+        );
       });
       const childSpan = getSubConfigGridLayout(extMap.childSpan);
       const { childGutter = 8 } = extMap;
@@ -121,13 +118,14 @@ export default class KFormItem extends Component {
     }
 
     const newFormItemLayout = getFormItemOffset(formItemLayout, extMap.offset);
+    const formItemValidate = getFormItemValidate(value, extMap, touched);
 
     return (
-      <FormItem {...newFormItemLayout} {...formItemParams}>
-        <div style={{ paddingRight: formItemSpace }}>
+      <div style={{ paddingRight: formItemSpace }}>
+        <FormItem {...newFormItemLayout} {...formItemParams} {...formItemValidate}>
           {ChildrenEle}
-        </div>
-      </FormItem>
+        </FormItem>
+      </div>
     )
   }
 }
@@ -137,20 +135,17 @@ KFormItem.propTypes = {
     id: propTypes.string.isRequired,
     type: propTypes.string.isRequired,
     params: propTypes.object,
-    options: propTypes.object,
     extMap: propTypes.object,
   }),
   subConfig: propTypes.arrayOf(propTypes.shape({
     id: propTypes.string.isRequired,
     type: propTypes.string.isRequired,
     params: propTypes.object,
-    options: propTypes.object,
     extMap: propTypes.object,
   })),
   formItemParams: propTypes.object,
   formItemLayout: propTypes.object,
   formItemSpace: propTypes.number,
-  // onChange: propTypes.func,
+  onChange: propTypes.func.isRequired,
   // value: propTypes.object,
-  form: propTypes.object,
 };

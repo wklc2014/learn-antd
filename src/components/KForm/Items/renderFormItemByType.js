@@ -5,6 +5,9 @@ import React from 'react';
 import is from 'is_js';
 import { Button, Cascader, TreeSelect, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
+import utils from '../../../common/utils/utils.js';
+import MyFetchInput from './MyFetchInput.jsx';
+
 const { TextArea, Search } = Input;
 const { Option } = Select;
 const { RangePicker, MonthPicker } = DatePicker;
@@ -13,22 +16,30 @@ const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
 export default function renderFormItemByType({ type, params, onChange, extMap, value }) {
-  const newProps = {...params};
+  const newProps = {...params, value};
 
-  // 是否绑定 onChange 事件
-  if (onChange) {
-    const inputType = ['input', 'textarea', 'search', 'radio', 'radioButton'];
-    const dateTypes = ['date', 'range', 'month', 'time'];
-    const baseTypes = ['rate', 'slider', 'switch', 'number', 'checkbox', 'select', 'treeSelect', 'cascader'];
-    if (is.inArray(type, inputType)) {
-      Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
-    } else if (is.inArray(type, dateTypes)) {
-      Object.assign(newProps, { onChange: (_, e) => onChange(e) });
-    } else if (is.inArray(type, baseTypes)) {
-      Object.assign(newProps, { onChange });
-    } else if (type === 'button') {
-      Object.assign(newProps, { onClick: (e) => onChange(extMap.value) });
-    }
+  // 分组表单元素类型
+  const inputType = ['input', 'textarea', 'search', 'radio', 'radioButton'];
+  const dateTypes = ['date', 'range', 'month', 'time'];
+  const baseTypes = ['rate', 'slider', 'switch', 'number', 'checkbox', 'select', 'treeSelect', 'cascader'];
+  const myTypes = ['fetchInput'];
+
+  // 不同的表单类型，
+  // 还需要绑定不同的属性
+  if (is.inArray(type, inputType)) {
+    Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
+  } else if (is.inArray(type, dateTypes)) {
+    Object.assign(newProps, { onChange: (_, e) => onChange(e) });
+  } else if (is.inArray(type, baseTypes)) {
+    Object.assign(newProps, { onChange });
+  } else if (type === 'button') {
+    Object.assign(newProps, { onClick: (e) => onChange(extMap.value) });
+  }
+
+  // 处理自定义表单元素
+  const myProps = {};
+  if (is.inArray(type, myTypes)) {
+    Object.assign(myProps, { onChange, extMap, params, value });
   }
 
   // 处理不同的表单类型
@@ -53,6 +64,7 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
   }
 
   else if (type === 'slider') {
+    // 滑动输入条
     return <Slider {...newProps} />;
   }
 
@@ -71,9 +83,7 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     return <CheckboxGroup {...newProps} />;
   } else if (type === 'select') {
     // 下拉选择框
-    const Children = extMap.data.map((v, i) => (
-      <Option key={i} value={v.value}>{v.label}</Option>
-    ));
+    const Children = extMap.data.map((v, i) => <Option key={i} value={v.value}>{v.label}</Option>);
     return <Select {...newProps}>{Children}</Select>;
   }
 
@@ -111,25 +121,23 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
 
   else if (type === 'text') {
     // 纯文本显示
-    const newProps = { className: 'ant-form-text' };
     if (is.function(extMap.render)) {
       value = extMap.render(value);
     } else if (is.array(extMap.data)) {
       const targetValue = extMap.data.find(v => v.value === value);
       if (targetValue) value = targetValue.label;
     }
-    return <span {...newProps}>{value}</span>;
+    return <span className="ant-form-text">{value}</span>;
   }
 
   else if (type === 'treeSelect') {
     // 树形选择控件
-    Object.assign(newProps, { treeData: extMap.data });
-    return <TreeSelect dropdownStyle={{ maxHeight: 300 }} {...newProps} />;
+    return <TreeSelect dropdownStyle={{ maxHeight: 300 }} {...newProps} treeData={extMap.data} />;
   }
 
   else if (type === 'button') {
     // 按钮
-    if (is.array(extMap.data)) {
+    if (is.array(extMap.data) && extMap.data.length) {
       // 一次生成多个按钮
       return extMap.data.map((btn, i) => {
         const btnStyle = i === 0 ? null : { marginLeft: 8 };
@@ -152,5 +160,15 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
       return <Cascader {...newProps}><div style={newStyle}>{extMap.render(value)}</div></Cascader>;
     }
     return <Cascader {...newProps} />;
+  }
+
+  // 输入后自动发起请求
+  // 返回下拉选择项的下拉框
+  else if (type === 'fetchInput') {
+    return <MyFetchInput {...myProps} />;
+  }
+
+  else {
+    utils.errorLogs(`没有与之相对应表单元素类型${type}`);
   }
 }

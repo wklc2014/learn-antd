@@ -1,27 +1,3 @@
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 4 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 18 },
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 18,
-      offset: 4,
-    },
-  },
-};
-
 export default [
   {
     config: {
@@ -48,6 +24,21 @@ export default [
   },
   {
     config: {
+      id: 'fetchInput-1',
+      type: 'fetchInput',
+      params: {
+        allowClear: true,
+      },
+      extMap: {
+        url: 'fetch',
+      }
+    },
+    formItemParams: {
+      label: 'fetchInput',
+    },
+  },
+  {
+    config: {
       id: 'user_name_3',
       type: 'button',
       params: {
@@ -55,6 +46,7 @@ export default [
       },
       extMap: {
         label: '提交',
+        value: '222333',
         offset: true,
       },
     },

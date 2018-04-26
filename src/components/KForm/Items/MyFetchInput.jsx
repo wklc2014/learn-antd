@@ -6,11 +6,12 @@ import propTypes from 'prop-types';
 import { Select } from 'antd';
 
 import * as fetchServices from '../../../services/_fetch.js';
+import utils from '../../../common/utils/utils.js';
 
 const { Option } = Select;
 let timeout;
 
-export default class SearchInput extends Component {
+export default class MyFetchInput extends Component {
 
   static defaultProps = {}
 
@@ -28,10 +29,19 @@ export default class SearchInput extends Component {
     const { url, time = 300 } = extMap;
     onChange && onChange(value);
 
+    if (timeout) {
+      window.clearTimeout(timeout);
+      timeout = null;
+    }
+
     async function search() {
-      const resp = await fetchServices[url](value);
-      const data = resp.success ? resp.data : [];
-      that.setState({ data: data || [] })
+      if (fetchServices[url]) {
+        const resp = await fetchServices[url](value);
+        const data = resp.success ? resp.data : [];
+        that.setState({ data: data || [] })
+      } else {
+        utils.errorLogs(`_fetch.js 没有对应 ${url} 的请求`);
+      }
     }
 
     timeout = setTimeout(search, time);
@@ -47,12 +57,12 @@ export default class SearchInput extends Component {
       filterOption: false,
       ...params,
       mode: 'combobox',
-      onChange: this.handleChange,
+      onSearch: this.handleChange,
     }
     return <Select {...newProps}>{options}</Select>;
   }
 }
 
-SearchInput.propTypes = {
-
+MyFetchInput.propTypes = {
+  extMap: propTypes.object.isRequired,
 }

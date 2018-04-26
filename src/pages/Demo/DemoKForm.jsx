@@ -21,26 +21,18 @@ class DemoKForm extends Component {
   }
 
   onGetValue = () => {
-    const ids = this.getConfigIds();
-    const values = this.props.form.getFieldsValue(ids);
-    console.log("values", values);
   }
 
   onSubmit = () => {
-    const ids = this.getConfigIds();
-    this.props.form.validateFields(ids, (errors, values) => {
-      console.log('validateFields>>>', errors, values);
-    });
+
   }
 
   onChange = ({ id, value, type }) => {
-    console.log('{ id, value }>>>', JSON.stringify({ id, value, type }));
+    // console.log('{ id, value }>>>', JSON.stringify({ id, value, type }));
     actions._form.updateValues({ [id]: value })
   }
 
   onReset = () => {
-    const ids = this.getConfigIds();
-    this.props.form.resetFields(ids);
     actions._form.resetValues();
   }
 
@@ -86,7 +78,7 @@ class DemoKForm extends Component {
             columns={2}
             onChange={this.onChange}
             values={this.props.values}
-            spacing={16}
+            space={16}
           />
         </div>
         <p style={{ paddingBottom: 16 }}>

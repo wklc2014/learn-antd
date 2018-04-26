@@ -17,16 +17,15 @@ export const UserSurvery = [
       type: 'input',
       // 表单元素属性
       params: {
-        placeholder: '单行文本输入框'
+        placeholder: '单行文本输入框',
       },
-      // 输入验证相关
-      options: {
+      // 扩展字段
+      extMap: {
+        toLowerCase: true,
         rules: [
           { required: true, message: '用户姓名必填' },
         ],
       },
-      // 扩展字段
-      extMap: { toLowerCase: true },
     },
 
     /**
@@ -36,6 +35,7 @@ export const UserSurvery = [
     formItemParams: {
       label: 'input',
       extra: '这里是帮助提示信息',
+      // hasFeedback: true,
     },
 
     /**
@@ -65,14 +65,14 @@ export const UserSurvery = [
       id: 'address',
       type: 'input',
       params: {},
-      options: {
+      extMap: {
+        childSpan: 10,
         rules: [
           { required: true, message: '用户姓名必填' },
           { max: 4, message: '用户姓名最多4位' },
           { min: 2, message: '用户姓名至少2位' },
         ],
       },
-      extMap: { childSpan: 10 },
     },
     formItemParams: {
       label: 'input',
@@ -531,18 +531,6 @@ export const UserSurvery = [
   },
   {
     config: {
-      id: 'searchInput-1',
-      type: 'searchInput',
-      extMap: {
-        url: 'fetch',
-      }
-    },
-    formItemParams: {
-      label: 'searchInput',
-    },
-  },
-  {
-    config: {
       id: 'button-my',
       type: 'button',
       params: {
@@ -558,7 +546,22 @@ export const UserSurvery = [
         offset: true,
       }
     }
-  }
+  },
+  {
+    config: {
+      id: 'fetchInput-1',
+      type: 'fetchInput',
+      params: {
+        allowClear: true,
+      },
+      extMap: {
+        url: 'fetch',
+      }
+    },
+    formItemParams: {
+      label: 'fetchInput',
+    },
+  },
 ];
 
 export const UserRegister = [

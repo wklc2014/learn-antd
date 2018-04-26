@@ -43,7 +43,7 @@ export default class KForm extends Component {
   }
 
   render() {
-    const { columns, configs, isSort, layout, space, values, form, onChange } = this.props;
+    const { columns, configs, isSort, layout, space, values, onChange } = this.props;
     const newConfigs = getSortedConfigs(isSort, configs);
 
     const formEle = newConfigs.map((val, i) => {
@@ -53,7 +53,6 @@ export default class KForm extends Component {
       const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
       const newFormItemSpace = space || formItemSpace;
       const KFormItemProps = {
-        form,
         config,
         subConfig,
         formItemParams,
@@ -88,13 +87,11 @@ export default class KForm extends Component {
 }
 
 KForm.propTypes = {
+  onChange: propTypes.func.isRequired,
+  configs: propTypes.array.isRequired,
   columns: propTypes.number,
-  configs: propTypes.array,
   isSort: propTypes.bool,
   layout: propTypes.string,
   space: propTypes.number,
   values: propTypes.object,
-
-  // onChange: propTypes.func,
-  form: propTypes.object,
 };

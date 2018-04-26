@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form } from 'antd';
-import { actions } from 'mirrorx';
 
 import KFormItem from '../../components/KForm/KFormItem.jsx';
 import kFormItemConfig from './common/kFormItemConfig.js';
@@ -11,29 +10,32 @@ class DemoKFormItem extends Component {
 
   }
 
-  onChange = ({ id, value }) => {
-    if (id === 'user_name_3') {
-      actions._ajax.getUser();
+  constructor(props) {
+    super(props);
+    this.state = {
+      values: {},
     }
   }
 
+  onChange = ({ id, value }) => {
+    const { values } = this.state;
+    this.setState({ values: { ...values, [id]: value } });
+  }
+
   render() {
-    const { form } = this.props;
-
-
+    const { values } = this.state;
 
     return (
       <div style={{ padding: 16 }}>
         <Form>
-          <KFormItem {...kFormItemConfig[0]} />
-          <KFormItem {...kFormItemConfig[1]} />
-          <KFormItem {...kFormItemConfig[2]} />
+          <KFormItem {...kFormItemConfig[0]} value={values.user_name_1} onChange={this.onChange} />
+          <KFormItem {...kFormItemConfig[1]} value={values.user_name_2} onChange={this.onChange} />
+          <KFormItem {...kFormItemConfig[2]} value={values['fetchInput-1']} onChange={this.onChange} />
+          <KFormItem {...kFormItemConfig[3]} value={values.user_name_3} onChange={this.onChange} />
         </Form>
       </div>
     )
   }
 }
 
-const Wraper = Form.create()(DemoKFormItem);
-
-export default Wraper;
+export default DemoKFormItem;
