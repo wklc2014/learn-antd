@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
-import { Form } from 'antd';
 
 import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
 import configs from './common/kSummaryTableConfig.js';
@@ -21,7 +20,6 @@ class TestKSummaryTable extends Component {
       <div style={{ padding: 16 }}>
         <KSummaryTable
           configs={configs}
-          form={this.props.form}
           dataSource={values}
           onChange={this.onChange}
           pagination={false}
@@ -38,6 +36,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-const Wraper = Form.create()(TestKSummaryTable);
-
-export default connect(mapStateToProps)(Wraper);
+export default connect(mapStateToProps)(TestKSummaryTable);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form } from 'antd';
 
 import KForm from '../../components/KForm/KForm.jsx';
 import configs from './common/kFormLayoutConfig.js';
@@ -10,12 +9,12 @@ function DemoKFormLayout({ form }) {
       <div>
         <KForm
           configs={configs}
-          form={form}
           columns={4}
+          onChange={() => {}}
         />
       </div>
     </section>
   )
 }
 
-export default Form.create()(DemoKFormLayout);
+export default DemoKFormLayout;

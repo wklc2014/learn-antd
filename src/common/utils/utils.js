@@ -5,11 +5,11 @@ import { message } from 'antd';
 
 export default {
   // 前端错误日志
-  errorLogs: ({ errorType, errorTexts }) => {
+  errorLogs({ errorType, errorTexts }) {
     throw TypeError(errorTexts);
   },
   // 异步加载图片
-  asyncLoadImage: (url) => {
+  asyncLoadImage(url) {
     return new Promise(function(resolve, reject) {
       var image = new Image();
       image.onload = function() {
@@ -22,7 +22,7 @@ export default {
     });
   },
   // 前端提示信息
-  infos: (tipType, tipText = '错误信息') => {
+  infos(tipType, tipText = '错误信息') {
     message.info(tipText);
   },
   // 前端 ajax 请求出错时，自定义返回
@@ -35,5 +35,13 @@ export default {
     }
 
     return { success, message }
+  },
+  // 验证一个时间是否有效
+  checkDate(date) {
+    if (typeof date !== 'string') {
+      date = `${date}`;
+    }
+    // eslint-disable-next-line
+    return (new Date(date).getDate() == date.substring(date.length-2));
   }
 }

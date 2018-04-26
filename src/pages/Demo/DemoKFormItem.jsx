@@ -13,7 +13,9 @@ class DemoKFormItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: {},
+      values: {
+        user_name_2: '2014-12-20'
+      },
     }
   }
 

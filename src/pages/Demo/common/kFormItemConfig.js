@@ -16,10 +16,10 @@ export default [
   {
     config: {
       id: 'user_name_2',
-      type: 'input',
+      type: 'date',
     },
     formItemParams: {
-      label: '手机号',
+      label: '日期',
     },
   },
   {

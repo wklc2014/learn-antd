@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import is from 'is_js';
+import moment from 'moment';
 import { Button, Cascader, TreeSelect, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
 import utils from '../../../common/utils/utils.js';
@@ -30,6 +31,12 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
   } else if (is.inArray(type, dateTypes)) {
     Object.assign(newProps, { onChange: (_, e) => onChange(e) });
+    // 将值转换为 moment 对象
+    if (newProps.value && utils.checkDate(newProps.value)) {
+      newProps.value = moment(newProps.value);
+    } else {
+      newProps.value = undefined;
+    }
   } else if (is.inArray(type, baseTypes)) {
     Object.assign(newProps, { onChange });
   } else if (type === 'button') {
