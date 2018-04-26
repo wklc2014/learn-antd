@@ -36,7 +36,6 @@ export default [
     formItemParams: {
       label: '姓名',
     },
-    formItemLayout,
   },
   {
     config: {
@@ -46,7 +45,6 @@ export default [
     formItemParams: {
       label: '手机号',
     },
-    formItemLayout,
   },
   {
     config: {
@@ -56,9 +54,9 @@ export default [
         type: 'primary',
       },
       extMap: {
-        label: '提交'
+        label: '提交',
+        offset: true,
       },
     },
-    formItemLayout: tailFormItemLayout,
   }
 ]

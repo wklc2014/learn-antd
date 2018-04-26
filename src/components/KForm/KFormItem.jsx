@@ -14,6 +14,7 @@ import getValue, { getValueById } from './common/getValue.js';
 import getPlaceholder from './common/getPlaceholder.js';
 import getData from './common/getData.js';
 import getSubConfigGridLayout from './common/getSubConfigGridLayout.js';
+import { getFormItemOffset } from './common/getFormItemLayout.js';
 import __formItemLayout from './common/__formItemLayout.js';
 
 const FormItem = Form.Item;
@@ -69,11 +70,13 @@ export default class KFormItem extends Component {
     const { id, type, params = {}, extMap = {} } = config;
     if (!type) return null;
 
+    // 计算一些必要的属性
     const new_style = getStyle({ type, extMap, style: params.style });
     const new_placeholder = getPlaceholder({ id, type, label: formItemParams.label, placeholder: params.placeholder });
     const new_data = getData({ type, extMap });
     const new_value = getValueById(value);
 
+    // 生成主题表单元素
     let ChildrenEle = this.getFieldEle({
       type,
       params: { ...params, placeholder: new_placeholder, style: new_style },
@@ -82,6 +85,7 @@ export default class KFormItem extends Component {
       value: new_value,
     });
 
+    // 如果有子表单配置
     if (is.array(subConfig)) {
       const subChildrenEle = subConfig.map((val, i) => {
         const { id: sub_id, type: sub_type, params: sub_params = {}, extMap: sub_extMap = {} } = val;
@@ -96,6 +100,7 @@ export default class KFormItem extends Component {
         const new_sub_data = getData({ type: sub_type, extMap: sub_extMap });
         const new_sub_value = getValueById(value, sub_id);
 
+        // 生成子表单元素
         return this.getFieldEle({
           key: `sub_type_${i}`,
           type: sub_type,
@@ -115,8 +120,10 @@ export default class KFormItem extends Component {
       );
     }
 
+    const newFormItemLayout = getFormItemOffset(formItemLayout, extMap.offset);
+
     return (
-      <FormItem {...formItemLayout} {...formItemParams}>
+      <FormItem {...newFormItemLayout} {...formItemParams}>
         <div style={{ paddingRight: formItemSpace }}>
           {ChildrenEle}
         </div>

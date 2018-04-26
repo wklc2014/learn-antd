@@ -285,7 +285,6 @@ export const UserSurvery = [
           type: 'primary'
         },
         extMap: {
-          city: 'quanGuo',
           label: '参数',
           value: 'edit',
         },
@@ -541,6 +540,24 @@ export const UserSurvery = [
     formItemParams: {
       label: 'searchInput',
     },
+  },
+  {
+    config: {
+      id: 'button-my',
+      type: 'button',
+      params: {
+        type: 'primary',
+      },
+      extMap: {
+        data: [
+          { label: '选择', value: '001' },
+          { label: '北京', value: '002', type: 'default' },
+          { label: '西安', value: '003', type: 'dashed' },
+          { label: '绵阳', value: '004', type: 'danger' },
+        ],
+        offset: true,
+      }
+    }
   }
 ];
 

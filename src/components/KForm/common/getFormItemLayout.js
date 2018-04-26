@@ -57,3 +57,35 @@ export default function getFormItemLayout(layout, colSpan = 1, columns = 1) {
   return null;
 
 }
+
+// 针对一些表单元素，如按钮，布局需要 offset
+export function getFormItemOffset(formItemLayout, offset = '') {
+  // 直接返回原始的布局
+  if (!offset) return formItemLayout;
+
+  // 将 formItemLayout 元素的 labelCol 值转换
+  const newFormItemLayout = {};
+  Object.keys(formItemLayout).forEach(val => {
+    const label = formItemLayout.labelCol;
+    const wrapper = formItemLayout.wrapperCol;
+    if (val === 'labelCol') {
+      newFormItemLayout.wrapperCol = getOffset(label, wrapper);
+    }
+  })
+  return newFormItemLayout;
+}
+
+// 给一个布局对象，添加 offset 属性
+function getOffset(label = {}, wrapper) {
+  const newData = {};
+  Object.keys(label).forEach(d => {
+    const v = label[d];
+    const w = wrapper[d] || 0;
+    if (v > 0 && v < 24) {
+      newData[d] = { span: w || v, offset: v };
+    } else {
+      newData[d] = v;
+    }
+  })
+  return newData;
+}

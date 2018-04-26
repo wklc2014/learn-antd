@@ -15,6 +15,7 @@ const CheckboxGroup = Checkbox.Group;
 export default function renderFormItemByType({ type, params, onChange, extMap, value }) {
   const newProps = {...params};
 
+  // 是否绑定 onChange 事件
   if (onChange) {
     const inputType = ['input', 'textarea', 'search', 'radio', 'radioButton'];
     const dateTypes = ['date', 'range', 'month', 'time'];
@@ -30,72 +31,125 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     }
   }
 
+  // 处理不同的表单类型
   if (type === 'input') {
+    // 单行文本输入框
     return <Input {...newProps} />;
-  } else if (type === 'textarea') {
+  }
+
+  else if (type === 'textarea') {
+    // 多行文本输入框
     return <TextArea rows={5} {...newProps} />;
-  } else if (type === 'search') {
+  }
+
+  else if (type === 'search') {
+    // 带搜索按钮的单行文本输入框
     return <Search {...newProps} />;
-  } else if (type === 'rate') {
+  }
+
+  else if (type === 'rate') {
+    // 星星评级
     return <Rate {...newProps} />;
-  } else if (type === 'slider') {
+  }
+
+  else if (type === 'slider') {
     return <Slider {...newProps} />;
-  } else if (type === 'switch') {
+  }
+
+  else if (type === 'switch') {
+    // 切换开关
     return <Switch {...newProps} />;
-  } else if (type === 'number') {
+  }
+
+  else if (type === 'number') {
+    // 数字输入框
     return <InputNumber {...newProps} />;
-  } else if (type === 'checkbox') {
+  }
+
+  else if (type === 'checkbox') {
+    // 多选框
     return <CheckboxGroup {...newProps} />;
   } else if (type === 'select') {
+    // 下拉选择框
     const Children = extMap.data.map((v, i) => (
       <Option key={i} value={v.value}>{v.label}</Option>
     ));
     return <Select {...newProps}>{Children}</Select>;
-  } else if (type === 'date') {
+  }
+
+  else if (type === 'date') {
+    // 日期选择框
     return <DatePicker {...newProps} />;
-  } else if (type === 'range') {
+  }
+
+  else if (type === 'range') {
+    // 日期区间选择框
     return <RangePicker {...newProps} />;
-  } else if (type === 'month') {
+  }
+
+  else if (type === 'month') {
+    // 月份选择框
     return <MonthPicker {...newProps} />;
-  } else if (type === 'time') {
+  }
+
+  else if (type === 'time') {
+    // 时间选择框
     return <TimePicker {...newProps} />;
-  } else if (type === 'radio') {
-    const Children = extMap.data.map((v, i) => (
-      <Radio key={i} value={v.value}>{v.label}</Radio>
-    ));
+  }
+
+  else if (type === 'radio') {
+    // 单选框
+    const Children = extMap.data.map((v, i) => <Radio key={i} value={v.value}>{v.label}</Radio>);
     return <RadioGroup {...newProps}>{Children}</RadioGroup>;
-  } else if (type === 'radioButton') {
-    const Children = extMap.data.map((v, i) => (
-      <RadioButton key={i} value={v.value}>{v.label}</RadioButton>
-    ));
+  }
+
+  else if (type === 'radioButton') {
+    // 单选按钮
+    const Children = extMap.data.map((v, i) => <RadioButton key={i} value={v.value}>{v.label}</RadioButton>);
     return <RadioGroup {...newProps}>{Children}</RadioGroup>;
-  } else if (type === 'text') {
+  }
+
+  else if (type === 'text') {
+    // 纯文本显示
     const newProps = { className: 'ant-form-text' };
     if (is.function(extMap.render)) {
       value = extMap.render(value);
     } else if (is.array(extMap.data)) {
       const targetValue = extMap.data.find(v => v.value === value);
-      if (targetValue) {
-        value = targetValue.label;
-      }
+      if (targetValue) value = targetValue.label;
     }
     return <span {...newProps}>{value}</span>;
-  } else if (type === 'treeSelect') {
+  }
+
+  else if (type === 'treeSelect') {
+    // 树形选择控件
     Object.assign(newProps, { treeData: extMap.data });
-    return <TreeSelect {...newProps} />;
-  } else if (type === 'button') {
+    return <TreeSelect dropdownStyle={{ maxHeight: 300 }} {...newProps} />;
+  }
+
+  else if (type === 'button') {
+    // 按钮
+    if (is.array(extMap.data)) {
+      // 一次生成多个按钮
+      return extMap.data.map((btn, i) => {
+        const btnStyle = i === 0 ? null : { marginLeft: 8 };
+        onChange && Object.assign(newProps, { onClick: (e) => onChange(btn.value) });
+        return (
+          <span style={btnStyle} key={i}>
+            <Button {...newProps} type={btn.type || newProps.type}>{btn.label}</Button>
+          </span>
+        );
+      });
+    }
     return <Button {...newProps}>{extMap.label}</Button>;
-  } else if (type === 'cascader') {
+  }
+
+  else if (type === 'cascader') {
+    // 级联选择
+    Object.assign(newProps, { options: extMap.data });
     if (is.function(extMap.render)) {
-      Object.assign(newProps, { options: extMap.data });
       const newStyle = {...newProps.style, display: 'inline'};
-      return (
-        <Cascader {...newProps}>
-          <div style={newStyle}>
-            {extMap.render(value)}
-          </div>
-        </Cascader>
-      );
+      return <Cascader {...newProps}><div style={newStyle}>{extMap.render(value)}</div></Cascader>;
     }
     return <Cascader {...newProps} />;
   }
