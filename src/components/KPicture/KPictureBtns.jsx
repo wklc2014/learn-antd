@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Button, Popover } from 'antd';
 
-import Display from '../Display/Display.jsx';
+import KDisplay from '../KDisplay/KDisplay.jsx';
 import getPopoverContent from './common/getPopoverContent.js';
 import getPopoverTitle from './common/getPopoverTitle.js';
 
@@ -25,7 +25,7 @@ export default function KPictureBtns (props) {
     const title = getPopoverTitle(btn.value);
     const condition = btn.value === 'rotate' || btn.value === 'zoom';
     return (
-      <Display condition={condition} key={i}>
+      <KDisplay condition={condition} key={i}>
         <Popover
           content={content}
           overlayStyle={PopoverStyle}
@@ -40,7 +40,7 @@ export default function KPictureBtns (props) {
         >
           {btn.label}
         </Button>
-      </Display>
+      </KDisplay>
     )
   })
 

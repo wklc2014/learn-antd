@@ -47,6 +47,7 @@ export default class KPicture extends Component {
     const { picSrc } = this.props;
     const { picNumber } = this.state;
     const params = this.getRenderState({}, this.props);
+    console.log(1, params);
     this.planRender(picSrc[picNumber], params);
   }
 
@@ -57,6 +58,7 @@ export default class KPicture extends Component {
     const nextPic = nextSrc[nextNumber];
     const params = this.getRenderState(this.props, nextProps);
     if (nextPic && prevPic !== nextPic) {
+      console.log(2, params);
       // 图片地址改变后，重新 planRender
       this.planRender(nextPic, params);
     } else {

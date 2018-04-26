@@ -7,6 +7,7 @@ import { Table } from 'antd';
 
 import KFormItem from '../KForm/KFormItem.jsx';
 import getSortedConfigs from '../KForm/common/getSortedConfigs.js';
+import { getValueById } from '../KForm/common/getValue.js';
 import getSummaryData from './common/getSummaryData.js';
 
 class KSummaryTable extends Component {
@@ -49,12 +50,12 @@ class KSummaryTable extends Component {
             onChange: ({ id, value }) => {
               this.props.onChange({
                 id: id.split('__')[0],
-                value: value.base,
+                value: getValueById(value),
                 order: record.key,
               });
             },
             formItemLayout: null,
-            value: { base: text },
+            value: text,
           }
           return <KFormItem {...KFormItemProps} />;
         }

@@ -2,6 +2,7 @@
  * 获取 KFormItem 表单元素相关值操作
  */
 import is from 'is_js';
+import moment from 'moment';
 
 export default function getValue ({ value, id, changeValue, extMap }) {
   const { toUpperCase, toLowerCase } = extMap;
@@ -26,5 +27,5 @@ export default function getValue ({ value, id, changeValue, extMap }) {
 
 // 获取对象指定 key
 export function getValueById(value, id = 'main') {
-  return is.object(value) ? value[id] : { main: value }[id];
+  return is.object(value) && !moment.isMoment(value) ? value[id] : { main: value }[id];
 }

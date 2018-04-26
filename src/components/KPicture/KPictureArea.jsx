@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Alert } from 'antd';
-import Display from '../Display/Display.jsx';
+import KDisplay from '../KDisplay/KDisplay.jsx';
 
 export default function KPictureArea(props) {
 
@@ -27,7 +27,7 @@ export default function KPictureArea(props) {
 
   return (
     <div className="k-picture-box" style={{ height: height }}>
-      <Display condition={!!errors}>
+      <KDisplay condition={!!errors}>
         <Alert message={errors} showIcon type="error" />
         <Draggable
           position={{ x: positionX, y: positionY }}
@@ -43,7 +43,7 @@ export default function KPictureArea(props) {
             />
           </div>
         </Draggable>
-      </Display>
+      </KDisplay>
     </div>
   )
 }

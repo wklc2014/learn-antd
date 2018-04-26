@@ -7,7 +7,7 @@
  */
 import React from 'react';
 
-export default function Display({ condition, children }) {
+export default function KDisplay({ condition, children }) {
   // 将组件子元素转换为数组
   const childrenArray = React.Children.toArray(children);
 
@@ -18,3 +18,4 @@ export default function Display({ condition, children }) {
   }
   return resetItem;
 }
+

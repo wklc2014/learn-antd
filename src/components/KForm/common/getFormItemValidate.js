@@ -28,7 +28,6 @@ export default function getFormItemValidate(value, extMap = {}, touched = true) 
   // 验证规则一条没通过后
   // 就不再验证
   rules.some(rule => {
-
     // 必填性验证
     if (rule.required && !newValue) {
       __validate.validateStatus = 'error';

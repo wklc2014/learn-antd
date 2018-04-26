@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form } from 'antd';
+import moment from 'moment';
 
 import KFormItem from '../../components/KForm/KFormItem.jsx';
 import kFormItemConfig from './common/kFormItemConfig.js';
@@ -14,7 +15,7 @@ class DemoKFormItem extends Component {
     super(props);
     this.state = {
       values: {
-        user_name_2: '2014-12-20'
+        user_name_2: moment('2014-12-20')
       },
     }
   }
