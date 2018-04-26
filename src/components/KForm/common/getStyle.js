@@ -19,8 +19,8 @@ export default function getStyle({ type, extMap, style }) {
   switch (type) {
     case 'cascader':
     case 'date':
-    case 'dateRange':
-    case 'dateMonth':
+    case 'range':
+    case 'month':
     case 'time':
     case 'number':
     case 'select':

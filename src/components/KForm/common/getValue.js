@@ -24,6 +24,7 @@ export default function getValue ({ value, id, changeValue, extMap }) {
   }
 }
 
+// 获取对象指定 key
 export function getValueById(value, id = 'main') {
   return is.object(value) ? value[id] : { main: value }[id];
 }

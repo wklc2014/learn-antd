@@ -38,10 +38,7 @@ export default class KFormItem extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const next = JSON.stringify(nextProps);
     const prev = JSON.stringify(this.props);
-    if (next !== prev) {
-      return true;
-    }
-    return false;
+    return next !== prev;
   }
 
   // 获取 FormItem onChange 属性

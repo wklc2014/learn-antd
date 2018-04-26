@@ -1,6 +1,7 @@
 /**
  * 常用工具函数
  */
+import is from 'is_js';
 import { message } from 'antd';
 
 export default {
@@ -38,10 +39,7 @@ export default {
   },
   // 验证一个时间是否有效
   checkDate(date) {
-    if (typeof date !== 'string') {
-      date = `${date}`;
-    }
-    // eslint-disable-next-line
-    return (new Date(date).getDate() == date.substring(date.length-2));
+    const year = new Date(`${date}`).getFullYear();
+    return is.not.nan(year);
   }
 }

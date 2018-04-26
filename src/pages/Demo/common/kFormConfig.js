@@ -215,6 +215,9 @@ export const UserSurvery = [
           '三月内': [moment().subtract(3, 'months'), moment()],
         }
       },
+      extMap: {
+        colSpan: 2,
+      }
     },
     formItemParams:{
       label: 'date-range',
