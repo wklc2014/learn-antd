@@ -20,20 +20,28 @@ export default class KForm extends Component {
   static defaultProps = {
     // 表单布局列数
     columns: 1,
+
     // 表单配置数组
     configs: [],
-    // 是否对配置数组进行排序
-    isSort: false,
+
+    // 对表单配置数组进行排序
+    sort: false,
+
     // 表单元素布局类型
     layout: 'horizontal',
+
     // 表单元素间隔距离
     space: 0,
+
     // 表单值
     values: {},
   }
 
-  // 获取表单布局
-  // 默认为表单布局类型的第一种
+  /**
+   * 获取表单布局类型
+   * 默认为表单布局类型的第一种
+   * @return {string} 表单布局类型
+   */
   getFormLayoutType = () => {
     const { layout } = this.props;
     if (is.inArray(layout, formLayoutTypes)) {
@@ -43,15 +51,15 @@ export default class KForm extends Component {
   }
 
   render() {
-    const { columns, configs, isSort, layout, space, values, onChange } = this.props;
-    const newConfigs = getSortedConfigs(isSort, configs);
+    const { columns, configs, sort, layout, space, values, onChange } = this.props;
+    const newConfigs = getSortedConfigs(sort, configs);
 
     const formEle = newConfigs.map((val, i) => {
       const key = `${layout}-${i}`;
       const { config = {}, subConfig, formItemParams, formItemLayout, formItemSpace } = val;
       const colSpan = lodash.get(config, 'extMap.colSpan');
       const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
-      const newFormItemSpace = space || formItemSpace;
+      const newFormItemSpace = space || formItemSpace || 0;
       const KFormItemProps = {
         config,
         subConfig,
@@ -63,17 +71,17 @@ export default class KForm extends Component {
       }
       if (layout === 'inline') {
         return (
-          <div key={ key } style={{ display: 'inline-block' }}>
+          <div key={key} style={{ display: 'inline-block' }}>
             <KFormItem {...KFormItemProps} />
           </div>
         )
       }
       const ColProps = getGridLayout(columns, colSpan);
       return (
-        <Col key={ key } {...ColProps}>
+        <Col key={key} {...ColProps}>
           <KFormItem {...KFormItemProps} />
         </Col>
-      )
+      );
     });
 
     const formLayout = this.getFormLayoutType();
@@ -90,7 +98,7 @@ KForm.propTypes = {
   onChange: propTypes.func.isRequired,
   configs: propTypes.array.isRequired,
   columns: propTypes.number,
-  isSort: propTypes.bool,
+  sort: propTypes.bool,
   layout: propTypes.string,
   space: propTypes.number,
   values: propTypes.object,

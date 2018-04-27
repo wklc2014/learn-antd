@@ -216,7 +216,7 @@ export const UserSurvery = [
         }
       },
       extMap: {
-        colSpan: 2,
+        // colSpan: 2,
       }
     },
     formItemParams:{

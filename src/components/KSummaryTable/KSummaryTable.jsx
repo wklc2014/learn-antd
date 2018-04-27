@@ -7,30 +7,34 @@ import { Table } from 'antd';
 
 import KFormItem from '../KForm/KFormItem.jsx';
 import getSortedConfigs from '../KForm/common/getSortedConfigs.js';
-import { getValueById } from '../KForm/common/getValue.js';
 import getSummaryData from './common/getSummaryData.js';
 
 class KSummaryTable extends Component {
 
   static defaultProps = {
-    // 是否汇总
-    isTotal: true,
-    // 是否排序
-    isSort: false,
-    // antd 表格默认参数
-    params: {},
+    // 对配置表格头排序
+    sort: false,
+
+    // 汇总精度
+    totalPrecision: 2,
+
+    // 汇总行的 key
+    totalLineKey: 'ts',
+
+    // antd 表格默认配置
+    tableConfigs: {},
   }
 
   // 获取 Table columns 属性
   getTableColumns = () => {
-    const { configs, form, isSort } = this.props;
-    const newConfigs = getSortedConfigs(isSort, configs);
+    const { configs, sort, totalLineKey } = this.props;
+    const newConfigs = getSortedConfigs(sort, configs);
     const newColumns = newConfigs.filter(val => {
-      const { tableParams } = val;
+      const { tableParams = {} } = val;
       const { isHide } = tableParams;
       return !isHide;
     }).map((val, i) => {
-      const { tableParams, config } = val;
+      const { tableParams = {}, config } = val;
       const { width, title } = tableParams;
       return {
         key: `KSummaryTable-${i}`,
@@ -38,11 +42,8 @@ class KSummaryTable extends Component {
         title,
         dataIndex: config.id,
         render: (text, record) => {
-          if (record.key === 'ts') {
-            return text;
-          }
+          if (record.key === totalLineKey) return text;
           const KFormItemProps = {
-            form,
             config: {
               ...config,
               id: `${config.id}__${record.key}`,
@@ -50,7 +51,7 @@ class KSummaryTable extends Component {
             onChange: ({ id, value }) => {
               this.props.onChange({
                 id: id.split('__')[0],
-                value: getValueById(value),
+                value: value,
                 order: record.key,
               });
             },
@@ -66,12 +67,9 @@ class KSummaryTable extends Component {
 
   // 获取 Table dataSource 属性
   getTableDataSource = () => {
-    const { dataSource, configs, isTotal, isSort } = this.props;
-    if (!isTotal || !dataSource.length) {
-      return dataSource;
-    }
-    const newConfigs = getSortedConfigs(isSort, configs);
-    const newDataSource = getSummaryData(newConfigs, dataSource);
+    const { dataSource, configs, sort, totalPrecision, totalLineKey } = this.props;
+    const newConfigs = getSortedConfigs(sort, configs);
+    const newDataSource = getSummaryData(newConfigs, dataSource, totalPrecision, totalLineKey);
     return newDataSource;
   }
 
@@ -80,8 +78,8 @@ class KSummaryTable extends Component {
   // 取消表单元素 margin-bottom 属性
   // 样式采用 less 调整
   getTableRowClassName = () => {
-    const { configs, params = {} } = this.props;
-    const { rowClassName = '' } = params;
+    const { configs, tableConfigs = {} } = this.props;
+    const { rowClassName = '' } = tableConfigs;
     let newRowClassName = rowClassName;
 
     const notAllText = configs.some(val => {
@@ -97,14 +95,14 @@ class KSummaryTable extends Component {
   }
 
   render() {
-    const { params } = this.props;
+    const { tableConfigs } = this.props;
     const newColumns = this.getTableColumns();
     const newDataSource = this.getTableDataSource();
 
     return (
       <Table
         bordered
-        {...params}
+        {...tableConfigs}
         columns={newColumns}
         dataSource={newDataSource}
         rowClassName={this.getTableRowClassName}
@@ -114,7 +112,6 @@ class KSummaryTable extends Component {
 }
 
 KSummaryTable.propTypes = {
-  form: propTypes.object,
   configs: propTypes.arrayOf(propTypes.shape({
     tableParams: propTypes.shape({
       title: propTypes.string.isRequired,
@@ -131,10 +128,11 @@ KSummaryTable.propTypes = {
     }),
   })),
   dataSource: propTypes.array.isRequired,
-  params: propTypes.object,
-  onChange: propTypes.func,
-  isSort: propTypes.bool,
-  isTotal: propTypes.bool,
+  onChange: propTypes.func.isRequired,
+  tableConfigs: propTypes.object,
+  totalPrecision: propTypes.number,
+  totalLineKey: propTypes.string,
+  sort: propTypes.bool,
 };
 
 export default KSummaryTable;

@@ -5,7 +5,7 @@
 import is from 'is_js';
 import lodash from 'lodash';
 
-export default function getSummaryData(configs = [], dataSource = []) {
+export default function getSummaryData(configs = [], dataSource = [], precision = 2, key = 'summary') {
 
   const summaryLine = {};
   const newDataSource = [...dataSource];
@@ -22,7 +22,7 @@ export default function getSummaryData(configs = [], dataSource = []) {
           // eslint-disable-next-line
           const num = new Function('data', tableParams.render)(data);
           if (is.not.nan(num)) {
-            data[id] = lodash.round(parseFloat(num), 2);
+            data[id] = lodash.round(parseFloat(num), precision);
           }
         } catch (e) {
         }
@@ -43,9 +43,10 @@ export default function getSummaryData(configs = [], dataSource = []) {
 
   })
 
+  // 汇总列精度计算
   Object.keys(summaryLine).forEach((id) => {
-    summaryLine[id] = lodash.round(summaryLine[id], 2);
+    summaryLine[id] = lodash.round(summaryLine[id], precision);
   })
 
-  return [...newDataSource, { key: 'ts', ...summaryLine }]
+  return [...newDataSource, { key, ...summaryLine }]
 }

@@ -23,7 +23,7 @@ class TestKSummaryTable extends Component {
           dataSource={values}
           onChange={this.onChange}
           pagination={false}
-          isTotal
+          total
         />
       </div>
     )

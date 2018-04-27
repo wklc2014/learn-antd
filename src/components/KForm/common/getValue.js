@@ -13,7 +13,7 @@ export default function getValue ({ value, id, changeValue, extMap }) {
     changeValue = changeValue.toLowerCase();
   }
 
-  if (is.object(value)) {
+  if (is.object(value) && !moment.isMoment(value)) {
     return {
       ...value,
       [id]: changeValue,

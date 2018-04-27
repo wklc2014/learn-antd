@@ -47,8 +47,8 @@ export default class KPicture extends Component {
     const { picSrc } = this.props;
     const { picNumber } = this.state;
     const params = this.getRenderState({}, this.props);
-    console.log(1, params);
-    this.planRender(picSrc[picNumber], params);
+    const init = !params.picWidth;
+    this.planRender(picSrc[picNumber], params, init);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +58,6 @@ export default class KPicture extends Component {
     const nextPic = nextSrc[nextNumber];
     const params = this.getRenderState(this.props, nextProps);
     if (nextPic && prevPic !== nextPic) {
-      console.log(2, params);
       // 图片地址改变后，重新 planRender
       this.planRender(nextPic, params);
     } else {
@@ -79,13 +78,15 @@ export default class KPicture extends Component {
   }
 
   // 渲染新的图片
-  planRender = (src, params = {}) => {
+  planRender = (src, params = {}, init) => {
     utils.asyncLoadImage(src).then((image) => {
-      this.setState({
+      const newState = {
         picOriginWidth: image.width,
         ...params,
         picErrors: '',
-      });
+      };
+      if (init) newState.picWidth = image.width;
+      this.setState(newState);
     }).catch((e) => {
       let picErrors = '图片加载错误！';
       try {

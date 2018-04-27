@@ -7,14 +7,14 @@ export default [
     config: {
       id: 'accident_time',
       type: 'date',
-      options: {
-        rules: [
-          { required: true, message: '出险时间必填' }
-        ],
-      },
       params: {
         disabled: false,
         placeholder: '请选择出险时间',
+      },
+      extMap: {
+        rules: [
+          { required: true, message: '出险时间必填' }
+        ],
       },
     },
   },

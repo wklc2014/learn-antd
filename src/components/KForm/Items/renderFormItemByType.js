@@ -39,85 +39,88 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     Object.assign(myProps, { onChange, extMap, params, value });
   }
 
-  // 处理不同的表单类型
+  /**
+   * 处理不同的表单类型
+   */
+
+  // 单行文本输入框
   if (type === 'input') {
-    // 单行文本输入框
     return <Input {...newProps} />;
   }
 
+  // 多行文本输入框
   else if (type === 'textarea') {
-    // 多行文本输入框
     return <TextArea rows={5} {...newProps} />;
   }
 
+  // 带搜索按钮的单行文本输入框
   else if (type === 'search') {
-    // 带搜索按钮的单行文本输入框
     return <Search {...newProps} />;
   }
 
+  // 星星评级
   else if (type === 'rate') {
-    // 星星评级
     return <Rate {...newProps} />;
   }
 
+  // 滑动输入条
   else if (type === 'slider') {
-    // 滑动输入条
     return <Slider {...newProps} />;
   }
 
+  // 切换开关
   else if (type === 'switch') {
-    // 切换开关
     return <Switch {...newProps} />;
   }
 
+  // 数字输入框
   else if (type === 'number') {
-    // 数字输入框
     return <InputNumber {...newProps} />;
   }
 
+  // 多选框
   else if (type === 'checkbox') {
-    // 多选框
     return <CheckboxGroup {...newProps} />;
+  // 下拉选择框
   } else if (type === 'select') {
-    // 下拉选择框
     const Children = extMap.data.map((v, i) => <Option key={i} value={v.value}>{v.label}</Option>);
     return <Select {...newProps}>{Children}</Select>;
   }
 
+  // 日期选择框
   else if (type === 'date') {
-    // 日期选择框
     return <DatePicker {...newProps} />;
   }
 
+  // 日期区间选择框
   else if (type === 'range') {
-    // 日期区间选择框
     return <RangePicker {...newProps} />;
   }
 
+  // 月份选择框
   else if (type === 'month') {
-    // 月份选择框
     return <MonthPicker {...newProps} />;
   }
 
+  // 时间选择框
   else if (type === 'time') {
-    // 时间选择框
     return <TimePicker {...newProps} />;
   }
 
+  // 单选框
   else if (type === 'radio') {
-    // 单选框
     const Children = extMap.data.map((v, i) => <Radio key={i} value={v.value}>{v.label}</Radio>);
     return <RadioGroup {...newProps}>{Children}</RadioGroup>;
   }
 
+  // 单选按钮
   else if (type === 'radioButton') {
-    // 单选按钮
     const Children = extMap.data.map((v, i) => <RadioButton key={i} value={v.value}>{v.label}</RadioButton>);
     return <RadioGroup {...newProps}>{Children}</RadioGroup>;
   }
 
+  // 纯文本显示
   else if (type === 'text') {
-    // 纯文本显示
     if (is.function(extMap.render)) {
       value = extMap.render(value);
     } else if (is.array(extMap.data)) {
@@ -127,13 +130,12 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     return <span className="ant-form-text">{value}</span>;
   }
 
+  // 树形选择控件
   else if (type === 'treeSelect') {
-    // 树形选择控件
     return <TreeSelect dropdownStyle={{ maxHeight: 300 }} {...newProps} treeData={extMap.data} />;
   }
-
+  // 按钮
   else if (type === 'button') {
-    // 按钮
     if (is.array(extMap.data) && extMap.data.length) {
       // 一次生成多个按钮
       return extMap.data.map((btn, i) => {
@@ -149,8 +151,8 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     return <Button {...newProps}>{extMap.label}</Button>;
   }
 
+  // 级联选择
   else if (type === 'cascader') {
-    // 级联选择
     Object.assign(newProps, { options: extMap.data });
     if (is.function(extMap.render)) {
       const newStyle = {...newProps.style, display: 'inline'};
@@ -165,6 +167,7 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
     return <MyFetchInput {...myProps} />;
   }
 
+  // 无法处理的表单元素类型
   else {
     utils.errorLogs(`没有与之相对应表单元素类型${type}`);
   }
