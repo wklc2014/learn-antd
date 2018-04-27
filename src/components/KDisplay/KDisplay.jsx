@@ -18,4 +18,3 @@ export default function KDisplay({ condition, children }) {
   }
   return resetItem;
 }
-

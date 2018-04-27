@@ -9,6 +9,7 @@ import DemoKFormLayout from '../Demo/DemoKFormLayout.jsx';
 import DemoKFormItem from '../Demo/DemoKFormItem.jsx';
 import DemoKSummaryTable from '../Demo/DemoKSummaryTable.jsx';
 import DemoKPicture from '../Demo/DemoKPicture.jsx';
+import DemoKDetail from '../Demo/DemoKDetail.jsx';
 
 function App (props) {
   return (
@@ -21,6 +22,7 @@ function App (props) {
             <Route path="/formLayout" component={ DemoKFormLayout } />
             <Route path="/formItem" component={ DemoKFormItem } />
             <Route path="/picture" component={ DemoKPicture } />
+            <Route path="/detail" component={ DemoKDetail } />
           </Switch>
         </MainLayout>
       </Loading>

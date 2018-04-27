@@ -51,7 +51,7 @@ export default class KForm extends Component {
   }
 
   render() {
-    const { columns, configs, sort, layout, space, values, onChange } = this.props;
+    const { className, columns, configs, sort, layout, space, values, onChange } = this.props;
     const newConfigs = getSortedConfigs(sort, configs);
 
     const formEle = newConfigs.map((val, i) => {
@@ -87,7 +87,7 @@ export default class KForm extends Component {
     const formLayout = this.getFormLayoutType();
 
     return (
-      <Form layout={formLayout}>
+      <Form layout={formLayout} className={className}>
         <Row type="flex">{formEle}</Row>
       </Form>
     );
@@ -95,7 +95,8 @@ export default class KForm extends Component {
 }
 
 KForm.propTypes = {
-  onChange: propTypes.func.isRequired,
+  className: propTypes.string,
+  onChange: propTypes.func,
   configs: propTypes.array.isRequired,
   columns: propTypes.number,
   sort: propTypes.bool,

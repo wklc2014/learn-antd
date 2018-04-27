@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
+import { Card } from 'antd';
 
 import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
 import configs from './common/kSummaryTableConfig.js';
@@ -17,7 +18,7 @@ class TestKSummaryTable extends Component {
     const { values } = this.props;
 
     return (
-      <div style={{ padding: 16 }}>
+      <Card>
         <KSummaryTable
           configs={configs}
           dataSource={values}
@@ -25,7 +26,7 @@ class TestKSummaryTable extends Component {
           pagination={false}
           total
         />
-      </div>
+      </Card>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from 'antd';
+import { Form, Card } from 'antd';
 import moment from 'moment';
 
 import KFormItem from '../../components/KForm/KFormItem.jsx';
@@ -29,14 +29,14 @@ class DemoKFormItem extends Component {
     const { values } = this.state;
 
     return (
-      <div style={{ padding: 16 }}>
+      <Card title="表单元素自定义">
         <Form>
           <KFormItem {...kFormItemConfig[0]} value={values.user_name_1} onChange={this.onChange} />
           <KFormItem {...kFormItemConfig[1]} value={values.user_name_2} onChange={this.onChange} />
           <KFormItem {...kFormItemConfig[2]} value={values['fetchInput-1']} onChange={this.onChange} />
           <KFormItem {...kFormItemConfig[3]} value={values.user_name_3} onChange={this.onChange} />
         </Form>
-      </div>
+      </Card>
     )
   }
 }

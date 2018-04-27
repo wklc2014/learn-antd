@@ -25,8 +25,7 @@ export default function getFormItemValidate(value, extMap = {}, touched = true) 
     help: '',
   }
 
-  // 验证规则一条没通过后
-  // 就不再验证
+  // 验证规则一条没通过后, 就不再验证
   rules.some(rule => {
     // 必填性验证
     if (rule.required && !newValue) {
@@ -40,18 +39,21 @@ export default function getFormItemValidate(value, extMap = {}, touched = true) 
     if (rule.max && newValue.length > rule.max) {
       __validate.validateStatus = 'error';
       __validate.help = rule.message || rulesMessage.max;
+      return true;
     }
 
     // 最小值验证
     if (rule.min && newValue.length < rule.min) {
       __validate.validateStatus = 'error';
       __validate.help = rule.message || rulesMessage.min;
+      return true;
     }
 
     // 指定长度验证
     if (rule.len && newValue.length !== rule.len) {
       __validate.validateStatus = 'error';
       __validate.help = rule.message || rulesMessage.len;
+      return true;
     }
 
     return false;

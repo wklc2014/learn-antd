@@ -3,7 +3,7 @@
  */
 import { actions, connect } from 'mirrorx';
 import React, { Component } from 'react';
-import { Button, Form } from 'antd';
+import { Button, Card } from 'antd';
 
 import * as CONFIGS from './common/kFormConfig.js';
 import KForm from '../../components/KForm/KForm.jsx';
@@ -37,12 +37,6 @@ class DemoKForm extends Component {
   }
 
   render() {
-    const commonStyle = {
-      border: '1px solid #eee',
-      marginBottom: 20,
-      padding: '10px 20px'
-    }
-
     const { formLayout = {} } = this.props.values;
     const layout = getValueById(formLayout);
 
@@ -69,43 +63,40 @@ class DemoKForm extends Component {
     const inlineGroupConfigs = [...CONFIGS.UserRegister, btnConfig];
 
     return (
-      <section style={{ padding: 16 }}>
-        <div style={commonStyle}>
-          <KForm
-            wrappedComponentRef={(inst) => this.instance = inst}
-            configs={CONFIGS.UserSurvery}
-            form={this.props.form}
-            columns={2}
-            onChange={this.onChange}
-            values={this.props.values}
-            space={16}
-          />
-        </div>
-        <p style={{ paddingBottom: 16 }}>
-          <Button type="primary" onClick={this.onSubmit} style={{ marginRight: 16 }}>
-            提交
-          </Button>
-          <Button type="primary" onClick={this.onGetValue} style={{ marginRight: 16 }}>
-            获取
-          </Button>
-          <Button type="primary" onClick={this.onReset}>
-            重置
-          </Button>
-        </p>
-        <div style={commonStyle}>
-          <KForm
-            configs={inlineGroupConfigs}
-            onChange={this.onChange}
-            layout={layout}
-            values={this.props.values}
-          />
-        </div>
-      </section>
+      <div>
+        <Card title="多种表单输入类型" style={{ marginBottom: 24 }}>
+            <KForm
+              wrappedComponentRef={(inst) => this.instance = inst}
+              configs={CONFIGS.UserSurvery}
+              columns={2}
+              onChange={this.onChange}
+              values={this.props.values}
+              space={16}
+            />
+          <p style={{ paddingBottom: 16 }}>
+            <Button type="primary" onClick={this.onSubmit} style={{ marginRight: 16 }}>
+              提交
+            </Button>
+            <Button type="primary" onClick={this.onGetValue} style={{ marginRight: 16 }}>
+              获取
+            </Button>
+            <Button type="primary" onClick={this.onReset}>
+              重置
+            </Button>
+          </p>
+        </Card>
+        <Card title="三种组件布局">
+            <KForm
+              configs={inlineGroupConfigs}
+              onChange={this.onChange}
+              layout={layout}
+              values={this.props.values}
+            />
+        </Card>
+      </div>
     );
   }
 }
-
-const Wraper = Form.create()(DemoKForm);
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -113,4 +104,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(Wraper);
+export default connect(mapStateToProps)(DemoKForm);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Card } from 'antd';
 
 import KPicture from '../../components/KPicture/KPicture.jsx';
 
@@ -42,25 +42,26 @@ export default class DemoKPicture extends Component {
 
   render() {
     const { visible } = this.state;
-    const divStyle = { padding: 16 };
 
     return (
-      <div style={divStyle}>
-        <p>
-          <Button style={{ marginRight: 8 }} onClick={this.onBtnClick}>切换</Button>
-          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('width')}>增加宽度</Button>
-          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('rotate')}>增加旋转角度</Button>
-          <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
-          <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
-        </p>
-        <KPicture
-          picSrc={paths}
-          picWidth={this.state.width}
-          picRotate={this.state.rotate}
-          picPositionX={this.state.x}
-          picPositionY={this.state.y}
-          areaHeight="60vh"
-        />
+      <div>
+        <Card>
+          <p>
+            <Button style={{ marginRight: 8 }} onClick={this.onBtnClick}>切换</Button>
+            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('width')}>增加宽度</Button>
+            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('rotate')}>增加旋转角度</Button>
+            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
+            <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
+          </p>
+          <KPicture
+            picSrc={paths}
+            picWidth={this.state.width}
+            picRotate={this.state.rotate}
+            picPositionX={this.state.x}
+            picPositionY={this.state.y}
+            areaHeight="60vh"
+          />
+        </Card>
         <Modal
           visible={visible}
           title="审核凭证"

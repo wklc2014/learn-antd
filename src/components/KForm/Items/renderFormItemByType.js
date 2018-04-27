@@ -127,7 +127,7 @@ export default function renderFormItemByType({ type, params, onChange, extMap, v
       const targetValue = extMap.data.find(v => v.value === value);
       if (targetValue) value = targetValue.label;
     }
-    return <span className="ant-form-text">{value}</span>;
+    return <span className="ant-form-text my-form-text">{value}</span>;
   }
 
   // 树形选择控件

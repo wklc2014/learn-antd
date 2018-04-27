@@ -20,7 +20,7 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openKeys: [],
+      openKeys: ['0'],
     }
   }
 

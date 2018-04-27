@@ -15,6 +15,7 @@ export default [
       { path: '/formItem', label: 'KFormItem' },
       { path: '/summaryTable', label: 'KSummaryTable' },
       { path: '/picture', label: 'KPicture' },
+      { path: '/detail', label: 'KDetail' },
     ],
   },
   {

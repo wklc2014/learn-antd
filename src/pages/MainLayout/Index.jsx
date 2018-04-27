@@ -40,8 +40,8 @@ class MainLayout extends Component {
             location={location}
           />
         </Sider>
-        <Layout style={{ backgroundColor: '#fff' }}>
-          <div className="MainLayoutContent">
+        <Layout>
+          <div className="MainLayoutContent" style={{ padding: 24 }}>
             { this.props.children }
           </div>
         </Layout>

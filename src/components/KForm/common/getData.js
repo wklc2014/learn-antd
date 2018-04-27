@@ -1,5 +1,7 @@
 /**
  * 获取 KFormItem data 属性
+ * data 作为 extMap 里的附加字段
+ * 可以保存 select, checkbox 等类型表单的多值选项
  */
 import __chineseCities from '../common/__chineseCities.js';
 

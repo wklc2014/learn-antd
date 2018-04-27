@@ -118,12 +118,12 @@ export default class KFormItem extends Component {
     const formItemValidate = getFormItemValidate(value, extMap, touched);
 
     return (
-      <div style={{ paddingRight: formItemSpace }}>
-        <FormItem {...newFormItemLayout} {...formItemParams} {...formItemValidate}>
+      <FormItem {...newFormItemLayout} {...formItemParams} {...formItemValidate}>
+        <div style={{ paddingRight: formItemSpace }}>
           {ChildrenEle}
-        </FormItem>
-      </div>
-    )
+        </div>
+      </FormItem>
+    );
   }
 }
 
@@ -143,6 +143,6 @@ KFormItem.propTypes = {
   formItemParams: propTypes.object,
   formItemLayout: propTypes.object,
   formItemSpace: propTypes.number,
-  onChange: propTypes.func.isRequired,
+  onChange: propTypes.func,
   // value: propTypes.object,
 };

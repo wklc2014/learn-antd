@@ -7,8 +7,16 @@
  */
 export default function getPlaceholder({ placeholder, label, id, type }) {
 
+  if (placeholder === false) {
+    // 手动设置 placeholder 为 false
+    // 则不显示 placeholder
+    return '';
+  }
+
   if (!placeholder && !label && !id) {
-    return null;
+    // 如果 placeholder、label、id 都没有设置
+    // 也不显示 placeholder
+    return '';
   }
 
   let newPlaceholder = placeholder || `请输入${label || id}`;

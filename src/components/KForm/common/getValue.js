@@ -1,5 +1,6 @@
 /**
  * 获取 KFormItem 表单元素相关值操作
+ * 表单值除了 moment 对象外，不能有对象
  */
 import is from 'is_js';
 import moment from 'moment';
