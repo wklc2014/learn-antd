@@ -1,13 +1,43 @@
 /**
- * kFormItem 支持的输入类型
+ * KForm 表单配置示例
  */
-import React from 'react';
 
-import configTypes from './configTypes.js';
+const exampleForKForm = [
+  {
+    // 对表单元素位置配置
+    order: 1,
+    id: 'user_name',
+    label: '用户姓名',
+    config: {
+      type: 'input',
+      params: {
 
-import SearchInput from './SearchInput.jsx';
+      },
+      ext: {
 
-export default {
-  ...configTypes,
-  searchInput: (props) => <SearchInput {...props} />
-}
+      }
+    },
+    sub_config: [
+      {
+        id: 'user_first_name',
+        type: 'input',
+        params: {
+
+        },
+        ext: {
+
+        }
+      },
+      {
+        id: 'user_last_name',
+        type: 'input',
+        params: {
+
+        },
+        ext: {
+
+        }
+      },
+    ]
+  }
+]

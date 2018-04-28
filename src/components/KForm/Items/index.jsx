@@ -1,5 +1,10 @@
 /**
  * KFormItem 支持的各种表单元素输入类型
+ * type      表单元素组件-类型
+ * params    表单元素组件-参数
+ * ext       表单元素组件-扩展配置
+ * onChange  表单元素组件-change事件
+ * value     表单元素组件-值
  */
 import React from 'react';
 import is from 'is_js';
@@ -15,29 +20,34 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
-export default function renderFormItemByType({ type, params, onChange, extMap, value }) {
-  const newProps = {...params, value};
+export default function renderItemContentByType({ type, params, onChange, ext }) {
 
-  // 分组表单元素类型
+  // 表单元素组件-参数
+  const new_params = {...params};
+
+  // 自定义表单元素组件-参数
+  const my_params = {};
+
+  // 对表单元素类型分组
+  // 根据 antd 表单组件 onChange 方法返回值的方式分类
   const inputType = ['input', 'textarea', 'search', 'radio', 'radioButton'];
   const baseTypes = ['rate', 'slider', 'switch', 'number', 'checkbox', 'select', 'treeSelect', 'cascader', 'date', 'range', 'month', 'time'];
   const myTypes = ['fetchInput'];
 
   // 不同的表单类型，
-  // 还需要绑定不同的属性
+  // 绑定不同的参数或事件
   if (is.inArray(type, inputType)) {
-    Object.assign(newProps, { onChange: (e) => onChange(e.target.value) });
+    Object.assign(new_params, { onChange: (e) => onChange(e.target.value) });
   } else if (is.inArray(type, baseTypes)) {
-    Object.assign(newProps, { onChange });
-  } else if (type === 'button') {
-    Object.assign(newProps, { onClick: (e) => onChange(extMap.value) });
-  }
-
-  // 处理自定义表单元素
-  const myProps = {};
-  if (is.inArray(type, myTypes)) {
+    Object.assign(new_params, { onChange });
+  } else if (is.inArray(type, myTypes)) {
+    // 自定义表单元素类型
+    // 将所有参数直接传递到相对应的自定义表单元素
     Object.assign(myProps, { onChange, extMap, params, value });
   }
+
+
+
 
   /**
    * 处理不同的表单类型
