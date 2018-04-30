@@ -1,72 +1,77 @@
-import React from 'react';
+// import React from 'react';
 import moment from 'moment';
-import { Button } from 'antd';
+// import { Button } from 'antd';
 
 // 用户调查字段配置
 export const UserSurvery = [
   {
-    // 排序字段
-    order: 1,
-
-    /**
-     * 主表单元素配置
-     * @type {Object}
-     */
+    id: 'userName',
+    label: '用户姓名',
+    params: {
+      extra: '这里是帮助提示信息',
+      hasFeedback: true,
+    },
     config: {
-      id: 'userName',
       type: 'input',
-      // 表单元素属性
-      params: {
-        placeholder: '单行文本输入框',
+      api: {
+        placeholder: '请输入用户名',
       },
-      // 扩展字段
-      extMap: {
+      ext: {
         toLowerCase: true,
         rules: [
           { required: true, message: '用户姓名必填' },
         ],
+        span: 12,
       },
     },
-
-    /**
-     * FormItem 属性
-     * @type {Object}
-     */
-    formItemParams: {
-      label: 'input',
-      extra: '这里是帮助提示信息',
-      // hasFeedback: true,
-    },
-
-    /**
-     * 子表单元素配置
-     * @type {Array}
-     */
-    subConfig: [
+    sub_config: [
       {
-        id: 'userName_1',
         type: 'select',
-        params: {
+        api: {
+          placeholder: '请选择用户姓',
           disabled: false,
-          placeholder: '请选择城市'
+          allowClear: true,
         },
-        extMap: {
+        ext: {
           data: [
-            { value: 'chengdu', label: '成都' },
-            { value: 'shanghai', label: '上海' },
-          ]
+            { value: 'zhang', label: '张' },
+            { value: 'wang', label: '王' },
+          ],
+          rules: [
+            { required: true, message: '请选择用户姓' }
+          ],
         },
-      }
+      },
+      {
+        type: 'input',
+        api: {
+          placeholder: '请输入用户国籍',
+          disabled: false,
+        },
+        ext: {
+          data: [
+            { value: 'zh', label: '中国' },
+            { value: 'en', label: '英国' },
+          ],
+          rules: [
+            { required: true, message: '请输入用户国籍' }
+          ],
+        },
+      },
     ]
   },
   {
     order: 2,
+    id: 'address',
+    label: '公司地址',
+    params: {
+
+    },
     config: {
-      id: 'address',
       type: 'input',
-      params: {},
-      extMap: {
-        childSpan: 10,
+      api: {
+      },
+      ext: {
         rules: [
           { required: true, message: '用户姓名必填' },
           { max: 4, message: '用户姓名最多4位' },
@@ -74,57 +79,39 @@ export const UserSurvery = [
         ],
       },
     },
-    formItemParams: {
-      label: 'input',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'button-1',
         type: 'button',
-        params: {
+        api: {
           type: 'primary',
         },
-        extMap: {
-          label: '同标的',
-          value: '01',
-        }
-      },
-      {
-        id: 'button-2',
-        type: 'button',
-        params: {
-          type: 'primary',
-        },
-        extMap: {
-          label: '同三者',
-          value: '02',
+        ext: {
+          data: [
+            { label: '同标的', value: '01', },
+            { label: '同三者', value: '02', type: 'default' }
+          ]
         }
       },
     ]
   },
   {
     order: 3,
+    id: 'contactPhone',
+    label: '联系电话',
     config: {
       type: 'input',
-      id: 'contactPhone',
-      options: {
+      api: {
+      },
+      ext: {
         rules: [
-          {
-            required: true,
-            whitespace: true,
-            message: '联系人电话必填'
-          }
+          { required: true, whitespace: true, message: '联系人电话必填' },
         ],
       },
     },
-    formItemParams: {
-      label: 'input',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'radio-1',
         type: 'radio',
-        extMap: {
+        ext: {
           data: [
             { label: '同标的', value: '01' },
             { label: '同三者', value: '02' }
@@ -135,40 +122,35 @@ export const UserSurvery = [
   },
   {
     order: 4,
+    id: 'accidentCity',
+    label: '出险城市',
     config: {
-      id: 'accidentCity',
       type: 'cascader',
-      params: {
-        placeholder: '这是一个三级联动选择',
+      api: {
       },
-      options: {
+      ext: {
+        city: 'quanGuo',
         rules: [
           { required: true, message: '出险城市不能为空' }
         ]
       },
-      extMap: {
-        city: 'quanGuo',
-      },
     },
-    formItemParams: {
-      label: 'cascader',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'accidentCity-1',
         type: 'input',
-        params: {
-          placeholder: '请输入姓名'
+        api: {
+          placeholder: '请输入城市备注',
         }
       }
     ]
   },
   {
     order: 5,
+    id: 'payMoney',
+    label: '受损部位',
     config: {
-      id: 'payMoney',
       type: 'checkbox',
-      params: {
+      api: {
         options: [
           { label: '无损', value: '01' },
           { label: '正前方', value: '02' },
@@ -176,37 +158,44 @@ export const UserSurvery = [
           { label: '前方右侧', value: '04' },
           { label: '车身左侧', value: '05' },
           { label: '车身右侧', value: '06' },
+          { label: '正后方', value: '07' },
+          { label: '车身顶部', value: '08' },
+          { label: '汽车排气管', value: '09' },
+          { label: '雨刮器', value: '10' },
+          { label: '左后视镜', value: '11' },
+          { label: '右后视镜', value: '12' },
+          { label: '后备箱', value: '13' },
         ],
       },
-      extMap: {
-        colSpan: 2,
-      },
+      ext: {
+        rules: [
+          { required: true, message: '受损部位必选' },
+        ]
+      }
     },
-    formItemParams: {
-      label: 'checkbox',
+    params: {
+      col_span: 2,
     },
   },
   {
     order: 6,
+    id: 'reportDate',
+    label: '报案日期',
     config: {
-      id: 'reportDate',
       type: 'date',
-      params: {
+      api: {
         format: 'YYYY-MM-DD HH:mm:ss',
         renderExtraFooter: () => 'footer',
       }
     },
-    formItemParams: {
-      label: 'date',
-    },
   },
   {
     order: 7,
+    id: 'translateDate',
+    label: '运输日期',
     config: {
-      id: 'translateDate',
       type: 'range',
-      params: {
-        placeholder: '运输日期',
+      api: {
         showTime: true,
         format: 'YYYY-MM-DD HH:mm:ss',
         ranges: {
@@ -215,79 +204,57 @@ export const UserSurvery = [
           '三月内': [moment().subtract(3, 'months'), moment()],
         }
       },
-      extMap: {
-        // colSpan: 2,
-      }
-    },
-    formItemParams:{
-      label: 'date-range',
     },
   },
   {
     order: 8,
+    id: 'translateDate1',
+    label: '报名年月',
     config: {
-      id: 'translateDate1',
       type: 'month',
-      params: {
-        placeholder: '请选择月份',
-      },
-    },
-    formItemParams: {
-      label: 'month',
     },
   },
   {
     order: 9,
+    id: 'translateDate2',
+    label: '就餐时间',
     config: {
-      id: 'translateDate2',
       type: 'time',
-      params: {
-        placeholder: '请选择时间',
-      },
-    },
-    formItemParams: {
-      label: 'time',
     },
   },
   {
     order: 10,
+    id: 'carNumber',
+    label: '车牌号',
     config: {
-      id: 'carNumber',
       type: 'input',
-      extMap: {
+      ext: {
         toUpperCase: true,
       }
-    },
-    formItemParams: {
-      label: 'toUpperCase',
     },
   },
   {
     order: 11,
+    id: 'phoneNumber',
+    label: '手机号码',
     config: {
-      id: 'phoneNumber',
       type: 'input',
-      options: {
-        rules: [{
-          required: true,
-          message: '手机号码必填'
-        }, {
-          len: 11,
-          message: '手机号码必须为11位'
-        }],
+      api: {
+      },
+      ext: {
+        rules: [
+          { required: true, message: '手机号码必填' },
+          { len: 11, message: '手机号码必须为11位' }
+        ],
       },
     },
-    formItemParams: {
-      label: 'phone',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'phoneNumber-button',
         type: 'button',
-        params: {
+        api: {
           type: 'primary'
         },
-        extMap: {
+        ext: {
           label: '参数',
           value: 'edit',
         },
@@ -296,69 +263,61 @@ export const UserSurvery = [
   },
   {
     order: 12,
+    id: 'ploicyMoney',
+    label: '赔付金额',
     config: {
-      id: 'ploicyMoney',
       type: 'number',
-      options: {
-        rules: [{
-          required: false,
-          message: '保单金额必填'
-        }],
+      ext: {
+        rules: [
+          { required: false, message: '保单金额必填' }
+        ],
       }
-    },
-    formItemParams: {
-      label: 'number',
     },
   },
   {
     order: 13,
+    id: 'sex',
+    label: '性别',
     config: {
-      id: 'sex',
       type: 'radio',
-      extMap: {
+      ext: {
         data: [
           { label: '男', value: '01' },
-          { label: '女', value: '02', selected: true },
+          { label: '女', value: '02' },
           { label: '男女', value: '03' },
           { label: '女男', value: '04' },
         ]
       }
     },
-    formItemParams: {
-      label: 'radio',
-    },
   },
   {
     order: 14,
+    id: 'accident_type',
+    label: '险种类型',
     config: {
-      id: 'type',
       type: 'radioButton',
-      extMap: {
+      ext: {
         data: [
           { label: '车险', value: '01' },
           { label: '非车险', value: '02' },
         ]
       },
     },
-    formItemParams: {
-      label: 'radio',
-    },
   },
   {
     order: 15,
+    id: 'carMarkType',
+    label: '汽车类型',
     config: {
-      id: 'carMarkType',
       type: 'select',
-      params: {
-        mode: 'multiple',
+      api: {
+        // mode: 'multiple',
+        allowClear: true,
       },
-      options: {
-        rules: [{
-          required: true,
-          message: '号牌种类必填'
-        }],
-      },
-      extMap: {
+      ext: {
+        rules: [
+          { required: true, message: '号牌种类必填' }
+        ],
         data: [
           { value: '01', label: '大型汽车号牌' },
           { value: '02', label: '小型汽车号牌' },
@@ -372,93 +331,69 @@ export const UserSurvery = [
         ],
       },
     },
-    formItemParams: {
-      label: 'select',
-    },
   },
   {
     order: 17,
+    id: 'accidentDescription',
+    label: '出险描述',
+    params: {
+      col_span: 2,
+    },
     config: {
-      id: 'accidentDescription',
       type: 'textarea',
-      extMap: {
-        colSpan: 2,
-        childSpan: 18,
-      },
-      options: {
-        rules: [{
-          required: true,
-          message: '出险描述必填'
-        }],
+      ext: {
+        rules: [
+          { required: true, message: '出险描述必填' }
+        ],
+        span: 12,
       }
     },
-    formItemParams: {
-      label: 'textarea',
-      extra: '最多输入500个字',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'cascader-button-1',
         type: 'cascader',
-        params: {
-          type: 'primary'
+        api: {
+          placeholder: '请选择出险城市'
         },
-        extMap: {
+        ext: {
           city: 'quanGuo',
-          render: (value) => {
-            return <Button type="primary">编辑</Button>;
-          }
-        },
-      },
-      {
-        id: 'cascader-button-2',
-        type: 'cascader',
-        params: {
-          type: 'primary'
-        },
-        extMap: {
-          city: 'quanGuo',
-          render: (value) => {
-            return <Button type="primary">参数</Button>;
-          }
         },
       }
     ]
   },
   {
     order: 18,
+    id: 'accidentCreate',
+    label: '描述模版',
+    params: {
+      col_span: 2,
+    },
     config: {
-      id: 'accidentCreate',
       type: 'textarea',
-      extMap: {
-        colSpan: 2,
-        childSpan: 18,
+      ext: {
+        span: 18,
       }
     },
-    formItemParams: {
-      label: 'textarea',
-      extra: '最多输入500个字',
-    },
-    subConfig: [
+    sub_config: [
       {
-        id: 'accidentCreate-button',
         type: 'button',
-        extMap: {
+        ext: {
           label: '生成描述',
           value: '01',
+          type: 'primary',
         },
-        params: {
-          type: 'primary'
+        api: {
+
         }
       },
     ],
   },
   {
     order: 20,
+    id: 'myName',
+    label: '文本显示',
     config: {
-      id: 'myName',
       type: 'text',
-      extMap: {
+      ext: {
         data: [
           { value: '111', label: '111成都' },
           { value: '222', label: '222成都' },
@@ -467,142 +402,123 @@ export const UserSurvery = [
         ]
       }
     },
-    formItemParams: {
-      label: 'text',
-    },
   },
   {
     order: 21,
+    id: 'rate1',
+    label: '打分',
     config: {
-      id: 'rate1',
       type: 'rate',
-      params: {
+      api: {
         allowHalf: true,
       },
-    },
-    formItemParams: {
-      label: 'rate',
     },
   },
   {
     order: 22,
+    id: 'slider1',
+    label: '滑动输入',
     config: {
-      id: 'slider1',
       type: 'slider',
-      params: {
+      api: {
         marks: {
           0: 'A',
-          20: 'AA',
-          40: 'AAA',
-          60: 'AAAA',
-          80: 'AAAAA',
-          100: 'AAAAAA',
+          20: 'B',
+          40: 'C',
+          60: 'D',
+          80: 'E',
+          100: 'F',
         }
       }
-    },
-    formItemParams: {
-      label: 'slider',
     },
   },
   {
     order: 23,
+    id: 'switch1',
+    label: '开关',
     config: {
-      id: 'switch1',
       type: 'switch',
-      params: {
+      api: {
         checkedChildren: 'OK',
         unCheckedChildren: 'NO'
       },
     },
-    formItemParams: {
-      label: 'switch',
-    },
   },
   {
+    id: 'treeSelect',
+    label: '树形选择',
     config: {
-      id: 'treeSelect',
       type: 'treeSelect',
-      params: {
-      },
-      extMap: {
+      ext: {
         city: 'quanGuo'
       }
     },
-    formItemParams: {
-      label: 'treeSelect',
-    },
   },
   {
+    id: 'button-my',
     config: {
-      id: 'button-my',
       type: 'button',
-      params: {
+      api: {
         type: 'primary',
       },
-      extMap: {
+      ext: {
         data: [
           { label: '选择', value: '001' },
           { label: '北京', value: '002', type: 'default' },
           { label: '西安', value: '003', type: 'dashed' },
           { label: '绵阳', value: '004', type: 'danger' },
         ],
-        offset: true,
       }
+    },
+    params: {
+      offset: true,
     }
   },
   {
+    id: 'fetchInput-1',
+    label: '输入搜索',
     config: {
-      id: 'fetchInput-1',
       type: 'fetchInput',
-      params: {
+      api: {
         allowClear: true,
       },
-      extMap: {
+      ext: {
         url: 'fetch',
       }
-    },
-    formItemParams: {
-      label: 'fetchInput',
     },
   },
 ];
 
 export const UserRegister = [
-  {
-    config: {
-      id: 'formLayout',
-      type: 'radioButton',
-      extMap: {
-        data: [
-          { value: 'horizontal', label: 'Horizontal' },
-          { value: 'vertical', label: 'Vertical' },
-          { value: 'inline', label: 'Inline' },
-        ]
-      }
-    },
-    formItemParams: {
-      label: 'Username',
-    },
-  },
-  {
-    config: {
-      id: 'user-username',
-      type: 'input',
-    },
-    formItemParams: {
-      label: 'Username',
-    },
-  },
-  {
-    config: {
-      id: 'user-password',
-      type: 'input',
-      params: {
-        type: 'password',
-      }
-    },
-    formItemParams: {
-      label: 'Password',
-    },
-  },
+  // {
+  //   id: 'formLayout',
+  //   label: '表单布局',
+  //   config: {
+  //     type: 'radioButton',
+  //     ext: {
+  //       data: [
+  //         { value: 'horizontal', label: 'Horizontal' },
+  //         { value: 'vertical', label: 'Vertical' },
+  //         { value: 'inline', label: 'Inline' },
+  //       ]
+  //     }
+  //   },
+  // },
+  // {
+  //   id: 'user-username',
+  //   label: '用户姓名',
+  //   config: {
+  //     type: 'input',
+  //   },
+  // },
+  // {
+  //   id: 'user-password',
+  //   label: '用户密码',
+  //   config: {
+  //     type: 'input',
+  //     api: {
+  //       type: 'password',
+  //     }
+  //   },
+  // },
 ]

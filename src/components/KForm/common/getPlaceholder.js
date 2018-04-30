@@ -5,7 +5,9 @@
  * id 表单元素 id
  * type 表单元素输入类型
  */
-export default function getPlaceholder({ placeholder, label, id, type }) {
+import is from 'is_js';
+
+export default function getPlaceholder({ type, placeholder, label, id }) {
 
   if (placeholder === false) {
     // 手动设置 placeholder 为 false
@@ -19,16 +21,30 @@ export default function getPlaceholder({ placeholder, label, id, type }) {
     return '';
   }
 
-  let newPlaceholder = placeholder || `请输入${label || id}`;
-  switch (type) {
-    case 'range':
-      newPlaceholder = [
-        `开始${newPlaceholder}`,
-        `结束${newPlaceholder}`,
-      ];
-      break;
-    default:
+  let new_placeholder = '';
+
+  const inputType = ['input', 'textarea', 'search', 'number', 'fetchInput'];
+  const selectType = ['select', 'treeSelect', 'cascader', 'date', 'month', 'time'];
+
+  // 预定义 placeholder 属性
+  let pre_placeholder = '';
+  if (is.inArray(type, inputType)) {
+    pre_placeholder = placeholder || `请输入${label || id}`;
+  } else if (is.inArray(type, selectType)) {
+    pre_placeholder = placeholder || `请选择${label || id}`;
+  } else if (type === 'range') {
+
   }
 
-  return newPlaceholder;
+  if (type === 'range') {
+    // 区间时间的 placeholder 属性是个数组
+    // 单独处理 range 类型
+    new_placeholder = placeholder || [`开始${label || id}`, `开始${label || id}`];
+  } else {
+    // 否则不处理
+    // 直接采用预定义 placeholder
+    new_placeholder = pre_placeholder;
+  }
+
+  return new_placeholder;
 }

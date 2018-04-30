@@ -1,32 +1,43 @@
 /**
  * 获取 KFormItem 表单元素相关值操作
- * 表单值除了 moment 对象外，不能有对象
  */
 import is from 'is_js';
 import moment from 'moment';
 
-export default function getValue ({ value, id, changeValue, extMap }) {
-  const { toUpperCase, toLowerCase } = extMap;
+export function setValue ({ value, id, changeValue, ext = {} }) {
 
-  if (toUpperCase && is.string(changeValue)) {
-    changeValue = changeValue.toUpperCase();
-  } else if (toLowerCase && is.string(changeValue)) {
-    changeValue = changeValue.toLowerCase();
-  }
+  const new_change_value = valueBefore({ value: changeValue, ext });
 
   if (is.object(value) && !moment.isMoment(value)) {
     return {
       ...value,
-      [id]: changeValue,
+      [id]: new_change_value,
     };
   }
   return {
     main: value,
-    [id]: changeValue,
+    [id]: new_change_value,
   }
 }
 
 // 获取对象指定 key
-export function getValueById(value, id = 'main') {
-  return is.object(value) && !moment.isMoment(value) ? value[id] : { main: value }[id];
+export function getValue({ value, id, ext }) {
+  const target_value = is.object(value) && !moment.isMoment(value) ? value[id] : { main: value }[id];
+  return  valueBefore({ value: target_value, ext });
+}
+
+// value 设置和获取前需要做些转换处理
+function valueBefore({ value, ext = {} }) {
+
+  let new_value = value;
+
+  const { toUpperCase, toLowerCase } = ext;
+
+  if (toUpperCase && is.string(value)) {
+    new_value = value.toUpperCase();
+  } else if (toLowerCase && is.string(value)) {
+    new_value = value.toLowerCase();
+  }
+
+  return new_value;
 }

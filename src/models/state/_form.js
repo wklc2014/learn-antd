@@ -4,7 +4,14 @@
 
 export default {
   values: {
-    userName: '成都',
-    myName: '222',
+    userName: {
+      'main': 'ABCD',
+    },
+    myName: {
+      main: '222',
+    },
+    formLayout: {
+      main: 'inline',
+    }
   }
 }

@@ -6,8 +6,8 @@ import { message } from 'antd';
 
 export default {
   // 前端错误日志
-  errorLogs({ errorType, errorTexts }) {
-    throw TypeError(errorTexts);
+  errorLogs({ errorTexts, errorType }) {
+    console.error(errorTexts);
   },
   // 异步加载图片
   asyncLoadImage(url) {

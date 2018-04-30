@@ -25,8 +25,8 @@ export default class MyFetchInput extends Component {
 
   handleChange = (value) => {
     const that = this;
-    const { extMap = {}, onChange } = this.props;
-    const { url, time = 300 } = extMap;
+    const { ext = {}, onChange } = this.props;
+    const { url, time = 300 } = ext;
     onChange && onChange(value);
 
     if (timeout) {
@@ -49,13 +49,13 @@ export default class MyFetchInput extends Component {
   }
 
   render() {
-    const { params } = this.props;
+    const { api } = this.props;
     const options = this.getOptions();
     const newProps = {
       defaultActiveFirstOption: false,
       showArrow: false,
       filterOption: false,
-      ...params,
+      ...api,
       mode: 'combobox',
       onSearch: this.handleChange,
     }
@@ -64,5 +64,5 @@ export default class MyFetchInput extends Component {
 }
 
 MyFetchInput.propTypes = {
-  extMap: propTypes.object.isRequired,
+  ext: propTypes.object.isRequired,
 }

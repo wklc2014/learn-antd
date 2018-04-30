@@ -7,7 +7,6 @@ import { Button, Card } from 'antd';
 
 import * as CONFIGS from './common/kFormConfig.js';
 import KForm from '../../components/KForm/KForm.jsx';
-import { getValueById } from '../../components/KForm/common/getValue.js';
 
 class DemoKForm extends Component {
 
@@ -28,7 +27,7 @@ class DemoKForm extends Component {
   }
 
   onChange = ({ id, value, type }) => {
-    // console.log('{ id, value }>>>', JSON.stringify({ id, value, type }));
+    console.log('>>>', JSON.stringify({ id, value, type }));
     actions._form.updateValues({ [id]: value })
   }
 
@@ -38,27 +37,23 @@ class DemoKForm extends Component {
 
   render() {
     const { formLayout = {} } = this.props.values;
-    const layout = getValueById(formLayout);
 
     const btnConfig = {
+      id: 'button-submit',
       config: {
-        id: 'button-submit',
         type: 'button',
-        extMap: {
+        ext: {
+          value: 'login',
           label: '登录',
         },
-        params: {
+        api: {
           type: 'primary',
-          onClick: () => {
-            console.log(23)
-          }
         },
       },
-      formItemLayout: {}
+      params: {
+        offset: true,
+      }
     };
-    if (!layout || layout === 'horizontal') {
-      btnConfig.formItemLayout.wrapperCol = { xs: 24, sm: { span: 16, offset: 6 } };
-    }
 
     const inlineGroupConfigs = [...CONFIGS.UserRegister, btnConfig];
 
@@ -68,7 +63,7 @@ class DemoKForm extends Component {
             <KForm
               wrappedComponentRef={(inst) => this.instance = inst}
               configs={CONFIGS.UserSurvery}
-              columns={2}
+              cols={2}
               onChange={this.onChange}
               values={this.props.values}
               space={16}
@@ -89,7 +84,7 @@ class DemoKForm extends Component {
             <KForm
               configs={inlineGroupConfigs}
               onChange={this.onChange}
-              layout={layout}
+              type={formLayout.main}
               values={this.props.values}
             />
         </Card>

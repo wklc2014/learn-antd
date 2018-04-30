@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 
 import KDetail from '../../components/KDetail/KDetail.jsx';
 import { __detailConfig, __detailDataSource } from './common/kDetailConfig.js';

@@ -3,23 +3,28 @@
  */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { Form, Row, Col } from 'antd';
 import is from 'is_js';
-import lodash from 'lodash';
+// import lodash from 'lodash';
+import { Form, Row, Col } from 'antd';
 
 import KFormItem from './KFormItem.jsx';
 
-import formLayoutTypes from './common/formLayoutTypes.js';
+import __formLayoutTypes from './common/__formLayoutTypes.js';
 
 import getGridLayout from './common/getGridLayout.js';
 import getSortedConfigs from './common/getSortedConfigs.js';
 import getFormItemLayout from './common/getFormItemLayout.js';
 
+import './common/myKForm.less';
+
 export default class KForm extends Component {
 
   static defaultProps = {
+    // 表单 className
+    className: '',
+
     // 表单布局列数
-    columns: 1,
+    cols: 1,
 
     // 表单配置数组
     configs: [],
@@ -27,8 +32,11 @@ export default class KForm extends Component {
     // 对表单配置数组进行排序
     sort: false,
 
-    // 表单元素布局类型
-    layout: 'horizontal',
+    // 整个表单组布局类型
+    type: 'horizontal',
+
+    // 单个表单元素布局
+    layout: '',
 
     // 表单元素间隔距离
     space: 0,
@@ -43,40 +51,47 @@ export default class KForm extends Component {
    * @return {string} 表单布局类型
    */
   getFormLayoutType = () => {
-    const { layout } = this.props;
-    if (is.inArray(layout, formLayoutTypes)) {
-      return layout;
+    const { type } = this.props;
+    if (is.inArray(type, __formLayoutTypes)) {
+      return type;
     }
-    return formLayoutTypes[0];
+    return __formLayoutTypes[0];
   }
 
   render() {
-    const { className, columns, configs, sort, layout, space, values, onChange } = this.props;
+    const { className, configs, cols, sort, type, layout, space, values, onChange } = this.props;
     const newConfigs = getSortedConfigs(sort, configs);
 
-    const formEle = newConfigs.map((val, i) => {
-      const key = `${layout}-${i}`;
-      const { config = {}, subConfig, formItemParams, formItemLayout, formItemSpace } = val;
-      const colSpan = lodash.get(config, 'extMap.colSpan');
-      const newFormItemLayout = formItemLayout || getFormItemLayout(layout, colSpan, columns);
-      const newFormItemSpace = space || formItemSpace || 0;
+    const KFormChildrenEle = newConfigs.filter(val => {
+      const { params = {} } = val;
+      return !params.hide;
+    }).map((val, i) => {
+      const key = `${type}-${i}`;
+      const { id: item_id, label: item_label, config: item_config, sub_config: item_sub_config, params: item_params = {} } = val;
+      const { col_span, offset } = item_params;
+
+      // KformItem 布局可以通过 Kform 组件直接传入
+      // 也可以通过方法计算
+      const item_layout = layout || getFormItemLayout(type, cols, col_span, offset);
+
       const KFormItemProps = {
-        config,
-        subConfig,
-        formItemParams,
-        formItemLayout: newFormItemLayout,
-        formItemSpace: newFormItemSpace,
+        id: item_id,
+        label: item_label,
+        config: item_config,
+        sub_config: item_sub_config,
+        params: { ...item_params, space },
         onChange,
-        value: values[config.id],
+        value: values[item_id],
+        layout: item_layout,
       }
-      if (layout === 'inline') {
+      if (type === 'inline') {
         return (
           <div key={key} style={{ display: 'inline-block' }}>
             <KFormItem {...KFormItemProps} />
           </div>
         )
       }
-      const ColProps = getGridLayout(columns, colSpan);
+      const ColProps = getGridLayout(cols, col_span);
       return (
         <Col key={key} {...ColProps}>
           <KFormItem {...KFormItemProps} />
@@ -87,20 +102,26 @@ export default class KForm extends Component {
     const formLayout = this.getFormLayoutType();
 
     return (
-      <Form layout={formLayout} className={className}>
-        <Row type="flex">{formEle}</Row>
-      </Form>
+      <section className={className}>
+        <Form layout={formLayout}>
+          <Row type="flex">{KFormChildrenEle}</Row>
+        </Form>
+      </section>
     );
   }
 }
 
 KForm.propTypes = {
   className: propTypes.string,
-  onChange: propTypes.func,
+  onChange: propTypes.func.isRequired,
   configs: propTypes.array.isRequired,
-  columns: propTypes.number,
+  cols: propTypes.number,
   sort: propTypes.bool,
-  layout: propTypes.string,
+  type: propTypes.string,
+  layout: propTypes.oneOfType([
+    propTypes.object,
+    propTypes.string,
+  ]),
   space: propTypes.number,
   values: propTypes.object,
 };
