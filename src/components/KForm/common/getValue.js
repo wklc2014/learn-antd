@@ -15,14 +15,14 @@ export function setValue ({ value, id, changeValue, ext = {} }) {
     };
   }
   return {
-    main: value,
+    formItem_1: value,
     [id]: new_change_value,
   }
 }
 
 // 获取对象指定 key
 export function getValue({ value, id, ext }) {
-  const target_value = is.object(value) && !moment.isMoment(value) ? value[id] : { main: value }[id];
+  const target_value = is.object(value) && !moment.isMoment(value) ? value[id] : { formItem_1: value }[id];
   return  valueBefore({ value: target_value, ext });
 }
 

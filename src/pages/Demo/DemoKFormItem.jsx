@@ -15,7 +15,12 @@ class DemoKFormItem extends Component {
     super(props);
     this.state = {
       values: {
-        user_name_2: moment('2014-12-20')
+        user_name_2: {
+          formItem_1: moment('2014-12-20'),
+        },
+        user_name_3: {
+          formItem_1: '02',
+        }
       },
     }
   }
@@ -33,8 +38,8 @@ class DemoKFormItem extends Component {
         <Form>
           <KFormItem {...kFormItemConfig[0]} value={values.user_name_1} onChange={this.onChange} />
           <KFormItem {...kFormItemConfig[1]} value={values.user_name_2} onChange={this.onChange} />
-          <KFormItem {...kFormItemConfig[2]} value={values['fetchInput-1']} onChange={this.onChange} />
-          <KFormItem {...kFormItemConfig[3]} value={values.user_name_3} onChange={this.onChange} />
+          <KFormItem {...kFormItemConfig[2]} value={values.user_name_3} onChange={this.onChange} />
+          <KFormItem {...kFormItemConfig[3]} value={values.user_name_4} onChange={this.onChange} />
         </Form>
       </Card>
     )

@@ -60,14 +60,14 @@ class DemoKForm extends Component {
     return (
       <div>
         <Card title="多种表单输入类型" style={{ marginBottom: 24 }}>
-            <KForm
-              wrappedComponentRef={(inst) => this.instance = inst}
-              configs={CONFIGS.UserSurvery}
-              cols={2}
-              onChange={this.onChange}
-              values={this.props.values}
-              space={16}
-            />
+          <KForm
+            wrappedComponentRef={(inst) => this.instance = inst}
+            configs={CONFIGS.UserSurvery}
+            cols={2}
+            onChange={this.onChange}
+            values={this.props.values}
+            space={16}
+          />
           <p style={{ paddingBottom: 16 }}>
             <Button type="primary" onClick={this.onSubmit} style={{ marginRight: 16 }}>
               提交
@@ -81,12 +81,12 @@ class DemoKForm extends Component {
           </p>
         </Card>
         <Card title="三种组件布局">
-            <KForm
-              configs={inlineGroupConfigs}
-              onChange={this.onChange}
-              type={formLayout.main}
-              values={this.props.values}
-            />
+          <KForm
+            configs={inlineGroupConfigs}
+            onChange={this.onChange}
+            type={formLayout.formItem_1}
+            values={this.props.values}
+          />
         </Card>
       </div>
     );

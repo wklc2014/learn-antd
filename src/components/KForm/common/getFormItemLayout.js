@@ -1,25 +1,25 @@
 /**
  * 获取 KFormItem 表单元素栅格布局
- * @param  {number} columns   表单几列布局，默认为1 (一行放几个表单元素的问题)
+ * @param  {number} cols   表单几列布局，默认为1 (一行放几个表单元素的问题)
  * @param  {number} col       该表单元素横跨几列，默认为1 (一个表单元素横跨几列的问题)
  * @return {object}           表单元素栅格化布局属性
  */
-export default function getFormItemLayout(layoutType, columns = 1, span = 1, offset = '') {
+export default function getFormItemLayout(layoutType, cols = 1, colspan = 1, offset = '') {
   if (layoutType !== 'horizontal') {
     // 只有当表单布局为 horizontal 时，
     // 表单元素才采用栅格布局
     return null;
   }
-  const layout = getLayout(columns, span);
+  const layout = getLayout(cols, colspan);
   const layout_offset = getLayoutOffset(layout, offset);
   return layout_offset;
 }
 
-function getLayout(columns = 1, span = 1) {
-  // 一个表单元素最多横跨 columns 列
-  span = Math.min(columns, span);
+function getLayout(cols = 1, colspan = 1) {
+  // 一个表单元素最多横跨 cols 列
+  colspan = Math.min(cols, colspan);
 
-  if (columns === 4) {
+  if (cols === 4) {
     return [
       {
         labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 12 },
@@ -37,8 +37,8 @@ function getLayout(columns = 1, span = 1) {
         labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 2,  xl: 3   },
         wrapperCol: { xs: 24, sm: 18, md: 21, lg: 22, xl: 21 },
       },
-    ][span - 1];
-  } else if (columns === 3 || columns === 2) {
+    ][colspan - 1];
+  } else if (cols === 3 || cols === 2) {
     return [
       {
         labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 6   },
@@ -52,7 +52,7 @@ function getLayout(columns = 1, span = 1) {
         labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 3,  xl: 2   },
         wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 22  },
       },
-    ][span - 1];
+    ][colspan - 1];
   } else {
     return {
       labelCol:   { xs: 24, sm: 6   },

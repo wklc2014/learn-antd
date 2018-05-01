@@ -11,16 +11,15 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
   const newDataSource = [...dataSource];
 
   configs.forEach(val => {
-    const { config = {}, tableParams = {} } = val || {};
-    const { id } = config;
+    const { id, params = {} } = val || {};
 
     newDataSource.forEach((data) => {
 
       // 计算行
-      if (tableParams.render) {
+      if (params.render) {
         try {
           // eslint-disable-next-line
-          const num = new Function('data', tableParams.render)(data);
+          const num = new Function('data', params.render)(data);
           if (is.not.nan(num)) {
             data[id] = lodash.round(parseFloat(num), precision);
           }
@@ -29,7 +28,7 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
       }
 
       // 汇总列
-      if (tableParams.total) {
+      if (params.total) {
         if (summaryLine[id] === undefined) {
           summaryLine[id] = 0;
         }

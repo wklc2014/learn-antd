@@ -1,75 +1,103 @@
 /**
  * 自定义表单验证
+ * 单次验证一个表单元素
  */
 import is from 'is_js';
 import { getValue } from './getValue.js';
-import utils from '../../../common/utils/utils.js';
 
 const rulesMessage = {
   required: '必填',
+  max: '最大值',
+  min: '最小值',
+  len: '指定长度不够',
+  phone: '手机号码',
 }
 
-export default function getFormItemValidate({ value, ext = {}, touched = {} }) {
-  const { rules } = ext;
+export default function getFormItemValidate({ value, config = [], touched = false }) {
 
-  if (!rules || is.not.array(rules)) {
-    // 无验证规则
-    // 或验证规则不是数组
-    return {};
-  }
+  let __validate = {};
 
-  // 验证是否必填
-  const required = rules.some(rule => rule.required);
+  config.slice(0, 2).some((val, i) => {
+    let check_error = false;
 
-  if (!touched) {
-    // 首次进入页面，不验证
-    return { required };
-  }
+    const { ext = {} } = val;
+    const { rules } = ext;
+    const id = `formItem_${i + 1}`;
 
-  // 获取需要验证的值
-  const new_value = getValue({ value, id: 'main', ext });
+    // 验证规则不是数组
+    if (is.array(rules)) {
+      // 获取需要验证的值
+      const new_value = getValue({ value, id, ext });
 
-  // 初始验证结果
-  const __validate = {
-    required,
-    validateStatus: null,
-    help: '',
-  }
+      // 验证是否必填
+      __validate.required = rules.some(rule => rule.required);
 
-  // 验证规则一条没通过后, 就不再验证
-  rules.some(rule => {
-    // 必填性验证
-    if (rule.required && !new_value) {
-      __validate.validateStatus = 'error';
-      __validate.help = rule.message || rulesMessage.required;
-      __validate.required = true;
-      return true;
+      if (touched) {
+        const { rules } = ext;
+        // 验证规则一条没通过后, 就不再验证
+        check_error = rules.some(rule => {
+          const result = validateRule(rule, new_value);
+          if (result) {
+            Object.assign(__validate, result);
+          }
+          return !!result;
+        });
+      }
     }
-
-    // 最大值验证
-    if (rule.max && new_value.length > rule.max) {
-      __validate.validateStatus = 'error';
-      __validate.help = rule.message || rulesMessage.max;
-      return true;
-    }
-
-    // 最小值验证
-    if (rule.min && new_value.length < rule.min) {
-      __validate.validateStatus = 'error';
-      __validate.help = rule.message || rulesMessage.min;
-      return true;
-    }
-
-    // 指定长度验证
-    if (rule.len && new_value.length !== rule.len) {
-      __validate.validateStatus = 'error';
-      __validate.help = rule.message || rulesMessage.len;
-      return true;
-    }
-
-    return false;
+    return check_error;
   })
 
   // console.log("__validate", __validate);
   return __validate;
+}
+
+export function getFormItemErrors({ value, config }) {
+}
+
+function validateRule(rule, value) {
+  // 必填性验证
+  // eslint-disable-next-line
+  if (rule.required && ((is.array(value) && value.length === 0 || !value))) {
+    return {
+      validateStatus: 'error',
+      help: rule.message || rulesMessage.required,
+    };
+  }
+  // 最大值验证
+  if (rule.max && value.length > rule.max) {
+    return {
+      validateStatus: 'error',
+      help: rule.message || rulesMessage.max,
+    }
+  }
+  // 最小值验证
+  if (rule.min && value.length < rule.min) {
+    return {
+      validateStatus: 'error',
+      help: rule.message || rulesMessage.min,
+    };
+  }
+  // 指定长度验证
+  if (rule.len && value.length !== rule.len) {
+    return {
+      validateStatus: 'error',
+      help: rule.message || rulesMessage.len,
+    };
+  }
+  // 手机号码验证
+  const reg_phone = /1[0-9]{10}/;
+  if (rule.phone && !reg_phone.test(value)) {
+    return {
+      validateStatus: 'error',
+      help: rule.message || rulesMessage.phone,
+    };
+  }
+  // 自定义扩展验证
+  if (is.function(rule.validator)) {
+    const result = rule.validator(value);
+    return result ? {
+      validateStatus: 'error',
+      help: rule.validator(value),
+    } : null;
+  }
 }

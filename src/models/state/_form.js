@@ -4,14 +4,9 @@
 
 export default {
   values: {
-    userName: {
-      'main': 'ABCD',
-    },
-    myName: {
-      main: '222',
-    },
-    formLayout: {
-      main: 'inline',
-    }
+    userName: 'ABCD',
+    myName: '222',
+    carMarkType: '01',
+    formLayout: 'inline',
   }
 }

@@ -8,7 +8,6 @@ import { Card } from 'antd';
 
 import KForm from '../KForm/KForm.jsx';
 import KSummaryTable from '../KSummaryTable/KSummaryTable.jsx';
-import * as __formItemLayout from '../KForm/common/__formItemLayout.js';
 
 export default class KDetail extends Component {
 
@@ -19,20 +18,22 @@ export default class KDetail extends Component {
   }
 
   // 表单式详情
-  getFormConfigEle = (title, typeConfig = {}, contentConfig = []) => {
+  getFormConfigEle = (formConfigParams = {}) => {
+    const { title, typeConfig = {}, dataConfig = [] } = formConfigParams;
     const { dataSource } = this.props;
     const values = {};
-    const FormConfigs = contentConfig.map((val, i) => {
+    const FormConfigs = dataConfig.map((val, i) => {
       values[val.id] = lodash.get(dataSource, val.path);
       const newVal = {
+        id: val.id,
+        label: val.label,
         config: {
-          id: val.id,
           type: val.type,
+          ext: {
+            render: val.render,
+          },
         },
-        formItemParams: {
-          label: val.label,
-        },
-        formItemLayout: __formItemLayout[typeConfig.layout] || null,
+        layout: typeConfig.layout,
       }
       return newVal;
     });
@@ -49,31 +50,35 @@ export default class KDetail extends Component {
   }
 
     // 表格式详情
-    getTableConfigEle = (title, typeConfig = {}, contentConfig = []) => {
+    getTableConfigEle = (tableConfigPamram = {}) => {
+      const { title, typeConfig = {}, dataConfig = [], path } = tableConfigPamram;
       const { dataSource } = this.props;
-      const values = {};
-      const FormConfigs = contentConfig.map((val, i) => {
-        values[val.id] = lodash.get(dataSource, val.path);
+      const values = lodash.get(dataSource, path, []);
+      const new_values = values.map((v, i) => ({...v, key: i}));
+      const TableConfigs = dataConfig.map((val, i) => {
         const newVal = {
+          id: val.id,
           config: {
-            id: val.id,
             type: val.type,
+            api: val.api,
+            ext: val.ext,
           },
-          formItemParams: {
-            label: val.label,
+          params: {
+            title: val.label,
+            width: val.width,
+            total: val.total,
+            render: val.render,
           },
-          formItemLayout: __formItemLayout[typeConfig.layout] || null,
         }
         return newVal;
       });
-
     return (
       <Card style={{ marginBottom: 24 }} title={title}>
-        <KForm
+        <KSummaryTable
           className="itemNoBottom"
           {...typeConfig}
-          configs={FormConfigs}
-          values={values}
+          configs={TableConfigs}
+          dataSource={new_values}
         />
       </Card>
     );
@@ -83,13 +88,14 @@ export default class KDetail extends Component {
     const { configs } = this.props;
 
     const ChildrenEle = configs.map((val, i) => {
-      const { title, type, typeConfig, config } = val;
+      const { type } = val;
       const key = i;
       if (type === 'form') {
-        return <div key={key}>{ this.getFormConfigEle(title, typeConfig, config) }</div>;
+        return <div key={key}>{ this.getFormConfigEle(val) }</div>;
       } else if (type === 'table') {
-        return <div key={key}>{ this.getTableConfigEle(title, typeConfig, config) }</div>;
+        return <div key={key}>{ this.getTableConfigEle(val) }</div>;
       }
+      return null;
     })
 
     return <div>{ChildrenEle}</div>;

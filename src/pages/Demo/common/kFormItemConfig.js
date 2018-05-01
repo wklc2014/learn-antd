@@ -1,54 +1,57 @@
 export default [
   {
+    id: 'user_name_1',
+    label: '姓名',
     config: {
-      id: 'user_name_1',
       type: 'input',
-      options: {
+      api: {
+
+      },
+      ext: {
         rules: [
           { required: true, message: '内容必填' }
         ]
       }
     },
-    formItemParams: {
-      label: '姓名',
-    },
   },
   {
+    id: 'user_name_2',
+    label: '日期',
     config: {
-      id: 'user_name_2',
       type: 'date',
     },
-    formItemParams: {
-      label: '日期',
-    },
   },
   {
+    id: 'user_name_3',
+    label: '选择',
     config: {
-      id: 'fetchInput-1',
-      type: 'fetchInput',
-      params: {
+      type: 'select',
+      api: {
         allowClear: true,
       },
-      extMap: {
-        url: 'fetch',
+      ext: {
+        data: [
+          { value: '01', label: 'AAAA' },
+          { value: '02', label: 'BBBB' },
+          { value: '03', label: 'CCCC' },
+        ]
       }
-    },
-    formItemParams: {
-      label: 'fetchInput',
     },
   },
   {
+    id: 'user_name_4',
     config: {
-      id: 'user_name_3',
       type: 'button',
-      params: {
+      api: {
         type: 'primary',
       },
-      extMap: {
+      ext: {
         label: '提交',
         value: '222333',
-        offset: true,
       },
     },
+    params: {
+      offset: true,
+    }
   }
 ]

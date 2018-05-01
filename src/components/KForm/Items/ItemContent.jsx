@@ -15,6 +15,7 @@ export default class ItemContent extends Component {
   static defaultProps = {
     api: {},
     ext: {},
+    onChange: () => {},
   }
 
   shouldComponentUpdate(nextProps) {

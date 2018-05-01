@@ -10,7 +10,8 @@ class TestKSummaryTable extends Component {
   static defaultProps = {
   }
 
-  onChange = ({ id, value, order }) => {
+  onChange = ({ id, value, type, order }) => {
+    // console.log(id, value, type, order);
     actions._summary.updateDataSource({ id, value, order })
   }
 

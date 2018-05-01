@@ -11,20 +11,20 @@ export const UserSurvery = [
       extra: '这里是帮助提示信息',
       hasFeedback: true,
     },
-    config: {
-      type: 'input',
-      api: {
-        placeholder: '请输入用户名',
+    config: [
+      {
+        type: 'input',
+        api: {
+          placeholder: '请输入用户名',
+        },
+        ext: {
+          toLowerCase: true,
+          rules: [
+            { required: true, message: '用户姓名必填' },
+          ],
+          span: 12,
+        },
       },
-      ext: {
-        toLowerCase: true,
-        rules: [
-          { required: true, message: '用户姓名必填' },
-        ],
-        span: 12,
-      },
-    },
-    sub_config: [
       {
         type: 'select',
         api: {
@@ -40,6 +40,7 @@ export const UserSurvery = [
           rules: [
             { required: true, message: '请选择用户姓' }
           ],
+          span: 12,
         },
       },
       {
@@ -56,6 +57,7 @@ export const UserSurvery = [
           rules: [
             { required: true, message: '请输入用户国籍' }
           ],
+          span: 12,
         },
       },
     ]
@@ -67,19 +69,20 @@ export const UserSurvery = [
     params: {
 
     },
-    config: {
-      type: 'input',
-      api: {
+    config: [
+      {
+        type: 'input',
+        api: {
+        },
+        ext: {
+          rules: [
+            { required: true, message: '用户姓名必填' },
+            { max: 4, message: '用户姓名最多4位' },
+            { min: 2, message: '用户姓名至少2位' },
+          ],
+          span: 12,
+        },
       },
-      ext: {
-        rules: [
-          { required: true, message: '用户姓名必填' },
-          { max: 4, message: '用户姓名最多4位' },
-          { min: 2, message: '用户姓名至少2位' },
-        ],
-      },
-    },
-    sub_config: [
       {
         type: 'button',
         api: {
@@ -89,7 +92,8 @@ export const UserSurvery = [
           data: [
             { label: '同标的', value: '01', },
             { label: '同三者', value: '02', type: 'default' }
-          ]
+          ],
+          span: 12,
         }
       },
     ]
@@ -98,24 +102,26 @@ export const UserSurvery = [
     order: 3,
     id: 'contactPhone',
     label: '联系电话',
-    config: {
-      type: 'input',
-      api: {
+    config: [
+      {
+        type: 'input',
+        api: {
+        },
+        ext: {
+          rules: [
+            { required: true, whitespace: true, message: '联系人电话必填' },
+          ],
+          span: 12,
+        },
       },
-      ext: {
-        rules: [
-          { required: true, whitespace: true, message: '联系人电话必填' },
-        ],
-      },
-    },
-    sub_config: [
       {
         type: 'radio',
         ext: {
           data: [
             { label: '同标的', value: '01' },
             { label: '同三者', value: '02' }
-          ]
+          ],
+          span: 12,
         }
       },
     ]
@@ -124,22 +130,26 @@ export const UserSurvery = [
     order: 4,
     id: 'accidentCity',
     label: '出险城市',
-    config: {
-      type: 'cascader',
-      api: {
+    config: [
+      {
+        type: 'cascader',
+        api: {
+        },
+        ext: {
+          city: 'quanGuo',
+          rules: [
+            { required: true, message: '出险城市不能为空' }
+          ],
+          span: 12,
+        },
       },
-      ext: {
-        city: 'quanGuo',
-        rules: [
-          { required: true, message: '出险城市不能为空' }
-        ]
-      },
-    },
-    sub_config: [
       {
         type: 'input',
         api: {
           placeholder: '请输入城市备注',
+        },
+        ext: {
+          span: 12,
         }
       }
     ]
@@ -174,7 +184,7 @@ export const UserSurvery = [
       }
     },
     params: {
-      col_span: 2,
+      colspan: 2,
     },
   },
   {
@@ -237,18 +247,19 @@ export const UserSurvery = [
     order: 11,
     id: 'phoneNumber',
     label: '手机号码',
-    config: {
-      type: 'input',
-      api: {
+    config: [
+      {
+        type: 'input',
+        api: {
+        },
+        ext: {
+          rules: [
+            { required: true, message: '手机号码必填' },
+            { len: 11, message: '手机号码必须为11位' }
+          ],
+          span: 12,
+        },
       },
-      ext: {
-        rules: [
-          { required: true, message: '手机号码必填' },
-          { len: 11, message: '手机号码必须为11位' }
-        ],
-      },
-    },
-    sub_config: [
       {
         type: 'button',
         api: {
@@ -257,6 +268,7 @@ export const UserSurvery = [
         ext: {
           label: '参数',
           value: 'edit',
+          span: 12,
         },
       }
     ]
@@ -337,18 +349,18 @@ export const UserSurvery = [
     id: 'accidentDescription',
     label: '出险描述',
     params: {
-      col_span: 2,
+      colspan: 2,
     },
-    config: {
-      type: 'textarea',
-      ext: {
-        rules: [
-          { required: true, message: '出险描述必填' }
-        ],
-        span: 12,
-      }
-    },
-    sub_config: [
+    config: [
+      {
+        type: 'textarea',
+        ext: {
+          rules: [
+            { required: true, message: '出险描述必填' }
+          ],
+          span: 16,
+        }
+      },
       {
         type: 'cascader',
         api: {
@@ -356,6 +368,7 @@ export const UserSurvery = [
         },
         ext: {
           city: 'quanGuo',
+          span: 8,
         },
       }
     ]
@@ -365,21 +378,22 @@ export const UserSurvery = [
     id: 'accidentCreate',
     label: '描述模版',
     params: {
-      col_span: 2,
+      colspan: 2,
     },
-    config: {
-      type: 'textarea',
-      ext: {
-        span: 18,
-      }
-    },
-    sub_config: [
+    config: [
+      {
+        type: 'textarea',
+        ext: {
+          span: 18,
+        }
+      },
       {
         type: 'button',
         ext: {
           label: '生成描述',
           value: '01',
           type: 'primary',
+          span: 6,
         },
         api: {
 
@@ -490,35 +504,35 @@ export const UserSurvery = [
 ];
 
 export const UserRegister = [
-  // {
-  //   id: 'formLayout',
-  //   label: '表单布局',
-  //   config: {
-  //     type: 'radioButton',
-  //     ext: {
-  //       data: [
-  //         { value: 'horizontal', label: 'Horizontal' },
-  //         { value: 'vertical', label: 'Vertical' },
-  //         { value: 'inline', label: 'Inline' },
-  //       ]
-  //     }
-  //   },
-  // },
-  // {
-  //   id: 'user-username',
-  //   label: '用户姓名',
-  //   config: {
-  //     type: 'input',
-  //   },
-  // },
-  // {
-  //   id: 'user-password',
-  //   label: '用户密码',
-  //   config: {
-  //     type: 'input',
-  //     api: {
-  //       type: 'password',
-  //     }
-  //   },
-  // },
+  {
+    id: 'formLayout',
+    label: '表单布局',
+    config: {
+      type: 'radioButton',
+      ext: {
+        data: [
+          { value: 'horizontal', label: 'Horizontal' },
+          { value: 'vertical', label: 'Vertical' },
+          { value: 'inline', label: 'Inline' },
+        ]
+      }
+    },
+  },
+  {
+    id: 'user-username',
+    label: '用户姓名',
+    config: {
+      type: 'input',
+    },
+  },
+  {
+    id: 'user-password',
+    label: '用户密码',
+    config: {
+      type: 'input',
+      api: {
+        type: 'password',
+      }
+    },
+  },
 ]

@@ -12,8 +12,14 @@ import getSummaryData from './common/getSummaryData.js';
 class KSummaryTable extends Component {
 
   static defaultProps = {
+    // 表格头配置
+    config: [],
+
     // 对配置表格头排序
     sort: false,
+
+    // 是否汇总
+    total: true,
 
     // 汇总精度
     totalPrecision: 2,
@@ -22,7 +28,7 @@ class KSummaryTable extends Component {
     totalLineKey: 'ts',
 
     // antd 表格默认配置
-    tableConfigs: {},
+    tableApi: {},
   }
 
   // 获取 Table columns 属性
@@ -30,32 +36,31 @@ class KSummaryTable extends Component {
     const { configs, sort, totalLineKey } = this.props;
     const newConfigs = getSortedConfigs(sort, configs);
     const newColumns = newConfigs.filter(val => {
-      const { tableParams = {} } = val;
-      const { isHide } = tableParams;
+      const { params = {} } = val;
+      const { isHide } = params;
       return !isHide;
     }).map((val, i) => {
-      const { tableParams = {}, config } = val;
-      const { width, title } = tableParams;
+      const { id, params = {}, config } = val;
+      const { width, title } = params;
       return {
         key: `KSummaryTable-${i}`,
         width,
         title,
-        dataIndex: config.id,
+        dataIndex: id,
         render: (text, record) => {
           if (record.key === totalLineKey) return text;
           const KFormItemProps = {
-            config: {
-              ...config,
-              id: `${config.id}__${record.key}`,
-            },
-            onChange: ({ id, value }) => {
+            id: `${id}__${record.key}`,
+            config,
+            onChange: ({ id, value, type }) => {
               this.props.onChange({
                 id: id.split('__')[0],
-                value: value,
+                value: value.formItem_1,
+                type,
                 order: record.key,
               });
             },
-            formItemLayout: null,
+            layout: null,
             value: text,
           }
           return <KFormItem {...KFormItemProps} />;
@@ -67,8 +72,9 @@ class KSummaryTable extends Component {
 
   // 获取 Table dataSource 属性
   getTableDataSource = () => {
-    const { dataSource, configs, sort, totalPrecision, totalLineKey } = this.props;
+    const { configs, dataSource, total, sort, totalPrecision, totalLineKey } = this.props;
     const newConfigs = getSortedConfigs(sort, configs);
+    if (!total) return dataSource;
     const newDataSource = getSummaryData(newConfigs, dataSource, totalPrecision, totalLineKey);
     return newDataSource;
   }
@@ -78,8 +84,8 @@ class KSummaryTable extends Component {
   // 取消表单元素 margin-bottom 属性
   // 样式采用 less 调整
   getTableRowClassName = () => {
-    const { configs, tableConfigs = {} } = this.props;
-    const { rowClassName = '' } = tableConfigs;
+    const { configs, tableApi = {} } = this.props;
+    const { rowClassName = '' } = tableApi;
     let newRowClassName = rowClassName;
 
     const notAllText = configs.some(val => {
@@ -95,14 +101,14 @@ class KSummaryTable extends Component {
   }
 
   render() {
-    const { tableConfigs } = this.props;
+    const { tableApi } = this.props;
     const newColumns = this.getTableColumns();
     const newDataSource = this.getTableDataSource();
 
     return (
       <Table
         bordered
-        {...tableConfigs}
+        {...tableApi}
         columns={newColumns}
         dataSource={newDataSource}
         rowClassName={this.getTableRowClassName}
@@ -113,23 +119,23 @@ class KSummaryTable extends Component {
 
 KSummaryTable.propTypes = {
   configs: propTypes.arrayOf(propTypes.shape({
-    tableParams: propTypes.shape({
-      title: propTypes.string.isRequired,
-      total: propTypes.boolean,
-      width: propTypes.string,
-      render: propTypes.string,
-    }),
+    id: propTypes.string.isRequired,
     config: propTypes.shape({
-      id: propTypes.string.isRequired,
       type: propTypes.string.isRequired,
-      params: propTypes.object,
-      options: propTypes.object,
-      extMap: propTypes.object,
+      api: propTypes.object,
+      ext: propTypes.object,
+    }),
+    params: propTypes.shape({
+      title: propTypes.string.isRequired,
+      width: propTypes.string,
+      total: propTypes.boolean,
+      render: propTypes.string,
     }),
   })),
   dataSource: propTypes.array.isRequired,
-  onChange: propTypes.func.isRequired,
-  tableConfigs: propTypes.object,
+  onChange: propTypes.func,
+  tableApi: propTypes.object,
+  total: propTypes.bool,
   totalPrecision: propTypes.number,
   totalLineKey: propTypes.string,
   sort: propTypes.bool,

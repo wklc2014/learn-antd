@@ -67,18 +67,22 @@ export default class KForm extends Component {
       return !params.hide;
     }).map((val, i) => {
       const key = `${type}-${i}`;
-      const { id: item_id, label: item_label, config: item_config, sub_config: item_sub_config, params: item_params = {} } = val;
-      const { col_span, offset } = item_params;
+      const {
+        id: item_id,
+        label: item_label,
+        config: item_config,
+        params: item_params = {},
+      } = val;
+      const { colspan, offset } = item_params;
 
       // KformItem 布局可以通过 Kform 组件直接传入
       // 也可以通过方法计算
-      const item_layout = layout || getFormItemLayout(type, cols, col_span, offset);
+      const item_layout = layout || getFormItemLayout(type, cols, colspan, offset);
 
       const KFormItemProps = {
         id: item_id,
         label: item_label,
         config: item_config,
-        sub_config: item_sub_config,
         params: { ...item_params, space },
         onChange,
         value: values[item_id],
@@ -91,9 +95,9 @@ export default class KForm extends Component {
           </div>
         )
       }
-      const ColProps = getGridLayout(cols, col_span);
+      const ColProps = getGridLayout(cols, colspan);
       return (
-        <Col key={key} {...ColProps}>
+        <Col key={key} {...ColProps} id="sdfsdf">
           <KFormItem {...KFormItemProps} />
         </Col>
       );
@@ -104,7 +108,7 @@ export default class KForm extends Component {
     return (
       <section className={className}>
         <Form layout={formLayout}>
-          <Row type="flex">{KFormChildrenEle}</Row>
+          <Row type="flex" id="sdfsdf22">{KFormChildrenEle}</Row>
         </Form>
       </section>
     );
@@ -113,7 +117,7 @@ export default class KForm extends Component {
 
 KForm.propTypes = {
   className: propTypes.string,
-  onChange: propTypes.func.isRequired,
+  onChange: propTypes.func,
   configs: propTypes.array.isRequired,
   cols: propTypes.number,
   sort: propTypes.bool,

@@ -9,7 +9,6 @@ import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
 import ItemContent from './Items/ItemContent.jsx';
-import getSubGridLayout from './common/getSubGridLayout.js';
 import getFormItemValidate from './common/getFormItemValidate.js';
 import * as __formItemLayouts from './common/__formItemLayouts.js';
 
@@ -52,50 +51,37 @@ export default class KFormItem extends Component {
   }
 
   render() {
-    const { id, label, config, sub_config, params, value } = this.props;
+    const { label, config, params, value } = this.props;
     const { touched } = this.state;
     const layout = this.getFormItemLayout();
-    const common_props = { id, label, value, onChange: this.onChange };
+    const common_props = { label, value, onChange: this.onChange };
 
-    // 渲染主体表单元素配置
-    const mainFormItemChildrenEle = <ItemContent {...config} {...common_props} id="main" />;
+    // 如果 config 是对象，
+    // 则转换成数组, 统一处理
+    const new_config = is.array(config) ? config : [config];
 
-    // 渲染附加表单元素配置
-    let subFormItemChildrenEle = null;
-    if (is.array(sub_config) && sub_config.length) {
-      // 有附加表单元素配置
-      subFormItemChildrenEle = (
-        <Row type="flex">
-          {
-            sub_config.map((val, i) => {
-              const key = `sub_formItem-${i}`;
-              const { ext = {} } = val;
-              const { span = 24, pright } = ext;
-              const id = `sub_item_${i + 1}`;
+    const FormItemChildrenEle = new_config.slice(0, 2).map((val, i) => {
+      const key = `sub_formItem-${i}`;
+      const { ext = {} } = val;
+      const { span = 24, pright } = ext;
+      const id = `formItem_${i + 1}`;
+      const ColProps = { key, span, style: {} };
 
-              const ColProps = { key, span, style: {} };
-              // Col 右边内间距
-              if (pright) {
-                ColProps.style.paddingRight = pright;
-              } else if (i < config.length - 1) {
-                ColProps.style.paddingRight = 8;
-              }
-              return (
-                <Col {...ColProps}>
-                  <ItemContent {...val} {...common_props} id={id} />
-                </Col>
-              );
-            })
-          }
-        </Row>
+      // 计算 Col 右边内间距
+      if (pright) {
+        ColProps.style.paddingRight = pright;
+      } else if (i < config.length - 1) {
+        ColProps.style.paddingRight = 8;
+      }
+
+      return (
+        <Col {...ColProps}>
+          <ItemContent {...val} {...common_props} id={id} />
+        </Col>
       );
-    }
+    });
 
-    // 只对主体表单验证
-    const { ext = {} } = config;
-    const childSpan = getSubGridLayout(ext.span);
-    const { childGutter = 8 } = ext;
-    const validate = getFormItemValidate({ value, ext, touched });
+    const validate = getFormItemValidate({ value, config: new_config, touched });
 
     return (
       <FormItem
@@ -105,7 +91,9 @@ export default class KFormItem extends Component {
         {...layout}
         {...validate}
       >
-        {mainFormItemChildrenEle}
+        <Row type="flex">
+          { FormItemChildrenEle }
+        </Row>
       </FormItem>
     )
   }
@@ -114,21 +102,23 @@ export default class KFormItem extends Component {
 KFormItem.propTypes = {
   id: propTypes.string.isRequired,
   label: propTypes.string,
-  config: propTypes.shape({
-    type: propTypes.string.isRequired,
-    api: propTypes.object,
-    ext: propTypes.object,
-  }),
-  sub_config: propTypes.arrayOf(propTypes.shape({
-    type: propTypes.string.isRequired,
-    api: propTypes.object,
-    ext: propTypes.object,
-  })),
+  config: propTypes.oneOfType([
+    propTypes.shape({
+      type: propTypes.string.isRequired,
+      api: propTypes.object,
+      ext: propTypes.object,
+    }),
+    propTypes.arrayOf(propTypes.shape({
+      type: propTypes.string.isRequired,
+      api: propTypes.object,
+      ext: propTypes.object,
+    })),
+  ]),
   params: propTypes.object,
   onChange: propTypes.func,
   layout: propTypes.oneOfType([
     propTypes.object,
     propTypes.string,
   ]),
-  value: propTypes.object,
+  // value: propTypes.object,
 };

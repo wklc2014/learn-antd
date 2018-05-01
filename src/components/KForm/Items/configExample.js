@@ -1,90 +1,48 @@
 /**
  * KForm 表单配置示例
+ * 1. 数组中每个元素是一个对象
+ * 2. 每个对象是单个表单元素配置
  */
 
-// 单个表单元素配置：
-// id, label, config, sub_config, params, order,
-// config 配置:
-// type, api, ext,
-// sub_config 配置：
-// 多个 config 配置
-// params 配置:
-// FormItem 一些属性
-const exampleForKForm = [
-  {
-    // 对表单元素位置配置
-    order: 1,
+/**
+ * 单个表单元素配置示例
+ */
+{
+  // 对表单元素排序配置
+  order: 1,
 
-    // 表单元素 id
-    id: 'user_name',
+  // 表单元素 id
+  id: 'user_name',
 
-    // 表单元素 label
-    label: '用户姓名',
+  // 表单元素 label
+  label: '用户姓名',
 
-    // 表单元素内容配置
-    config: {
-      // 表单元素类型
+  // 表单元素内容配置 - 数组
+  config: [
+    {
+      // 表单元素输入类型
       type: 'input',
-      // 表单元素 api
+
+      // 表单元素输入 api
       api: {
 
       },
-      // 表单元素扩展配置
+      // 表单元素输入扩展配置
       ext: {
-        // 有附加表单元素配置时，主体表单元素的布局
+        // 表单元素输入在删格布局中所占比例
         span: 12,
-        // 有附加表单元素配置时，主体表单元素和附加表单元素间隔距离
-        gutter: 8,
-      }
+        // 输入类型时, 设置大写
+        toUpperCase: true,
+        // 输入类型时, 设置小
+        toLowerCase: true,
+        // cascader 和 treeSelect 类型时, 内置的全国城市数据列表
+        city: 'quanGuo',
+        // 表单元素输入验证
+        rules: [],
+      },
     },
-
-    // 附加表单元素内容配置
-    sub_config: [
-      {
-        id: 'user_first_name',
-        type: 'input',
-        api: {
-
-        },
-        ext: {
-
-        }
-      },
-      {
-        id: 'user_last_name',
-        type: 'input',
-        api: {
-
-        },
-        ext: {
-
-        }
-      },
-    ],
-
-    // 表单元素扩展配置
-    params: {
-      // 表单元素布局
-      layout: 'L0',
-
-      // 表单元素间隔
-      space: 16,
-
-      // 表单元素横跨列数
-      col_span: 1,
-
-      // 表单元素是否 offset
-      offset: true,
-
-      // 是否隐藏
-      hide: false,
-    }
-  },
-  {
-    order: 2,
-    id: 'sex',
-    label: '性别',
-    config: {
+    {
+      id: 'user_first_name',
       type: 'input',
       api: {
 
@@ -93,10 +51,25 @@ const exampleForKForm = [
 
       }
     },
-    params: {
-      layout: {},
-      space: 16,
-      col: 1,
-    }
+  ],
+
+  // 表单元素扩展配置
+  params: {
+    // 表单元素布局
+    layout: 'L0',
+
+    // 表单元素间隔
+    space: 16,
+
+    // 表单元素横跨列数
+    colspan: 1,
+
+    // 表单元素是否 offset
+    // 表单元素类型没有 label 时,
+    // 如果 button, 需要设置 offset 属性
+    offset: true,
+
+    // 表单元素是否隐藏
+    hide: false,
   }
-]
+}

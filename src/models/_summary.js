@@ -1,6 +1,5 @@
 // import { actions } from 'mirrorx';
 import state from './state/_summary.js';
-import { getValue } from '../components/KForm/common/getValue.js';
 
 export default {
   name: '_summary',
@@ -15,7 +14,7 @@ export default {
       const newDataSource = dataSource.map((val, i) => {
         const newVal = {...val};
         if (i === order) {
-          newVal[id] = getValue(value);
+          newVal[id] = value;
         }
         return newVal;
       })

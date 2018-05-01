@@ -4,10 +4,10 @@ export const __detailConfig = [
     title: '案件信息',
     typeConfig: {
       layout: 'L4',
-      columns: 3,
+      cols: 3,
       space: 24,
     },
-    config: [
+    dataConfig: [
       { type: 'text', id: 'claimReportNo', label: '报案号', path: 'data.source.claimReportNo' },
       { type: 'text', id: 'status', label: '案件状态', path: 'data.source.status', render: (text) => ({ '0': '已报案', '1': '已结案', '2': '不予受理', '3': '已受理', '4': '已销案' }[text]) },
       { type: 'text', id: 'rejectReason', label: '拒赔原因', path: 'data.source.rejectReason' },
@@ -20,41 +20,50 @@ export const __detailConfig = [
     ]
   },
   {
-    type: 'form',
+    type: 'table',
     title: '报案人信息',
     typeConfig: {
-      layout: 'L4',
-      columns: 3,
-      space: 24,
+      total: false,
+      tableApi: {
+        pagination: false,
+      }
     },
-    config: [
-      { id: 'claimerUid', label: '报案人账号', type: 'text', path: 'data.source.claimerUid' },
-      { id: 'claimerCertName', label: '报案人证件名称', type: 'text', path: 'data.source.claimerCertName' },
-      { id: 'claimerCertNo', label: '报案人证件号码', type: 'text', path: 'data.source.claimerCertNo' },
-      { id: 'claimerPhone', label: '报案人电话号码', type: 'text', path: 'data.source.claimerPhone' },
-    ]
+    dataConfig: [
+      { id: 'claimerUid', label: '报案人账号', type: 'text' },
+      { id: 'claimerCertName', label: '报案人证件名称', type: 'text' },
+      { id: 'claimerCertNo', label: '报案人证件号码', type: 'text' },
+      { id: 'claimerPhone', label: '报案人电话号码', type: 'text' },
+    ],
+    path: 'data.source.claimerData',
   },
   {
-    type: 'form',
+    type: 'table',
     title: '关联保单',
     typeConfig: {
-      layout: 'L4',
-      columns: 3,
-      space: 24,
+      total: true,
+      tableApi: {
+        pagination: false,
+      }
     },
-    config: [
-      { type: 'text', label: '保单号', id: 'policyList', path: 'data.source.policyList' },
-    ]
+    dataConfig: [
+      { type: 'text', label: '保单号', id: 'plicyNo' },
+      { type: 'text', label: '被保人', id: 'plicyPerson' },
+      { type: 'text', label: '被保人身份证号码', id: 'plicyCardNo' },
+      { type: 'text', label: '赔付金额', id: 'plicyAmount', total: true },
+      { type: 'text', label: '被保人联系电话', id: 'plicyPhone' },
+      { type: 'text', label: '被保人联系地址', id: 'plicyAddress' },
+    ],
+    path: 'data.source.policyList',
   },
   {
     type: 'form',
     title: '关联赔案',
     typeConfig: {
       layout: 'L4',
-      columns: 3,
+      cols: 3,
       space: 24,
     },
-    config: [
+    dataConfig: [
 
     ]
   },
@@ -63,10 +72,10 @@ export const __detailConfig = [
     title: '案件处理历史',
     typeConfig: {
       layout: 'L4',
-      columns: 3,
+      cols: 3,
       space: 24,
     },
-    config: [
+    dataConfig: [
 
     ]
   },
@@ -75,10 +84,10 @@ export const __detailConfig = [
     title: '关键时间节点',
     typeConfig: {
       layout: 'L4',
-      columns: 3,
+      cols: 3,
       space: 24,
     },
-    config: [
+    dataConfig: [
 
     ]
   },
@@ -96,10 +105,46 @@ export const __detailDataSource = {
       accidentDesc: '',
       accidentAddress: '',
       claimApplyAmount: '0.01',
-      claimerUid: '2088102011188220',
-      claimerCertName: '受理测试',
-      claimerCertNo: '330106152365412302',
-      claimerPhone: '13500000000',
+      claimerData: [
+        {
+          claimerUid: '2088102011188220',
+          claimerCertName: '受理测试',
+          claimerCertNo: '330106152365412302',
+          claimerPhone: '13500000000',
+        },
+        {
+          claimerUid: '2088102011188220',
+          claimerCertName: '受理测试',
+          claimerCertNo: '330106152365412302',
+          claimerPhone: '13500000000',
+        },
+      ],
+      policyList: [
+        {
+          plicyNo: 'SF78199DF30SDFDF2F',
+          plicyPerson: '赵某某',
+          plicyCardNo: '5102832938128328272',
+          plicyPhone: '13000000000',
+          plicyAddress: '四川省成都市',
+          plicyAmount: '22',
+        },
+        {
+          plicyNo: 'SF78199DF30SDFDF2F',
+          plicyPerson: '赵某某',
+          plicyCardNo: '5102832938128328272',
+          plicyPhone: '13000000000',
+          plicyAmount: '12',
+          plicyAddress: '四川省成都市',
+        },
+        {
+          plicyNo: 'SF78199DF30SDFDF2F',
+          plicyPerson: '赵某某',
+          plicyCardNo: '5102832938128328272',
+          plicyPhone: '13000000000',
+          plicyAmount: '10',
+          plicyAddress: '四川省成都市',
+        },
+      ]
     }
   },
   success: true,

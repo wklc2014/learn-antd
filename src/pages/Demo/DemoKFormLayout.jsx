@@ -9,7 +9,7 @@ function DemoKFormLayout({ form }) {
     <Card title="表单元素自定义">
       <KForm
         configs={configs}
-        columns={4}
+        cols={4}
         onChange={() => {}}
         space={24}
       />
