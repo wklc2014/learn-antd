@@ -1,8 +1,8 @@
 export default [
   {
-    id: 'user_name_1',
     label: '姓名',
     config: {
+      id: 'user_name_1',
       type: 'input',
       api: {
 
@@ -13,18 +13,24 @@ export default [
         ]
       }
     },
+    params: {
+      layout: 'L0',
+    }
   },
   {
-    id: 'user_name_2',
     label: '日期',
     config: {
+      id: 'user_name_2',
       type: 'date',
     },
+    params: {
+      layout: 'L0',
+    }
   },
   {
-    id: 'user_name_3',
     label: '选择',
     config: {
+      id: 'user_name_3',
       type: 'select',
       api: {
         allowClear: true,
@@ -37,10 +43,13 @@ export default [
         ]
       }
     },
+    params: {
+      layout: 'L0',
+    }
   },
   {
-    id: 'user_name_4',
     config: {
+      id: 'user_name_4',
       type: 'button',
       api: {
         type: 'primary',
@@ -51,6 +60,7 @@ export default [
       },
     },
     params: {
+      layout: 'L0',
       offset: true,
     }
   }

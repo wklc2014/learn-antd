@@ -10,12 +10,12 @@ export default [
     icon: 'user',
     title: <div><Icon type="user" />基础组件库</div>,
     subMenus: [
-      { path: '/form', label: 'KForm' },
-      { path: '/formLayout', label: 'KForm Layout' },
-      { path: '/formItem', label: 'KFormItem' },
-      { path: '/summaryTable', label: 'KSummaryTable' },
-      { path: '/picture', label: 'KPicture' },
-      { path: '/detail', label: 'KDetail' },
+      { path: '/demo/form', label: 'Form' },
+      { path: '/demo/formLayout', label: 'Form Layout' },
+      { path: '/demo/formItem', label: 'FormItem' },
+      { path: '/summaryTable', label: 'SummaryTable' },
+      { path: '/picture', label: 'Picture' },
+      { path: '/detail', label: 'Detail' },
     ],
   },
   {

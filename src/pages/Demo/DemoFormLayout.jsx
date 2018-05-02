@@ -1,20 +1,20 @@
 import React from 'react';
 import { Card } from 'antd';
 
-import KForm from '../../components/KForm/KForm.jsx';
-import configs from './common/kFormLayoutConfig.js';
+import MForm from '../../components/MForm/Index.jsx';
+import configs from './common/ConfigFormLayout.js';
 
-function DemoKFormLayout({ form }) {
+function DemoFormLayout({ form }) {
   return (
     <Card title="表单元素自定义">
-      <KForm
+      <MForm
         configs={configs}
         cols={4}
         onChange={() => {}}
-        space={24}
+        itemSpace={24}
       />
     </Card>
   )
 }
 
-export default DemoKFormLayout;
+export default DemoFormLayout;

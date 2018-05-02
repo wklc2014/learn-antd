@@ -13,10 +13,9 @@ const configs = array.map((v, i) => {
     params.colspan = 4;
   }
   return {
-    order: v,
-    id: `user_name_${v}`,
     label: `input-${v}`,
     config: {
+      id: `user_name_${v}`,
       type: 'input',
     },
     params,
