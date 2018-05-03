@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
 import { Card } from 'antd';
 
-import KSummaryTable from '../../components/KSummaryTable/KSummaryTable.jsx';
-import configs from './common/kSummaryTableConfig.js';
+import KSummaryTable from '../../components/KSummaryTable/Index.jsx';
+import configs from './common/ConfigSummaryTable.js';
 
-class TestKSummaryTable extends Component {
+class DemoSummaryTable extends Component {
 
   static defaultProps = {
   }
 
-  onChange = ({ id, value, type, order }) => {
-    // console.log(id, value, type, order);
-    actions._summary.updateDataSource({ id, value, order })
+  onChange = ({ id, value, line }) => {
+    // console.log(id, value, line);
+    actions._summary.updateDataSource({ id, value, line });
   }
 
   render() {
@@ -23,9 +23,11 @@ class TestKSummaryTable extends Component {
         <KSummaryTable
           configs={configs}
           dataSource={values}
-          onChange={this.onChange}
-          pagination={false}
           total
+          tableApi={{
+            pagination: false,
+          }}
+          onChange={this.onChange}
         />
       </Card>
     )
@@ -38,4 +40,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(TestKSummaryTable);
+export default connect(mapStateToProps)(DemoSummaryTable);

@@ -5,7 +5,7 @@ import { actions, connect } from 'mirrorx';
 import React, { Component } from 'react';
 import { Button, Card } from 'antd';
 
-import MForm from '../../components/MForm/Index.jsx';
+import KForm from '../../components/KForm/Index.jsx';
 
 import { __configs, __register } from './common/ConfigForm.js';
 
@@ -49,7 +49,7 @@ class DemoKForm extends Component {
     return (
       <div>
         <Card title="多种表单输入类型" style={{ marginBottom: 24 }}>
-          <MForm
+          <KForm
             configs={__configs}
             cols={2}
             itemSpace={16}
@@ -69,7 +69,7 @@ class DemoKForm extends Component {
           </p>
         </Card>
         <Card title="三种组件布局">
-          <MForm
+          <KForm
             configs={inlineGroupConfigs}
             layout={formLayout.formItem_1}
             onChange={this.onChange}

@@ -13,9 +13,9 @@ export default [
       { path: '/demo/form', label: 'Form' },
       { path: '/demo/formLayout', label: 'Form Layout' },
       { path: '/demo/formItem', label: 'FormItem' },
-      { path: '/summaryTable', label: 'SummaryTable' },
-      { path: '/picture', label: 'Picture' },
-      { path: '/detail', label: 'Detail' },
+      { path: '/demo/summaryTable', label: 'SummaryTable' },
+      { path: '/demo/picture', label: 'Picture' },
+      { path: '/demo/detail', label: 'Detail' },
     ],
   },
   {

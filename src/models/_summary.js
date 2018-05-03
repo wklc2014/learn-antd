@@ -10,10 +10,10 @@ export default {
     },
     updateDataSource(state, data) {
       const { dataSource } = state;
-      const { id, value, order } = data;
+      const { id, value, line } = data;
       const newDataSource = dataSource.map((val, i) => {
         const newVal = {...val};
-        if (i === order) {
+        if (i === line) {
           newVal[id] = value;
         }
         return newVal;

@@ -8,7 +8,7 @@ import KPictureBtns from './KPictureBtns.jsx';
 import utils from '../../common/utils/utils.js';
 import __kPictureBtns from './common/__kPictureBtns.js';
 
-import './KPicture.less';
+import './styles.less';
 
 export default class KPicture extends Component {
 

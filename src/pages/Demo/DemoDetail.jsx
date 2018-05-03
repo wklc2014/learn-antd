@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import propTypes from 'prop-types';
 
 import KDetail from '../../components/KDetail/KDetail.jsx';
-import { __detailConfig, __detailDataSource } from './common/kDetailConfig.js';
+import { __detailConfig, __detailDataSource } from './common/ConfigDetail.js';
 
 export default class DemoKDetail extends Component {
 

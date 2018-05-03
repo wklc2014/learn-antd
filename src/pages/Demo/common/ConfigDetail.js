@@ -1,40 +1,148 @@
+const statusRender = (text) => {
+  const status_map = {
+    '0': '已报案',
+    '1': '已结案',
+    '2': '不予受理',
+    '3': '已受理',
+    '4': '已销案'
+  }
+  return status_map[text];
+}
 export const __detailConfig = [
   {
     type: 'form',
     title: '案件信息',
     typeConfig: {
-      layout: 'L4',
+      // layout: 'L4',
       cols: 3,
-      space: 24,
+      itemSpace: 24,
     },
     dataConfig: [
-      { type: 'text', id: 'claimReportNo', label: '报案号', path: 'data.source.claimReportNo' },
-      { type: 'text', id: 'status', label: '案件状态', path: 'data.source.status', render: (text) => ({ '0': '已报案', '1': '已结案', '2': '不予受理', '3': '已受理', '4': '已销案' }[text]) },
-      { type: 'text', id: 'rejectReason', label: '拒赔原因', path: 'data.source.rejectReason' },
-      { type: 'text', id: 'claimCancelReason', label: '撤销报案原因', path: 'data.source.claimCancelReason' },
-      { type: 'text', id: 'outBizNo', label: '业务单号', path: 'data.source.outBizNo' },
-      { type: 'text', id: 'comName', label: '保险机构名称', path: 'data.source.comName' },
-      { type: 'text', id: 'accidentDesc', label: '出险描述', path: 'data.source.accidentDesc' },
-      { type: 'text', id: 'accidentAddress', label: '出险地点', path: 'data.source.accidentAddress' },
-      { type: 'text', id: 'claimApplyAmount', label: '索赔金额', path: 'data.source.claimApplyAmount' },
+      {
+        label: '报案号',
+        config: {
+          id: 'claimReportNo',
+          type: 'text',
+        },
+        path: 'data.source.claimReportNo'
+      },
+      {
+        label: '案件状态',
+        config: {
+          id: 'status',
+          type: 'text',
+          ext: {
+            render: statusRender,
+          }
+        },
+        path: 'data.source.status',
+      },
+      {
+        label: '拒赔原因',
+        config: {
+          id: 'rejectReason',
+          type: 'text',
+        },
+        path: 'data.source.rejectReason'
+      },
+      {
+        label: '撤销报案原因',
+        config: {
+          id: 'claimCancelReason',
+          type: 'text',
+        },
+        path: 'data.source.claimCancelReason'
+      },
+      {
+        label: '业务单号',
+        config: {
+          id: 'outBizNo',
+          type: 'text',
+        },
+        path: 'data.source.outBizNo'
+      },
+      {
+        label: '保险机构名称',
+        config: {
+          id: 'comName',
+          type: 'text',
+        },
+        path: 'data.source.comName'
+      },
+      {
+        label: '出险描述',
+        config: {
+          id: 'accidentDesc',
+          type: 'text',
+        },
+        path: 'data.source.accidentDesc'
+      },
+      {
+        label: '出险地点',
+        config: {
+          id: 'accidentAddress',
+          type: 'text',
+        },
+        path: 'data.source.accidentAddress'
+      },
+      {
+        label: '索赔金额',
+        config: {
+          id: 'claimApplyAmount',
+          type: 'text',
+        },
+        path: 'data.source.claimApplyAmount'
+      },
     ]
   },
   {
     type: 'table',
     title: '报案人信息',
     typeConfig: {
-      total: false,
       tableApi: {
         pagination: false,
-      }
+      },
+      total: false,
     },
-    dataConfig: [
-      { id: 'claimerUid', label: '报案人账号', type: 'text' },
-      { id: 'claimerCertName', label: '报案人证件名称', type: 'text' },
-      { id: 'claimerCertNo', label: '报案人证件号码', type: 'text' },
-      { id: 'claimerPhone', label: '报案人电话号码', type: 'text' },
-    ],
     path: 'data.source.claimerData',
+    dataConfig: [
+      {
+        config: {
+          id: 'claimerUid',
+          type: 'text'
+        },
+        params: {
+          title: '报案人账号',
+        }
+      },
+      {
+        config: {
+          id: 'claimerCertName',
+          type: 'text'
+        },
+        params: {
+          title: '报案人证件名称',
+        }
+      },
+      {
+        config: {
+          id: 'claimerCertNo',
+          type: 'text'
+        },
+        params: {
+          title: '报案人证件号码',
+        }
+      },
+      {
+        config: {
+          id: 'claimerPhone',
+          type: 'text'
+        },
+        params: {
+          title: '报案人电话号码',
+        }
+      },
+    ],
   },
   {
     type: 'table',
@@ -46,12 +154,61 @@ export const __detailConfig = [
       }
     },
     dataConfig: [
-      { type: 'text', label: '保单号', id: 'plicyNo' },
-      { type: 'text', label: '被保人', id: 'plicyPerson' },
-      { type: 'text', label: '被保人身份证号码', id: 'plicyCardNo' },
-      { type: 'text', label: '赔付金额', id: 'plicyAmount', total: true },
-      { type: 'text', label: '被保人联系电话', id: 'plicyPhone' },
-      { type: 'text', label: '被保人联系地址', id: 'plicyAddress' },
+      {
+        config: {
+          id: 'plicyNo',
+          type: 'text',
+        },
+        params: {
+          title: '保单号',
+        },
+      },
+      {
+        config: {
+          id: 'plicyPerson',
+          type: 'text',
+        },
+        params: {
+          title: '被保人',
+        },
+      },
+      {
+        config: {
+          id: 'plicyCardNo',
+          type: 'text',
+        },
+        params: {
+          title: '被保人身份证号码',
+        },
+      },
+      {
+        config: {
+          id: 'plicyAmount',
+          type: 'text',
+        },
+        params: {
+          title: '赔付金额',
+          total: true,
+        },
+      },
+      {
+        config: {
+          id: 'plicyPhone',
+          type: 'text',
+        },
+        params: {
+          title: '被保人联系电话',
+        },
+      },
+      {
+        config: {
+          id: 'plicyAddress',
+          type: 'text',
+        },
+        params: {
+          title: '被保人联系地址',
+        },
+      }
     ],
     path: 'data.source.policyList',
   },
@@ -61,11 +218,9 @@ export const __detailConfig = [
     typeConfig: {
       layout: 'L4',
       cols: 3,
-      space: 24,
+      itemSpace: 24,
     },
-    dataConfig: [
-
-    ]
+    dataConfig: []
   },
   {
     type: 'form',
@@ -73,7 +228,7 @@ export const __detailConfig = [
     typeConfig: {
       layout: 'L4',
       cols: 3,
-      space: 24,
+      itemSpace: 24,
     },
     dataConfig: [
 
@@ -85,7 +240,7 @@ export const __detailConfig = [
     typeConfig: {
       layout: 'L4',
       cols: 3,
-      space: 24,
+      itemSpace: 24,
     },
     dataConfig: [
 

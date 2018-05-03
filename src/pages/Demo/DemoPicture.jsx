@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Card } from 'antd';
 
-import KPicture from '../../components/KPicture/KPicture.jsx';
+import KPicture from '../../components/KPicture/Index.jsx';
 
 import pic_1 from './common/images/pic-1.jpg';
 import pic_2 from './common/images/pic-2.jpg';
@@ -11,7 +11,7 @@ import pic_5 from './common/images/pic-5.jpg';
 
 const paths = [pic_1, pic_2, pic_3, pic_4, 'error image path', pic_5];
 
-export default class DemoKPicture extends Component {
+export default class DemoPicture extends Component {
 
   static defaultProps = {}
 

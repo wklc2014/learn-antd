@@ -1,12 +1,11 @@
 /**
- * 获取 KFormItem data 属性
- * data 作为 extMap 里的附加字段
- * 可以保存 select, checkbox 等类型表单的多值选项
+ * 获取表单元素的 data 属性
  */
-import __chineseCities from '../common/__chineseCities.js';
+import __chineseCities from './__chineseCities.js';
 
 export default function getData({ type, ext = {} }) {
   const { data, city } = ext;
+
   let new_data = data || [];
   switch (type) {
     case 'cascader':

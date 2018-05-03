@@ -1,8 +1,8 @@
 /**
- * 获取 KFormItem 表单元素 style 属性
- * type 表单元素输入类型
- * ext 表单元素扩展配置
- * style 表单元素默认 style
+ * 获取表单元素 style 属性
+ * type   表单元素输入类型
+ * ext    表单元素扩展配置
+ * style  表单元素 config 配置的 style
  */
 import is from 'is_js';
 

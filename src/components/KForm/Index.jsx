@@ -4,6 +4,8 @@
  */
 import React from 'react';
 import propTypes from 'prop-types';
+import classnames from 'classnames';
+import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
 import ItemBox from './ItemBox.jsx';
@@ -15,9 +17,6 @@ import './styles.less';
 export default function MForm(props) {
 
   const {
-    // 表单 className
-    className = '',
-
     // 表单布局列数
     cols = 1,
 
@@ -78,8 +77,10 @@ export default function MForm(props) {
 
   const formLayout = getFormLayout(layout);
 
+  const cls = classnames({ 'my-table-row-class': checkAllText(configs) });
+
   return (
-    <section className={className}>
+    <section className={cls}>
       <Form layout={formLayout}>
         <Row type="flex">{ChildrenEle}</Row>
       </Form>
@@ -88,7 +89,6 @@ export default function MForm(props) {
 }
 
 MForm.propTypes = {
-  className: propTypes.string,
   configs: propTypes.array.isRequired,
   cols: propTypes.number,
   layout: propTypes.string,
@@ -100,3 +100,15 @@ MForm.propTypes = {
   onChange: propTypes.func,
   values: propTypes.object,
 };
+
+function checkAllText(configs = []) {
+  const notAllText = configs.some(val => {
+    const { config } = val;
+    if (is.array(config)) {
+      return config.some(v => v.type !== 'text');
+    } else {
+      return config.type !== 'text';
+    }
+  })
+  return !notAllText;
+}

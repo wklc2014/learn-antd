@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Card } from 'antd';
 import moment from 'moment';
 
-import ItemBox from '../../components/MForm/ItemBox.jsx';
+import KFormItem from '../../components/KForm/ItemBox.jsx';
 import ConfigFormItem from './common/ConfigFormItem.js';
 
 class DemoKFormItem extends Component {
@@ -32,10 +32,10 @@ class DemoKFormItem extends Component {
     return (
       <Card title="表单元素自定义">
         <Form>
-          <ItemBox {...ConfigFormItem[0]} values={values} onChange={this.onChange} />
-          <ItemBox {...ConfigFormItem[1]} values={values} onChange={this.onChange} />
-          <ItemBox {...ConfigFormItem[2]} values={values} onChange={this.onChange} />
-          <ItemBox {...ConfigFormItem[3]} values={values} onChange={this.onChange} />
+          <KFormItem {...ConfigFormItem[0]} values={values} onChange={this.onChange} />
+          <KFormItem {...ConfigFormItem[1]} values={values} onChange={this.onChange} />
+          <KFormItem {...ConfigFormItem[2]} values={values} onChange={this.onChange} />
+          <KFormItem {...ConfigFormItem[3]} values={values} onChange={this.onChange} />
         </Form>
       </Card>
     )

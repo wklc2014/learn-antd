@@ -1,11 +1,11 @@
 export default [
   {
-    id: 'accident_time',
     params: {
       width: '10%',
       title: '出险时间',
     },
     config: {
+      id: 'accident_time',
       type: 'date',
       api: {
         disabled: false,
@@ -19,12 +19,12 @@ export default [
     },
   },
   {
-    id: 'usertitle',
     params: {
       width: '10%',
       title: '用户姓名',
     },
     config: {
+      id: 'usertitle',
       type: 'input',
       api: {
         placeholder: '请输入用户姓名',
@@ -37,12 +37,12 @@ export default [
     },
   },
   {
-    id: 'isNeedReturnGoods',
     params: {
       width: '10%',
       title: '是否退货',
     },
     config: {
+      id: 'isNeedReturnGoods',
       type: 'select',
       api: {
         combobox: false,
@@ -60,13 +60,13 @@ export default [
     },
   },
   {
-    id: 'multiplier',
     params: {
       width: '10%',
       title: '系统倍数',
       total: true,
     },
     config: {
+      id: 'multiplier',
       type: 'number',
       api: {
         disabled: false,
@@ -80,13 +80,13 @@ export default [
     },
   },
   {
-    id: 'lossAmount',
     params: {
       width: '10%',
       title: '损失金额',
       total: true,
     },
     config: {
+      id: 'lossAmount',
       type: 'number',
       api: {
         disabled: false,
@@ -100,7 +100,6 @@ export default [
     },
   },
   {
-    id: 'refundReasonText',
     params: {
       width: '10%',
       title: '订单实付金额(元)',
@@ -108,6 +107,7 @@ export default [
       render: `return data.lossAmount * data.multiplier`,
     },
     config: {
+      id: 'refundReasonText',
       type: 'text',
       api: {
         disabled: false,
@@ -121,12 +121,12 @@ export default [
     },
   },
   {
-    id: 'description',
     params: {
       width: '20%',
       title: '用户自述',
     },
     config: {
+      id: 'description',
       type: 'input',
       api: {
         disabled: false,

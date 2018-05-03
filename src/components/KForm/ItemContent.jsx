@@ -4,11 +4,11 @@
 import { Component } from 'react';
 import propTypes from 'prop-types';
 
-import getData from '../common/getData.js';
-import renderItemContentByType from './renderFormItemByType.js';
-import { getValue, setValue } from '../common/getValue.js';
-import getPlaceholder from '../common/getPlaceholder.js';
-import getStyle from '../common/getStyle.js';
+import renderByType from './Items/renderByType.js';
+import getData from './common/getData.js';
+import getPlaceholder from './common/getPlaceholder.js';
+import getStyle from './common/getStyle.js';
+import getValue from './common/getValue.js';
 
 export default class ItemContent extends Component {
 
@@ -26,9 +26,9 @@ export default class ItemContent extends Component {
   }
 
   onChange = (e) => {
-    const { id, ext, value, onChange } = this.props;
-    const new_value = setValue({ value, id, changeValue: e, ext });
-    onChange(new_value, id);
+    const { id, ext, onChange } = this.props;
+    const value = getValue({ value: e, ext });
+    onChange({ id, value });
   }
 
   render() {
@@ -37,16 +37,16 @@ export default class ItemContent extends Component {
 
     // 计算一些必要的属性
     const new_data = getData({ type, ext });
-    const new_value = getValue({ type, value, id, ext });
+    const new_value = getValue({ value, ext });
     const new_placeholder = getPlaceholder({ type, placeholder, label, id });
     const new_style = getStyle({ type, ext, style: api.style });
 
-    return renderItemContentByType({
+    return renderByType({
       type,
       api: { ...api, placeholder: new_placeholder, style: new_style },
       ext: { ...ext, data: new_data },
       value: new_value,
-      onChange: this.onChange
+      onChange: this.onChange,
     });
   }
 }
@@ -57,7 +57,7 @@ ItemContent.propTypes = {
   type: propTypes.string.isRequired,
   api: propTypes.object,
   ext: propTypes.object,
-  onChange: propTypes.func,
   // 不对 value 值做类型控制
   // value: propTypes,
+  onChange: propTypes.func,
 }

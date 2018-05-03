@@ -1,9 +1,9 @@
 /**
- * 获取 KFormItem 表单元素 placeholder 属性
- * placeholder 初始 placeholder
- * label 表单元素 label 属性
- * id 表单元素 id
- * type 表单元素输入类型
+ * 获取表单元素的 placeholder 属性
+ * placeholder  config 配置的 placeholder 属性
+ * label        表单元素 label 属性
+ * id           表单元素 id
+ * type         表单元素输入类型
  */
 import is from 'is_js';
 
@@ -12,7 +12,7 @@ export default function getPlaceholder({ type, placeholder, label, id }) {
   if (placeholder === false) {
     // 手动设置 placeholder 为 false
     // 则不显示 placeholder
-    return '';
+    return undefined;
   }
 
   if (!placeholder && !label && !id) {
