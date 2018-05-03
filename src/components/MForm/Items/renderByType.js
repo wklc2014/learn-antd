@@ -82,7 +82,7 @@ export default function renderFormItemByType(props) {
 
   else if (type === 'checkbox') {
     // 多选框
-    return <div className="my-kform-checkbox-group"><CheckboxGroup {...new_api} /></div>;
+    return <div className="my-form-checkbox-group"><CheckboxGroup {...new_api} /></div>;
   }
 
   else if (type === 'select') {

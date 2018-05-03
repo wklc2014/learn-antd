@@ -10,7 +10,7 @@ import { Form, Row, Col } from 'antd';
 import ItemContent from './ItemContent.jsx';
 
 import { getFormItemOffset } from './common/getLayout.js';
-import getFormItemValidate from './common/getFormItemValidate.js';
+import { getFormItemValidate } from './common/getValidate.js';
 import * as __formItemLayouts from './common/__formItemLayouts.js';
 
 const FormItem = Form.Item;

@@ -12,7 +12,7 @@ const rulesMessage = {
   phone: '手机号码',
 }
 
-export default function getFormItemValidate({ values, config = [], touched = false }) {
+export function getFormItemValidate({ values, config = [], touched = false }) {
 
   let __validate = {};
 
