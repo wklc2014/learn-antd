@@ -1,11 +1,8 @@
-// import React from 'react';
 import moment from 'moment';
-// import { Button } from 'antd';
 
 // 用户调查字段配置
-export const UserSurvery = [
+export const __configs = [
   {
-    id: 'userName',
     label: '用户姓名',
     params: {
       extra: '这里是帮助提示信息',
@@ -13,6 +10,7 @@ export const UserSurvery = [
     },
     config: [
       {
+        id: 'userName_1',
         type: 'input',
         api: {
           placeholder: '请输入用户名',
@@ -26,6 +24,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'userName_2',
         type: 'select',
         api: {
           placeholder: '请选择用户姓',
@@ -44,6 +43,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'userName_3',
         type: 'input',
         api: {
           placeholder: '请输入用户国籍',
@@ -58,19 +58,19 @@ export const UserSurvery = [
             { required: true, message: '请输入用户国籍' }
           ],
           span: 12,
+          pright: 8,
         },
       },
     ]
   },
   {
-    order: 2,
-    id: 'address',
     label: '公司地址',
     params: {
 
     },
     config: [
       {
+        id: 'address_1',
         type: 'input',
         api: {
         },
@@ -84,6 +84,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'address_2',
         type: 'button',
         api: {
           type: 'primary',
@@ -99,11 +100,10 @@ export const UserSurvery = [
     ]
   },
   {
-    order: 3,
-    id: 'contactPhone',
     label: '手机号码',
     config: [
       {
+        id: 'contactPhone_1',
         type: 'input',
         api: {
         },
@@ -116,6 +116,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'contactPhone_2',
         type: 'radio',
         ext: {
           data: [
@@ -128,11 +129,10 @@ export const UserSurvery = [
     ]
   },
   {
-    order: 4,
-    id: 'accidentCity',
     label: '出险城市',
     config: [
       {
+        id: 'accidentCity-1',
         type: 'cascader',
         api: {
         },
@@ -145,6 +145,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'accidentCity-2',
         type: 'input',
         api: {
           placeholder: '请输入城市备注',
@@ -156,10 +157,9 @@ export const UserSurvery = [
     ]
   },
   {
-    order: 5,
-    id: 'payMoney',
     label: '受损部位',
     config: {
+      id: 'payMoney',
       type: 'checkbox',
       api: {
         options: [
@@ -189,10 +189,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 6,
-    id: 'reportDate',
     label: '报案日期',
     config: {
+      id: 'reportDate',
       type: 'date',
       api: {
         format: 'YYYY-MM-DD HH:mm:ss',
@@ -201,10 +200,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 7,
-    id: 'translateDate',
     label: '运输日期',
     config: {
+      id: 'translateDate',
       type: 'range',
       api: {
         showTime: true,
@@ -218,26 +216,23 @@ export const UserSurvery = [
     },
   },
   {
-    order: 8,
-    id: 'translateDate1',
     label: '报名年月',
     config: {
+      id: 'translateDate1',
       type: 'month',
     },
   },
   {
-    order: 9,
-    id: 'translateDate2',
     label: '就餐时间',
     config: {
+      id: 'translateDate2',
       type: 'time',
     },
   },
   {
-    order: 10,
-    id: 'carNumber',
     label: '车牌号',
     config: {
+      id: 'carNumber',
       type: 'input',
       ext: {
         toUpperCase: true,
@@ -245,11 +240,10 @@ export const UserSurvery = [
     },
   },
   {
-    order: 11,
-    id: 'phoneNumber',
     label: '手机号码',
     config: [
       {
+        id: 'phoneNumber_1',
         type: 'input',
         api: {
         },
@@ -262,6 +256,7 @@ export const UserSurvery = [
         },
       },
       {
+        id: 'phoneNumber_2',
         type: 'button',
         api: {
           type: 'primary'
@@ -275,10 +270,9 @@ export const UserSurvery = [
     ]
   },
   {
-    order: 12,
-    id: 'ploicyMoney',
     label: '赔付金额',
     config: {
+      id: 'ploicyMoney',
       type: 'number',
       ext: {
         rules: [
@@ -288,10 +282,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 13,
-    id: 'sex',
     label: '性别',
     config: {
+      id: 'sex',
       type: 'radio',
       ext: {
         data: [
@@ -304,10 +297,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 14,
-    id: 'accident_type',
     label: '险种类型',
     config: {
+      id: 'accident_type',
       type: 'radioButton',
       ext: {
         data: [
@@ -318,10 +310,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 15,
-    id: 'carMarkType',
     label: '汽车类型',
     config: {
+      id: 'carMarkType',
       type: 'select',
       api: {
         // mode: 'multiple',
@@ -346,14 +337,13 @@ export const UserSurvery = [
     },
   },
   {
-    order: 17,
-    id: 'accidentDescription',
     label: '出险描述',
     params: {
       colspan: 2,
     },
     config: [
       {
+        id: 'accidentDescription-1',
         type: 'textarea',
         ext: {
           rules: [
@@ -363,6 +353,7 @@ export const UserSurvery = [
         }
       },
       {
+        id: 'accidentDescription-2',
         type: 'cascader',
         api: {
           placeholder: '请选择出险城市'
@@ -375,20 +366,21 @@ export const UserSurvery = [
     ]
   },
   {
-    order: 18,
-    id: 'accidentCreate',
+
     label: '描述模版',
     params: {
       colspan: 2,
     },
     config: [
       {
+        id: 'accidentCreate-1',
         type: 'textarea',
         ext: {
           span: 18,
         }
       },
       {
+        id: 'accidentCreate-2',
         type: 'button',
         ext: {
           label: '生成描述',
@@ -403,10 +395,9 @@ export const UserSurvery = [
     ],
   },
   {
-    order: 20,
-    id: 'myName',
     label: '文本显示',
     config: {
+      id: 'myName',
       type: 'text',
       ext: {
         data: [
@@ -419,10 +410,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 21,
-    id: 'rate1',
     label: '打分',
     config: {
+      id: 'rate1',
       type: 'rate',
       api: {
         allowHalf: true,
@@ -430,10 +420,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 22,
-    id: 'slider1',
     label: '滑动输入',
     config: {
+      id: 'slider1',
       type: 'slider',
       api: {
         marks: {
@@ -448,10 +437,9 @@ export const UserSurvery = [
     },
   },
   {
-    order: 23,
-    id: 'switch1',
     label: '开关',
     config: {
+      id: 'switch1',
       type: 'switch',
       api: {
         checkedChildren: 'OK',
@@ -460,9 +448,9 @@ export const UserSurvery = [
     },
   },
   {
-    id: 'treeSelect',
     label: '树形选择',
     config: {
+      id: 'treeSelect',
       type: 'treeSelect',
       ext: {
         city: 'quanGuo'
@@ -470,8 +458,8 @@ export const UserSurvery = [
     },
   },
   {
-    id: 'button-my',
     config: {
+      id: 'button-my',
       type: 'button',
       api: {
         type: 'primary',
@@ -490,9 +478,9 @@ export const UserSurvery = [
     }
   },
   {
-    id: 'fetchInput-1',
     label: '输入搜索',
     config: {
+      id: 'fetchInput-1',
       type: 'fetchInput',
       api: {
         allowClear: true,
@@ -504,11 +492,11 @@ export const UserSurvery = [
   },
 ];
 
-export const UserRegister = [
+export const __register = [
   {
-    id: 'formLayout',
     label: '表单布局',
     config: {
+      id: 'formLayout',
       type: 'radioButton',
       ext: {
         data: [
@@ -520,16 +508,16 @@ export const UserRegister = [
     },
   },
   {
-    id: 'user-username',
     label: '用户姓名',
     config: {
+      id: 'user-username',
       type: 'input',
     },
   },
   {
-    id: 'user-password',
     label: '用户密码',
     config: {
+      id: 'user-password',
       type: 'input',
       api: {
         type: 'password',

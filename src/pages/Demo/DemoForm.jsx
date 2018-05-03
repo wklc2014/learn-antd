@@ -5,8 +5,9 @@ import { actions, connect } from 'mirrorx';
 import React, { Component } from 'react';
 import { Button, Card } from 'antd';
 
-import * as CONFIGS from './common/kFormConfig.js';
-import KForm from '../../components/KForm/KForm.jsx';
+import MForm from '../../components/MForm/Index.jsx';
+
+import { __configs, __register } from './common/ConfigForm.js';
 
 class DemoKForm extends Component {
 
@@ -14,20 +15,8 @@ class DemoKForm extends Component {
     values: {},
   }
 
-  getConfigIds = () => {
-    const ids = CONFIGS.UserSurvery.map((v) => v.config.id);
-    return ids;
-  }
-
-  onGetValue = () => {
-  }
-
-  onSubmit = () => {
-
-  }
-
-  onChange = ({ id, value, type }) => {
-    console.log('>>>', { id, value, type });
+  onChange = ({ id, value }) => {
+    console.log('>>>', JSON.stringify({ id, value }));
     actions._form.updateValues({ [id]: value })
   }
 
@@ -39,15 +28,15 @@ class DemoKForm extends Component {
     const { formLayout = {} } = this.props.values;
 
     const btnConfig = {
-      id: 'button-submit',
       config: {
+        id: 'button-submit',
         type: 'button',
+        api: {
+          type: 'primary',
+        },
         ext: {
           value: 'login',
           label: '登录',
-        },
-        api: {
-          type: 'primary',
         },
       },
       params: {
@@ -55,14 +44,13 @@ class DemoKForm extends Component {
       }
     };
 
-    const inlineGroupConfigs = [...CONFIGS.UserRegister, btnConfig];
+    const inlineGroupConfigs = [...__register, btnConfig];
 
     return (
       <div>
         <Card title="多种表单输入类型" style={{ marginBottom: 24 }}>
-          <KForm
-            wrappedComponentRef={(inst) => this.instance = inst}
-            configs={CONFIGS.UserSurvery}
+          <MForm
+            configs={__configs}
             cols={2}
             itemSpace={16}
             onChange={this.onChange}
@@ -81,7 +69,7 @@ class DemoKForm extends Component {
           </p>
         </Card>
         <Card title="三种组件布局">
-          <KForm
+          <MForm
             configs={inlineGroupConfigs}
             layout={formLayout.formItem_1}
             onChange={this.onChange}
