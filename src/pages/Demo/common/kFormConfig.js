@@ -101,7 +101,7 @@ export const UserSurvery = [
   {
     order: 3,
     id: 'contactPhone',
-    label: '联系电话',
+    label: '手机号码',
     config: [
       {
         type: 'input',
@@ -110,6 +110,7 @@ export const UserSurvery = [
         ext: {
           rules: [
             { required: true, whitespace: true, message: '联系人电话必填' },
+            { phone: true, message: '手机号码不正确' },
           ],
           span: 12,
         },

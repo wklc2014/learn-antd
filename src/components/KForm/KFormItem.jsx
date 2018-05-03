@@ -9,7 +9,9 @@ import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
 import ItemContent from './Items/ItemContent.jsx';
+
 import getFormItemValidate from './common/getFormItemValidate.js';
+import { getFormItemOffset } from './common/getFormItemLayout.js';
 import * as __formItemLayouts from './common/__formItemLayouts.js';
 
 const FormItem = Form.Item;
@@ -17,7 +19,10 @@ const FormItem = Form.Item;
 export default class KFormItem extends Component {
 
   static defaultProps = {
-    layout: 'L0',
+    label: '',
+    config: {},
+    params: {},
+    onChange: () => {},
   }
 
   constructor(props) {
@@ -37,23 +42,26 @@ export default class KFormItem extends Component {
   }
 
   // 获取 FormItem 布局
-  // FormItem 布局可以通过组建传入对象或字符串
-  // 如果是对象，则直接作为布局对象
-  // 如果是字符串，则在布局库中查找
+  // 优先计算子配置的布局，再计算父组件传入的布局
+  // 如果布局是对象，则直接作为布局对象
+  // 如果布局是字符串，则在布局库中查找
   // 查找不到对应的布局，则采用默认的 L0.
-  getFormItemLayout = () => {
-    const { layout } = this.props;
+  getLayout = () => {
+    const { params = {} } = this.props;
+    const { layout, offset } = params;
     if (is.object(layout)) {
-      return layout;
+      return getFormItemOffset(layout, offset);
     } else if (is.string(layout)) {
-      return __formItemLayouts[layout] || __formItemLayouts.L0;
+      const result_layout = __formItemLayouts[layout] || __formItemLayouts.L0;
+      return getFormItemOffset(result_layout, offset);
     }
   }
 
   render() {
-    const { label, config, params, value } = this.props;
+    const { label, config, params = {}, value } = this.props;
+    const { space, extra } = params;
     const { touched } = this.state;
-    const layout = this.getFormItemLayout();
+    const layout = this.getLayout();
     const common_props = { label, value, onChange: this.onChange };
 
     // 如果 config 是对象，
@@ -85,13 +93,12 @@ export default class KFormItem extends Component {
 
     return (
       <FormItem
-        {...params}
-        hasFeedback={false}
         label={label}
         {...layout}
         {...validate}
+        extra={extra}
       >
-        <Row type="flex">
+        <Row type="flex" style={{ paddingRight: space }}>
           { FormItemChildrenEle }
         </Row>
       </FormItem>
@@ -116,9 +123,5 @@ KFormItem.propTypes = {
   ]),
   params: propTypes.object,
   onChange: propTypes.func,
-  layout: propTypes.oneOfType([
-    propTypes.object,
-    propTypes.string,
-  ]),
   // value: propTypes.object,
 };

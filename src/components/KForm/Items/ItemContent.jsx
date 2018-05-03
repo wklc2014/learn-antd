@@ -13,6 +13,7 @@ import getStyle from '../common/getStyle.js';
 export default class ItemContent extends Component {
 
   static defaultProps = {
+    label: '',
     api: {},
     ext: {},
     onChange: () => {},
@@ -36,7 +37,7 @@ export default class ItemContent extends Component {
 
     // 计算一些必要的属性
     const new_data = getData({ type, ext });
-    const new_value = getValue({ value, id, ext });
+    const new_value = getValue({ type, value, id, ext });
     const new_placeholder = getPlaceholder({ type, placeholder, label, id });
     const new_style = getStyle({ type, ext, style: api.style });
 
@@ -52,10 +53,11 @@ export default class ItemContent extends Component {
 
 ItemContent.propTypes = {
   id: propTypes.string.isRequired,
+  label: propTypes.string,
   type: propTypes.string.isRequired,
   api: propTypes.object,
   ext: propTypes.object,
+  onChange: propTypes.func,
   // 不对 value 值做类型控制
   // value: propTypes,
-  onChange: propTypes.func,
 }

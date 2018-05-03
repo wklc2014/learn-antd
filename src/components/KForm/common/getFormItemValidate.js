@@ -20,14 +20,14 @@ export default function getFormItemValidate({ value, config = [], touched = fals
   config.slice(0, 2).some((val, i) => {
     let check_error = false;
 
-    const { ext = {} } = val;
+    const { type, ext = {} } = val;
     const { rules } = ext;
     const id = `formItem_${i + 1}`;
 
     // 验证规则不是数组
     if (is.array(rules)) {
       // 获取需要验证的值
-      const new_value = getValue({ value, id, ext });
+      const new_value = getValue({ type, value, id, ext });
 
       // 验证是否必填
       __validate.required = rules.some(rule => rule.required);
@@ -85,7 +85,7 @@ function validateRule(rule, value) {
     };
   }
   // 手机号码验证
-  const reg_phone = /1[0-9]{10}/;
+  const reg_phone = /^1[0-9]{10}$/;
   if (rule.phone && !reg_phone.test(value)) {
     return {
       validateStatus: 'error',

@@ -33,7 +33,9 @@ export default class KDetail extends Component {
             render: val.render,
           },
         },
-        layout: typeConfig.layout,
+        params: {
+          layout: val.layout,
+        }
       }
       return newVal;
     });

@@ -9,7 +9,7 @@ export default [
       },
       ext: {
         rules: [
-          { required: true, message: '内容必填' }
+          { required: true, message: '内容必填' },
         ]
       }
     },

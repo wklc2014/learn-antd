@@ -71,5 +71,8 @@
 
     // 表单元素是否隐藏
     hide: false,
+
+    // FormItem 额外的提示信息
+    extra: '',
   }
 }

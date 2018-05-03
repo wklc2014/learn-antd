@@ -27,7 +27,7 @@ class DemoKForm extends Component {
   }
 
   onChange = ({ id, value, type }) => {
-    console.log('>>>', JSON.stringify({ id, value, type }));
+    console.log('>>>', { id, value, type });
     actions._form.updateValues({ [id]: value })
   }
 
@@ -64,9 +64,9 @@ class DemoKForm extends Component {
             wrappedComponentRef={(inst) => this.instance = inst}
             configs={CONFIGS.UserSurvery}
             cols={2}
+            itemSpace={16}
             onChange={this.onChange}
             values={this.props.values}
-            space={16}
           />
           <p style={{ paddingBottom: 16 }}>
             <Button type="primary" onClick={this.onSubmit} style={{ marginRight: 16 }}>
@@ -83,8 +83,8 @@ class DemoKForm extends Component {
         <Card title="三种组件布局">
           <KForm
             configs={inlineGroupConfigs}
+            layout={formLayout.formItem_1}
             onChange={this.onChange}
-            type={formLayout.formItem_1}
             values={this.props.values}
           />
         </Card>
