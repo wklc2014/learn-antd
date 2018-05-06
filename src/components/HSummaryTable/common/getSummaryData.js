@@ -7,13 +7,17 @@ import lodash from 'lodash';
 
 export default function getSummaryData(configs = [], dataSource = [], precision = 2, key = 'summary') {
 
-  const summaryLine = {};
-  const newDataSource = [...dataSource];
+  // 保存汇总行数据
+  const summary_line = {};
+
+  // 新的数据源
+  const new_dataSource = [...dataSource];
 
   configs.forEach(val => {
-    const { id, params = {} } = val || {};
+    const { params = {}, config = {} } = val || {};
+    const { id } = config;
 
-    newDataSource.forEach((data) => {
+    new_dataSource.forEach((data) => {
 
       // 计算行
       if (params.render) {
@@ -29,12 +33,12 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
 
       // 汇总列
       if (params.total) {
-        if (summaryLine[id] === undefined) {
-          summaryLine[id] = 0;
+        if (summary_line[id] === undefined) {
+          summary_line[id] = 0;
         }
         const parseData = parseFloat(data[id]);
         if (is.not.nan(parseData)) {
-          summaryLine[id] += parseData;
+          summary_line[id] += parseData;
         }
       }
 
@@ -43,9 +47,9 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
   })
 
   // 汇总列精度计算
-  Object.keys(summaryLine).forEach((id) => {
-    summaryLine[id] = lodash.round(summaryLine[id], precision);
+  Object.keys(summary_line).forEach((id) => {
+    summary_line[id] = lodash.round(summary_line[id], precision);
   })
 
-  return [...newDataSource, { key, ...summaryLine }]
+  return [...new_dataSource, { key, ...summary_line }]
 }

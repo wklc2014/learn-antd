@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-import KForm from '../KForm/KForm.jsx';
+import KForm from '../KForm/Index.jsx';
 
 export default class KQuery extends Component {
 
@@ -37,12 +37,13 @@ export default class KQuery extends Component {
   }
 
   render() {
+    const { boxStyle, formStyle, tableStyle } = this.props;
     const { formConfig, formProps, tableConfig, tableProps } = this.props;
     const { formValues, dataSource } = this.state;
 
     return (
       <section style={boxStyle}>
-        <div>
+        <div style={formStyle}>
           <KForm
             {...formProps}
             configs={formConfig}
@@ -54,7 +55,7 @@ export default class KQuery extends Component {
           <Button onClick={this.onReset} style={{ marginRight: 8 }}>重置</Button>
           <Button onClick={this.onSubmit} type="primary">提交</Button>
         </div>
-        <div>
+        <div style={tableStyle}>
           <Table
             bordered
             {...tableProps}

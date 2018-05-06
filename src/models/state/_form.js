@@ -7,6 +7,8 @@ export default {
     userName_1: 'ABCD',
     myName: '222',
     carMarkType: '01',
-    formLayout: 'inline',
+    formLayout: {
+      formItem_1: 'inline',
+    },
   }
 }
