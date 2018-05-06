@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Icon } from 'antd';
 import { NavLink, withRouter } from 'mirrorx';
 
-import KDisplay from '../../components/KDisplay/KDisplay.jsx';
+import HDisplay from '../../components/HDisplay/HDisplay.jsx';
 
 const MyNavLink = ({ route = {}, location }) => {
 
@@ -13,12 +13,12 @@ const MyNavLink = ({ route = {}, location }) => {
 
   return (
     <NavLink to={path} replace={path === pathname}>
-      <KDisplay condition={icon}>
+      <HDisplay condition={icon}>
         <Icon type={icon} />
-      </KDisplay>
-      <KDisplay condition={className}>
+      </HDisplay>
+      <HDisplay condition={className}>
         <span className={className} />
-      </KDisplay>
+      </HDisplay>
       <span>{label}</span>
     </NavLink>
   );

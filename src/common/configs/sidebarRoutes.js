@@ -1,29 +1,15 @@
 /**
  * 侧边导航配置
  */
-import React from 'react';
-import { Icon } from 'antd';
+// import React from 'react';
+// import { Icon } from 'antd';
 
 export default [
-  {
-    isSidebar: true,
-    icon: 'user',
-    title: <div><Icon type="user" />基础组件库</div>,
-    subMenus: [
-      { path: '/form', label: 'KForm' },
-      { path: '/formLayout', label: 'KForm Layout' },
-      { path: '/formItem', label: 'KFormItem' },
-      { path: '/summaryTable', label: 'KSummaryTable' },
-      { path: '/picture', label: 'KPicture' },
-      { path: '/detail', label: 'KDetail' },
-    ],
-  },
-  {
-    isSidebar: true,
-    icon: 'user',
-    path: '/ksearch',
-    label: '查询组件',
-  }
+  { isSidebar: true, icon: 'user', label: 'HForm', path: '/form' },
+  { isSidebar: true, icon: 'user', label: 'HFormLayout', path: '/formlayout' },
+  { isSidebar: true, icon: 'user', label: 'HSummaryTable', path: '/summaryTable' },
+  { isSidebar: true, icon: 'user', label: 'HPicture', path: '/picture' },
+  { isSidebar: true, icon: 'user', label: 'HDetail', path: '/detail' },
 ]
 
 

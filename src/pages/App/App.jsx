@@ -4,12 +4,12 @@ import { connect, Router, Route, Switch } from 'mirrorx';
 import MainLayout from '../MainLayout/Index.jsx';
 import Loading from '../Loading/Index.jsx';
 
-import DemoKForm from '../Demo/DemoKForm.jsx';
-import DemoKFormLayout from '../Demo/DemoKFormLayout.jsx';
-import DemoKFormItem from '../Demo/DemoKFormItem.jsx';
-import DemoKSummaryTable from '../Demo/DemoKSummaryTable.jsx';
-import DemoKPicture from '../Demo/DemoKPicture.jsx';
-import DemoKDetail from '../Demo/DemoKDetail.jsx';
+import DemoHForm from '../Demo/DemoHForm.jsx';
+import DemoHFormLayout from '../Demo/DemoHFormLayout.jsx';
+import DemoHFormItem from '../Demo/DemoHFormItem.jsx';
+import DemoHSummaryTable from '../Demo/DemoHSummaryTable.jsx';
+import DemoHPicture from '../Demo/DemoHPicture.jsx';
+import DemoHDetail from '../Demo/DemoHDetail.jsx';
 
 function App (props) {
   return (
@@ -17,12 +17,12 @@ function App (props) {
       <Loading>
         <MainLayout>
           <Switch>
-            <Route path="/form" component={ DemoKForm } />
-            <Route path="/summaryTable" component={ DemoKSummaryTable } />
-            <Route path="/formLayout" component={ DemoKFormLayout } />
-            <Route path="/formItem" component={ DemoKFormItem } />
-            <Route path="/picture" component={ DemoKPicture } />
-            <Route path="/detail" component={ DemoKDetail } />
+            <Route path="/form" component={ DemoHForm } />
+            <Route path="/formItem" component={ DemoHFormItem } />
+            <Route path="/formLayout" component={ DemoHFormLayout } />
+            <Route path="/summaryTable" component={ DemoHSummaryTable } />
+            <Route path="/picture" component={ DemoHPicture } />
+            <Route path="/detail" component={ DemoHDetail } />
           </Switch>
         </MainLayout>
       </Loading>
