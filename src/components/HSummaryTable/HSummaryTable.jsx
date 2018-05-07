@@ -3,71 +3,100 @@
  */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+// import is from 'is_js';
+import classnames from 'classnames';
 import { Table } from 'antd';
 
 import HFormItem from '../HForm/HFormItem.jsx';
 import getSummaryData from './common/getSummaryData.js';
+import checkTypesIsAllText from '../HForm/common/checkTypesIsAllText.js';
+
+import styles from './styles.less';
 
 class KSummaryTable extends Component {
 
   static defaultProps = {
-    // 表格头配置
-    config: [],
+    /**
+     * 表格头配置
+     * @type {Array}
+     */
+    configs: [],
 
-    // 是否汇总
+    /**
+     * 是否汇总
+     * @type {Boolean}
+     */
     total: true,
 
-    // 汇总精度
+    /**
+     * 汇总精度
+     * @type {Number}
+     */
     totalPrecision: 2,
 
-    // 汇总行的 key
+    /**
+     * 汇总行的 key
+     * @type {String}
+     */
     totalLineKey: 'ts',
 
-    // antd 表格默认配置
+    /**
+     * antd 表格默认配置
+     * @type {Object}
+     */
     tableApi: {},
+
+    /**
+     * 表格数据
+     * @type {Object}
+     */
+    dataSource: {},
+
+    /**
+     * 可控表单搜集表单值的 onChange 事件
+     * @type {func}
+     */
+    onChange: () => {},
   }
 
   // 获取 Table columns 属性
   getTableColumns = () => {
-    const { configs, sort, totalLineKey } = this.props;
-    const newColumns = configs.filter(val => {
+    const { configs, totalLineKey } = this.props;
+    return configs.filter(val => {
+      // 过滤出隐藏的表格列
       const { params = {} } = val;
       const { isHide } = params;
       return !isHide;
     }).map((val, i) => {
-      const { id, params = {}, config } = val;
+      const { params = {}, config } = val;
       const { width, title } = params;
       return {
-        key: `KSummaryTable-${i}`,
+        key: `HSummaryTable-${i}`,
         width,
         title,
-        dataIndex: id,
+        dataIndex: config.id,
         render: (text, record) => {
           if (record.key === totalLineKey) return text;
           const HFormItemProps = {
-            id: `${id}__${record.key}`,
             config,
-            onChange: ({ id, value, type }) => {
-              this.props.onChange({
-                id: id.split('__')[0],
-                value: value.formItem_1,
-                type,
-                order: record.key,
-              });
+            params: {
+              ...params,
+              layout: null,
             },
-            layout: null,
-            value: text,
+            onChange: ({ id, value, type }) => {
+              this.props.onChange({ id, value, line: record.key });
+            },
+            values: record,
           }
           return <HFormItem {...HFormItemProps} />;
         }
       }
     });
-    return newColumns;
   }
 
   // 获取 Table dataSource 属性
   getTableDataSource = () => {
-    const { configs, dataSource, total, sort, totalPrecision, totalLineKey } = this.props;
+    const { configs, dataSource, total, totalPrecision, totalLineKey } = this.props;
     if (!total) return dataSource;
     const newDataSource = getSummaryData(configs, dataSource, totalPrecision, totalLineKey);
     return newDataSource;
@@ -80,31 +109,26 @@ class KSummaryTable extends Component {
   getTableRowClassName = () => {
     const { configs, tableApi = {} } = this.props;
     const { rowClassName = '' } = tableApi;
-    let newRowClassName = rowClassName;
 
-    const notAllText = configs.some(val => {
-      const { config = {} } = val;
-      return config.type !== 'text';
-    })
+    const cls = classnames({
+      [rowClassName]: true,
+      [styles.hsummarytable]: checkTypesIsAllText(configs)
+    });
 
-    if (!notAllText) {
-      newRowClassName += ' no-margin-bottom';
-    }
-
-    return newRowClassName;
+    return cls;
   }
 
   render() {
     const { tableApi } = this.props;
-    const newColumns = this.getTableColumns();
-    const newDataSource = this.getTableDataSource();
+    const columns = this.getTableColumns();
+    const dataSource = this.getTableDataSource();
 
     return (
       <Table
         bordered
         {...tableApi}
-        columns={newColumns}
-        dataSource={newDataSource}
+        columns={columns}
+        dataSource={dataSource}
         rowClassName={this.getTableRowClassName}
       />
     )
@@ -112,19 +136,9 @@ class KSummaryTable extends Component {
 }
 
 KSummaryTable.propTypes = {
-  configs: propTypes.arrayOf(propTypes.shape({
-    id: propTypes.string.isRequired,
-    config: propTypes.shape({
-      type: propTypes.string.isRequired,
-      api: propTypes.object,
-      ext: propTypes.object,
-    }),
-    params: propTypes.shape({
-      title: propTypes.string.isRequired,
-      width: propTypes.string,
-      total: propTypes.boolean,
-      render: propTypes.string,
-    }),
+  configss: propTypes.arrayOf(propTypes.shape({
+    config: propTypes.object,
+    params: propTypes.object,
   })),
   dataSource: propTypes.array.isRequired,
   onChange: propTypes.func,
@@ -132,7 +146,6 @@ KSummaryTable.propTypes = {
   total: propTypes.bool,
   totalPrecision: propTypes.number,
   totalLineKey: propTypes.string,
-  sort: propTypes.bool,
 };
 
 export default KSummaryTable;

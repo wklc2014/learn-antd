@@ -18,9 +18,9 @@ function App (props) {
         <MainLayout>
           <Switch>
             <Route path="/form" component={ DemoHForm } />
-            <Route path="/formItem" component={ DemoHFormItem } />
-            <Route path="/formLayout" component={ DemoHFormLayout } />
-            <Route path="/summaryTable" component={ DemoHSummaryTable } />
+            <Route path="/formitem" component={ DemoHFormItem } />
+            <Route path="/formlayout" component={ DemoHFormLayout } />
+            <Route path="/summarytable" component={ DemoHSummaryTable } />
             <Route path="/picture" component={ DemoHPicture } />
             <Route path="/detail" component={ DemoHDetail } />
           </Switch>

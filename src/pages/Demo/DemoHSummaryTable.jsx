@@ -10,9 +10,8 @@ class TestHSummaryTable extends Component {
   static defaultProps = {
   }
 
-  onChange = ({ id, value, type, order }) => {
-    // console.log(id, value, type, order);
-    actions._summary.updateDataSource({ id, value, order })
+  onChange = ({ id, value, line }) => {
+    actions._summary.updateDataSource({ id, value, line })
   }
 
   render() {
@@ -24,7 +23,7 @@ class TestHSummaryTable extends Component {
           configs={configs}
           dataSource={values}
           onChange={this.onChange}
-          pagination={false}
+          tableApi={{ pagination: false }}
           total
         />
       </Card>

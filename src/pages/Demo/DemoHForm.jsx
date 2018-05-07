@@ -67,7 +67,7 @@ class DemoHForm extends Component {
             </Button>
           </p>
         </Card>
-        <Card title="三种组件布局">
+        <Card title="三种表单布局">
           <HForm
             configs={inlineGroupConfigs}
             onChange={this.onChange}

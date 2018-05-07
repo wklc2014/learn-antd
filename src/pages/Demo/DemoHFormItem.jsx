@@ -32,10 +32,10 @@ class DemoHFormItem extends Component {
     return (
       <Card title="表单元素自定义">
         <Form>
-          <HFormItem {...ConfigHFormItem[0]} value={values} onChange={this.onChange} />
-          <HFormItem {...ConfigHFormItem[1]} value={values} onChange={this.onChange} />
-          <HFormItem {...ConfigHFormItem[2]} value={values} onChange={this.onChange} />
-          <HFormItem {...ConfigHFormItem[3]} value={values} onChange={this.onChange} />
+          <HFormItem {...ConfigHFormItem[0]} values={values} onChange={this.onChange} />
+          <HFormItem {...ConfigHFormItem[1]} values={values} onChange={this.onChange} />
+          <HFormItem {...ConfigHFormItem[2]} values={values} onChange={this.onChange} />
+          <HFormItem {...ConfigHFormItem[3]} values={values} onChange={this.onChange} />
         </Form>
       </Card>
     )

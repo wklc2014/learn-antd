@@ -5,7 +5,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import classnames from 'classnames';
-import is from 'is_js';
+// import is from 'is_js';
 import { Form, Row, Col } from 'antd';
 
 import HFormItem from './HFormItem.jsx';

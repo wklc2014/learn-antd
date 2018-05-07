@@ -9,18 +9,17 @@ import { Card } from 'antd';
 import HForm from '../HForm/HForm.jsx';
 import HSummaryTable from '../HSummaryTable/HSummaryTable.jsx';
 
-export default class KDetail extends Component {
+export default class HDetail extends Component {
 
   static defaultProps = {
-    mode: 'outer',
     configs: [],
     dataSource: [],
   }
 
   // 表单式详情
-  getFormConfigEle = (formConfigParams = {}) => {
-    const { title, typeConfig = {}, dataConfig = [] } = formConfigParams;
+  getFormConfigEle = (formConfig = {}) => {
     const { dataSource } = this.props;
+    const { title, typeConfig = {}, dataConfig = [] } = formConfig;
     const values = {};
     const FormConfigs = dataConfig.map((val, i) => {
       const { label, config = {}, params = {}, path = '' } = val;
@@ -40,8 +39,8 @@ export default class KDetail extends Component {
 
   // 表格式详情
   getTableConfigEle = (tableConfigPamram = {}) => {
-    const { title, typeConfig = {}, dataConfig = [], path } = tableConfigPamram;
     const { dataSource } = this.props;
+    const { title, typeConfig = {}, dataConfig = [], path } = tableConfigPamram;
     const values = lodash.get(dataSource, path, []);
     const new_values = values.map((v, i) => ({...v, key: i}));
     const TableConfigs = dataConfig.map((val, i) => {
@@ -78,7 +77,7 @@ export default class KDetail extends Component {
 
 }
 
-KDetail.propTypes = {
+HDetail.propTypes = {
   mode: propTypes.string,
   configs: propTypes.arrayOf(propTypes.shape({
     title: propTypes.string,
