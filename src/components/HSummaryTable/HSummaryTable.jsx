@@ -11,7 +11,7 @@ import HFormItem from '../HForm/HFormItem.jsx';
 import getSummaryData from './common/getSummaryData.js';
 import checkTypesIsAllText from '../HForm/common/checkTypesIsAllText.js';
 
-import styles from './styles.less';
+import './styles.less';
 
 class KSummaryTable extends Component {
 
@@ -112,7 +112,7 @@ class KSummaryTable extends Component {
 
     const cls = classnames({
       [rowClassName]: true,
-      [styles.hsummarytable]: checkTypesIsAllText(configs)
+      'my-hsummarytable': checkTypesIsAllText(configs)
     });
 
     return cls;

@@ -13,7 +13,7 @@ import HFormItem from './HFormItem.jsx';
 import { getFormLayout, getFormItemLayout, getGridLayout } from './common/getLayout.js';
 import checkTypesIsAllText from './common/checkTypesIsAllText.js';
 
-import styles from './styles.less';
+import './styles.less';
 
 export default function HForm(props) {
 
@@ -105,7 +105,7 @@ export default function HForm(props) {
   const formLayout = getFormLayout(layout);
 
   const cls = classnames({
-    [styles.hform]: checkTypesIsAllText(configs)
+    'my-hform': checkTypesIsAllText(configs)
   });
 
   return (
