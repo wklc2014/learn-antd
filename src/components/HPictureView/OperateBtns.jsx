@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Button, Popover } from 'antd';
 
-import HDisplay from '../HDisplay/HDisplay.jsx';
 import getPopoverContent from './common/getPopoverContent.js';
 import getPopoverTitle from './common/getPopoverTitle.js';
+import * as CLASS_NAMES from './common/__classNames.js';
 
 const ButtonGroup = Button.Group;
 
@@ -24,28 +24,32 @@ export default function OperateBtns (props) {
     const content = getPopoverContent(btn.value, values, onChange);
     const title = getPopoverTitle(btn.value);
     const condition = btn.value === 'rotate' || btn.value === 'zoom';
-    return (
-      <HDisplay condition={condition} key={i}>
+    if (btn.value === 'rotate' || btn.value === 'zoom') {
+      return (
         <Popover
           content={content}
           overlayStyle={PopoverStyle}
           title={title}
           trigger="click"
+          key={i}
         >
           <Button disabled={btn.disabled}>{btn.label}</Button>
         </Popover>
-        <Button
-          onClick={() => onChange(btn.value)}
-          disabled={btn.disabled}
-        >
-          {btn.label}
-        </Button>
-      </HDisplay>
+      )
+    }
+    return (
+      <Button
+        key={i}
+        onClick={() => onChange(btn.value)}
+        disabled={btn.disabled}
+      >
+        {btn.label}
+      </Button>
     )
   })
 
   return (
-    <div className="k-picture-btn">
+    <div className={CLASS_NAMES.__btns}>
       <ButtonGroup>{btnEle}</ButtonGroup>
     </div>
   )

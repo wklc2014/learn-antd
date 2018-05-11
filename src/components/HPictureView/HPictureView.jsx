@@ -10,6 +10,7 @@ import OperateBtns from './OperateBtns.jsx';
 
 import asyncLoadImage from './common/asyncLoadImage.js';
 import __operateBtns from './common/__operateBtns.js';
+import * as CLASS_NAMES from './common/__classNames.js';
 
 import './styles.less';
 
@@ -121,7 +122,15 @@ export default class HPictureView extends Component {
    * @return {object}       [图片最佳显示的宽度和高度]
    */
   getPictureBestView = (image) => {
+    const view_dom = this.inst;
+    const view_width = view_dom.clientWidth;
+    const view_height = view_dom.clientHeight;
+    const image_width = image.width;
+    const image_height = image.height;
+    if (image_width > view_width || image_height > view_height) {
 
+    }
+    return { width: image_width, height: image_height }
   }
 
   /**
@@ -252,8 +261,11 @@ export default class HPictureView extends Component {
     const picBtns = this.getPictureBtns();
 
     return (
-      <section className="k-picture-wraper" style={wraperStyle}>
-        <div style={{ height: viewHeight }}>
+      <section className={CLASS_NAMES.__wraper} style={wraperStyle}>
+        <div
+          style={{ height: viewHeight }}
+          ref={inst => this.inst = inst}
+        >
           <ViewArea
             src={picSrc}
             width={picWidth}

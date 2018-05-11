@@ -1,23 +1,34 @@
+/**
+ * 图片显示区域
+ */
 import React from 'react';
 import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Alert } from 'antd';
-import * as CLS from './common/__classNames.js';
+
+import * as CLASS_NAMES from './common/__classNames.js';
 
 export default function ViewArea(props) {
 
   const {
-    height = 400,
     src,
     width,
     rotate = 0,
-    errors = '',
     positionX = 0,
     positionY = 0,
+    errors = '',
     onDrag,
     onWheel,
     onDoubleClick,
   } = props;
+
+  if (!!errors) {
+    return (
+      <div className={CLASS_NAMES.__box}>
+        <Alert message={errors} showIcon type="error" />
+      </div>
+    )
+  }
 
   const picStyle = {
     backgroundImage: `url(${src})`,
@@ -25,25 +36,27 @@ export default function ViewArea(props) {
     transform: `rotate(${rotate}deg)`,
   }
 
+  const handleStyle = {
+    transform: `rotate(${rotate}deg)`,
+  }
+
   return (
-    <div className={CLS.__box}>
-      <HDisplay condition={!!errors}>
-        <Alert message={errors} showIcon type="error" />
-        <Draggable
-          position={{ x: positionX, y: positionY }}
-          onDrag={onDrag}
-          handle=".k-picture-handle"
-        >
-          <div className="k-picture-drag">
-            <div key="1" className="k-picture-pic" style={picStyle} />
-            <div
-              className="k-picture-handle"
-              onWheel={onWheel}
-              onDoubleClick={onDoubleClick}
-            />
-          </div>
-        </Draggable>
-      </HDisplay>
+    <div className={CLASS_NAMES.__box}>
+      <Draggable
+        position={{ x: positionX, y: positionY }}
+        onDrag={onDrag}
+        handle={`.${CLASS_NAMES.__handle}`}
+      >
+        <div className={CLASS_NAMES.__drag}>
+          <div className={CLASS_NAMES.__pic} style={picStyle} />
+          <div
+            className={CLASS_NAMES.__handle}
+            onWheel={onWheel}
+            onDoubleClick={onDoubleClick}
+            style={handleStyle}
+          />
+        </div>
+      </Draggable>
     </div>
   )
 }
