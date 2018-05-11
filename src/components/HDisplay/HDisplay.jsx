@@ -8,6 +8,10 @@
 import React from 'react';
 
 export default function HDisplay({ condition, children }) {
+
+  // 没有子元素，返回 null
+  if (!children) return null;
+
   // 将组件子元素转换为数组
   const childrenArray = React.Children.toArray(children);
 

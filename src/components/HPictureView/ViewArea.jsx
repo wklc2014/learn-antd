@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Alert } from 'antd';
-import HDisplay from '../HDisplay/HDisplay.jsx';
+import * as CLS from './common/__classNames.js';
 
-export default function KPictureArea(props) {
+export default function ViewArea(props) {
 
   const {
     height = 400,
@@ -26,7 +26,7 @@ export default function KPictureArea(props) {
   }
 
   return (
-    <div className="k-picture-box" style={{ height: height }}>
+    <div className={CLS.__box}>
       <HDisplay condition={!!errors}>
         <Alert message={errors} showIcon type="error" />
         <Draggable
@@ -48,14 +48,13 @@ export default function KPictureArea(props) {
   )
 }
 
-KPictureArea.propTypes = {
-  height: propTypes.string,
-  errors: propTypes.string,
+ViewArea.propTypes = {
   src: propTypes.string.isRequired,
   width: propTypes.number.isRequired,
   rotate: propTypes.number,
   positionX: propTypes.number,
   positionY: propTypes.number,
+  errors: propTypes.string,
   onWheel: propTypes.func.isRequired,
   onDoubleClick: propTypes.func.isRequired,
   onDrag: propTypes.func.isRequired,

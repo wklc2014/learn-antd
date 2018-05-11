@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Card } from 'antd';
 
-import HPicture from '../../components/HPicture/HPicture.jsx';
+import HPictureView from '../../components/HPictureView/HPictureView.jsx';
 
 import pic_1 from './common/images/pic-1.jpg';
 import pic_2 from './common/images/pic-2.jpg';
@@ -11,7 +11,7 @@ import pic_5 from './common/images/pic-5.jpg';
 
 const paths = [pic_1, pic_2, pic_3, pic_4, 'error image path', pic_5];
 
-export default class DemoHPicture extends Component {
+export default class DemoHPictureView extends Component {
 
   static defaultProps = {}
 
@@ -53,13 +53,13 @@ export default class DemoHPicture extends Component {
             <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
             <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
           </p>
-          <HPicture
-            picSrc={paths}
+          <HPictureView
+            viewHeight="60vh"
+            picSrc={pic_1}
             picWidth={this.state.width}
             picRotate={this.state.rotate}
             picPositionX={this.state.x}
             picPositionY={this.state.y}
-            areaHeight="60vh"
           />
         </Card>
         <Modal
@@ -69,9 +69,9 @@ export default class DemoHPicture extends Component {
           footer={false}
           onCancel={this.onCancel}
         >
-          <HPicture
-            picSrc={paths}
-            areaHeight="60vh"
+          <HPictureView
+            viewHeight="60vh"
+            picSrc={pic_2}
           />
         </Modal>
       </div>

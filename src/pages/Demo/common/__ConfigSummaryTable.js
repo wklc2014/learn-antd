@@ -1,6 +1,6 @@
 export default [
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '出险时间',
     },
@@ -19,7 +19,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '用户姓名',
     },
@@ -37,7 +37,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '是否退货',
     },
@@ -60,7 +60,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '系统倍数',
       total: true,
@@ -80,7 +80,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '损失金额',
       total: true,
@@ -100,7 +100,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '10%',
       title: '订单实付金额(元)',
       total: true,
@@ -121,7 +121,7 @@ export default [
     },
   },
   {
-    params: {
+    extMap: {
       width: '20%',
       title: '用户自述',
     },

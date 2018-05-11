@@ -6,6 +6,4 @@ export default [
   { label: '放缩', value: 'zoom' },
   { label: '旋转', value: 'rotate' },
   { label: '还原', value: 'reset' },
-  { label: '上一张', value: 'prev' },
-  { label: '下一张', value: 'next' },
 ]

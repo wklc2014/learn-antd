@@ -5,11 +5,13 @@ import MainLayout from '../MainLayout/Index.jsx';
 import Loading from '../Loading/Index.jsx';
 
 import DemoHForm from '../Demo/DemoHForm.jsx';
-import DemoHFormLayout from '../Demo/DemoHFormLayout.jsx';
 import DemoHFormItem from '../Demo/DemoHFormItem.jsx';
+import DemoHFormLayout from '../Demo/DemoHFormLayout.jsx';
 import DemoHSummaryTable from '../Demo/DemoHSummaryTable.jsx';
-import DemoHPicture from '../Demo/DemoHPicture.jsx';
 import DemoHDetail from '../Demo/DemoHDetail.jsx';
+import DemoHPictureView from '../Demo/DemoHPictureView.jsx';
+
+import TestHDisplay from '../TestHDisplay/Index.jsx';
 
 function App (props) {
   return (
@@ -17,12 +19,13 @@ function App (props) {
       <Loading>
         <MainLayout>
           <Switch>
-            <Route path="/form" component={ DemoHForm } />
-            <Route path="/formitem" component={ DemoHFormItem } />
-            <Route path="/formlayout" component={ DemoHFormLayout } />
-            <Route path="/summarytable" component={ DemoHSummaryTable } />
-            <Route path="/picture" component={ DemoHPicture } />
-            <Route path="/detail" component={ DemoHDetail } />
+            <Route path="/test/display" component={ TestHDisplay } />
+            <Route path="/demo/form" component={ DemoHForm } />
+            <Route path="/demo/formitem" component={ DemoHFormItem } />
+            <Route path="/demo/formlayout" component={ DemoHFormLayout } />
+            <Route path="/demo/summarytable" component={ DemoHSummaryTable } />
+            <Route path="/demo/detail" component={ DemoHDetail } />
+            <Route path="/demo/picture" component={ DemoHPictureView } />
           </Switch>
         </MainLayout>
       </Loading>

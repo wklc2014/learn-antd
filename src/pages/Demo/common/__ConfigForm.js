@@ -4,7 +4,7 @@ import moment from 'moment';
 export const __configs = [
   {
     label: '用户姓名',
-    params: {
+    extMap: {
       extra: '这里是帮助提示信息',
       hasFeedback: true,
     },
@@ -65,7 +65,7 @@ export const __configs = [
   },
   {
     label: '公司地址',
-    params: {
+    extMap: {
 
     },
     config: [
@@ -184,7 +184,7 @@ export const __configs = [
         ]
       }
     },
-    params: {
+    extMap: {
       colspan: 2,
     },
   },
@@ -338,7 +338,7 @@ export const __configs = [
   },
   {
     label: '出险描述',
-    params: {
+    extMap: {
       colspan: 2,
     },
     config: [
@@ -368,7 +368,7 @@ export const __configs = [
   {
 
     label: '描述模版',
-    params: {
+    extMap: {
       colspan: 2,
     },
     config: [
@@ -473,7 +473,7 @@ export const __configs = [
         ],
       }
     },
-    params: {
+    extMap: {
       offset: true,
     }
   },

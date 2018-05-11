@@ -11,7 +11,7 @@ function DemoHFormLayout({ form }) {
         configs={configs}
         cols={4}
         onChange={() => {}}
-        space={24}
+        itemSpace={24}
       />
     </Card>
   )

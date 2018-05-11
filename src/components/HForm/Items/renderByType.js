@@ -81,7 +81,7 @@ export default function renderFormItemByType(props) {
 
   else if (type === 'checkbox') {
     // 多选框
-    return <div className="my-form-checkbox-group"><CheckboxGroup {...new_api} /></div>;
+    return <div className="my-hform-checkbox-group"><CheckboxGroup {...new_api} /></div>;
   }
 
   else if (type === 'select') {
@@ -145,7 +145,7 @@ export default function renderFormItemByType(props) {
       }
     }
     // 新增一个[my-form-text]类，对 antd 样式做调整
-    return <span className="ant-form-text my-form-text">{text_value}</span>;
+    return <span className="ant-form-text my-hform-text">{text_value}</span>;
   }
 
   else if (type === 'treeSelect') {

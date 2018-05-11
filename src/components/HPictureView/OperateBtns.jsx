@@ -8,7 +8,7 @@ import getPopoverTitle from './common/getPopoverTitle.js';
 
 const ButtonGroup = Button.Group;
 
-export default function KPictureBtns (props) {
+export default function OperateBtns (props) {
 
   const {
     btns = [],
@@ -51,7 +51,7 @@ export default function KPictureBtns (props) {
   )
 }
 
-KPictureBtns.propTypes = {
+OperateBtns.propTypes = {
   btns: propTypes.array,
   rotate: propTypes.number,
   zoom: propTypes.number,

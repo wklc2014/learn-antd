@@ -12,12 +12,11 @@ export const __detailConfig = [
   {
     type: 'form',
     title: '案件信息',
-    typeConfig: {
-      // layout: 'L4',
+    params: {
       cols: 3,
       itemSpace: 24,
     },
-    dataConfig: [
+    configs: [
       {
         label: '报案号',
         config: {
@@ -98,20 +97,20 @@ export const __detailConfig = [
   {
     type: 'table',
     title: '报案人信息',
-    typeConfig: {
+    params: {
       tableApi: {
         pagination: false,
       },
       total: false,
     },
     path: 'data.source.claimerData',
-    dataConfig: [
+    configs: [
       {
         config: {
           id: 'claimerUid',
           type: 'text'
         },
-        params: {
+        extMap: {
           title: '报案人账号',
         }
       },
@@ -120,7 +119,7 @@ export const __detailConfig = [
           id: 'claimerCertName',
           type: 'text'
         },
-        params: {
+        extMap: {
           title: '报案人证件名称',
         }
       },
@@ -129,7 +128,7 @@ export const __detailConfig = [
           id: 'claimerCertNo',
           type: 'text'
         },
-        params: {
+        extMap: {
           title: '报案人证件号码',
         }
       },
@@ -138,7 +137,7 @@ export const __detailConfig = [
           id: 'claimerPhone',
           type: 'text'
         },
-        params: {
+        extMap: {
           title: '报案人电话号码',
         }
       },
@@ -147,19 +146,20 @@ export const __detailConfig = [
   {
     type: 'table',
     title: '关联保单',
-    typeConfig: {
+    params: {
       total: true,
       tableApi: {
         pagination: false,
       }
     },
-    dataConfig: [
+    path: 'data.source.policyList',
+    configs: [
       {
         config: {
           id: 'plicyNo',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '保单号',
         },
       },
@@ -168,7 +168,7 @@ export const __detailConfig = [
           id: 'plicyPerson',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '被保人',
         },
       },
@@ -177,7 +177,7 @@ export const __detailConfig = [
           id: 'plicyCardNo',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '被保人身份证号码',
         },
       },
@@ -186,7 +186,7 @@ export const __detailConfig = [
           id: 'plicyAmount',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '赔付金额',
           total: true,
         },
@@ -196,7 +196,7 @@ export const __detailConfig = [
           id: 'plicyPhone',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '被保人联系电话',
         },
       },
@@ -205,44 +205,43 @@ export const __detailConfig = [
           id: 'plicyAddress',
           type: 'text',
         },
-        params: {
+        extMap: {
           title: '被保人联系地址',
         },
       }
     ],
-    path: 'data.source.policyList',
   },
   {
     type: 'form',
     title: '关联赔案',
-    typeConfig: {
+    params: {
       layout: 'L4',
       cols: 3,
       itemSpace: 24,
     },
-    dataConfig: []
+    configs: []
   },
   {
     type: 'form',
     title: '案件处理历史',
-    typeConfig: {
+    params: {
       layout: 'L4',
       cols: 3,
       itemSpace: 24,
     },
-    dataConfig: [
+    configs: [
 
     ]
   },
   {
     type: 'form',
     title: '关键时间节点',
-    typeConfig: {
+    params: {
       layout: 'L4',
       cols: 3,
       itemSpace: 24,
     },
-    dataConfig: [
+    configs: [
 
     ]
   },

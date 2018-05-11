@@ -19,17 +19,19 @@ export default class HDetail extends Component {
   // 表单式详情
   getFormConfigEle = (formConfig = {}) => {
     const { dataSource } = this.props;
-    const { title, typeConfig = {}, dataConfig = [] } = formConfig;
+    const { title, params = {}, configs = [] } = formConfig;
     const values = {};
-    const FormConfigs = dataConfig.map((val, i) => {
-      const { label, config = {}, params = {}, path = '' } = val;
-      values[config.id] = lodash.get(dataSource, path);
-      return { label, config, params };
+    const FormConfigs = configs.map((val, i) => {
+      const { label, config = {}, extMap = {}, path = '' } = val;
+      if (config.id) {
+        values[config.id] = lodash.get(dataSource, path);
+      }
+      return { label, config, extMap };
     });
     return (
       <Card style={{ marginBottom: 24 }} title={title}>
         <HForm
-          {...typeConfig}
+          {...params}
           configs={FormConfigs}
           values={values}
         />
@@ -40,17 +42,17 @@ export default class HDetail extends Component {
   // 表格式详情
   getTableConfigEle = (tableConfigPamram = {}) => {
     const { dataSource } = this.props;
-    const { title, typeConfig = {}, dataConfig = [], path } = tableConfigPamram;
+    const { title, params = {}, configs = [], path } = tableConfigPamram;
     const values = lodash.get(dataSource, path, []);
     const new_values = values.map((v, i) => ({...v, key: i}));
-    const TableConfigs = dataConfig.map((val, i) => {
-      const { config, params } = val;
-      return { config, params };
+    const TableConfigs = configs.map((val, i) => {
+      const { config, extMap } = val;
+      return { config, extMap };
     });
     return (
       <Card style={{ marginBottom: 24 }} title={title}>
         <HSummaryTable
-          {...typeConfig}
+          {...params}
           configs={TableConfigs}
           dataSource={new_values}
         />
@@ -78,12 +80,11 @@ export default class HDetail extends Component {
 }
 
 HDetail.propTypes = {
-  mode: propTypes.string,
   configs: propTypes.arrayOf(propTypes.shape({
-    title: propTypes.string,
     type: propTypes.string.isRequired,
-    typeConfig: propTypes.object,
-    dataConfig: propTypes.array,
+    title: propTypes.string,
+    params: propTypes.object,
+    configs: propTypes.array,
   })),
   dataSource: propTypes.object.isRequired,
 }

@@ -29,7 +29,7 @@ export default class HFormItem extends Component {
      * 表单元素扩展配置
      * @type {Object}
      */
-    params: {},
+    extMap: {},
 
     /**
      * 可控表单搜集表单值的 onChange 事件
@@ -78,8 +78,8 @@ export default class HFormItem extends Component {
    * @return {Object} FormItem 栅格布局对象
    */
   getFormItemLayout = () => {
-    const { params = {} } = this.props;
-    const { layout, offset } = params;
+    const { extMap = {} } = this.props;
+    const { layout, offset } = extMap;
     if (is.object(layout)) {
       return getFormItemOffset(layout, offset);
     } else if (is.string(layout)) {
@@ -90,10 +90,10 @@ export default class HFormItem extends Component {
 
   render() {
     const { touched } = this.state;
-    const { label, config, params = {}, values, children } = this.props;
+    const { label, config, extMap = {}, values, children } = this.props;
 
     // 表单元素的扩展字段配置隐藏属性
-    if (params.hide) return null;
+    if (extMap.hide) return null;
 
     // 表单元素删格布局
     const formItemlayout = this.getFormItemLayout();
@@ -138,7 +138,7 @@ export default class HFormItem extends Component {
     const formItemValidate = getFormItemValidate({ values, config: new_config, touched });
 
     // 表单元素的扩展字段
-    const { space, extra, colon } = params;
+    const { space, extra, colon } = extMap;
 
     const FormItemProps = {
       label,
@@ -161,7 +161,7 @@ HFormItem.propTypes = {
     propTypes.object,
     propTypes.array,
   ]),
-  params: propTypes.object,
+  extMap: propTypes.object,
   onChange: propTypes.func,
   values: propTypes.object,
 };

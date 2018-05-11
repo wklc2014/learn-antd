@@ -11,7 +11,7 @@ import { Form, Row, Col } from 'antd';
 import HFormItem from './HFormItem.jsx';
 
 import { getFormLayout, getFormItemLayout, getGridLayout } from './common/getLayout.js';
-import checkTypesIsAllText from './common/checkTypesIsAllText.js';
+import checkTypes from './common/checkTypes.js';
 
 import './styles.less';
 
@@ -66,8 +66,8 @@ export default function HForm(props) {
 
   const ChildrenEle = configs.map((val, i) => {
     const key = `${layout}-${i}`;
-    const { label, config, params = {} } = val;
-    const { colspan } = params;
+    const { label, config, extMap = {} } = val;
+    const { colspan } = extMap;
 
     /**
      * FormItem 栅格布局优先通过 Form 组件直接传入
@@ -77,10 +77,10 @@ export default function HForm(props) {
     const HFormItemProps = {
       label,
       config,
-      params: {
+      extMap: {
         layout: item_layout,
         space: itemSpace,
-        ...params,
+        ...extMap,
       },
       onChange,
       values,
@@ -105,7 +105,7 @@ export default function HForm(props) {
   const formLayout = getFormLayout(layout);
 
   const cls = classnames({
-    'my-hform': checkTypesIsAllText(configs)
+    'my-hform-all-text': checkTypes(configs),
   });
 
   return (

@@ -35,7 +35,11 @@
           // 表单元素验证规则
           rules: [],
 
-          // 一些数据字段
+          /**
+           * 一些额外数据字段
+           * 如单选框，多选框，文本显示的映射
+           * @type {Array}
+           */
           data: [
             { value: '01', label: '男' },
             { value: '02', label: '女' },
@@ -44,7 +48,11 @@
           // 表单元素是否隐藏
           hide: false,
 
-          // 表单元素显示
+          /**
+           * type = text 时，表单元素显示方式
+           * @param  {any} value 任何表单值
+           * @return {any}       表单显示
+           */
           render: (value) => {},
         },
       },
@@ -61,19 +69,21 @@
     ],
 
     // 表单元素扩展配置
-    params: {
-      // 表单元素布局
+    extMap: {
+      // 单个表单元素布局
       layout: 'L0',
 
-      // 表单元素间隔
+      // 两个表单元素间隔
       space: 16,
 
-      // 表单元素横跨列数
+      // 单个表单元素横跨列数
       colspan: 1,
 
-      // 表单元素是否 offset
-      // 表单元素类型没有 label 时,
-      // 如果 button, 需要设置 offset 属性
+      /**
+       * 表单元素是否 offset
+       * 表单元素类型没有 label 时,
+       * @type {Boolean}
+       */
       offset: true,
 
       // 表单元素是否隐藏

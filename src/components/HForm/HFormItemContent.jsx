@@ -7,6 +7,7 @@ import propTypes from 'prop-types';
 import renderByType from './Items/renderByType.js';
 import getPlaceholder from './common/getPlaceholder.js';
 import getStyle from './common/getStyle.js';
+import getData from './common/getData.js';
 import getValue from './common/getValue.js';
 
 export default class HFormItemContent extends Component {
@@ -59,11 +60,12 @@ export default class HFormItemContent extends Component {
     const new_value = getValue({ value, ext });
     const new_placeholder = getPlaceholder({ type, placeholder, label, id });
     const new_style = getStyle({ type, ext, style: api.style });
+    const new_data = getData({ type, ext });
 
     return renderByType({
       type,
       api: { ...api, placeholder: new_placeholder, style: new_style },
-      ext,
+      ext: { ...ext, data: new_data },
       value: new_value,
       onChange: this.onChange,
     });

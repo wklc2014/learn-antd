@@ -9,11 +9,11 @@ import { Table } from 'antd';
 
 import HFormItem from '../HForm/HFormItem.jsx';
 import getSummaryData from './common/getSummaryData.js';
-import checkTypesIsAllText from '../HForm/common/checkTypesIsAllText.js';
+import checkTypes from '../HForm/common/checkTypes.js';
 
 import './styles.less';
 
-class KSummaryTable extends Component {
+export default class HSummaryTable extends Component {
 
   static defaultProps = {
     /**
@@ -64,12 +64,12 @@ class KSummaryTable extends Component {
     const { configs, totalLineKey } = this.props;
     return configs.filter(val => {
       // 过滤出隐藏的表格列
-      const { params = {} } = val;
-      const { isHide } = params;
+      const { extMap = {} } = val;
+      const { isHide } = extMap;
       return !isHide;
     }).map((val, i) => {
-      const { params = {}, config } = val;
-      const { width, title } = params;
+      const { extMap = {}, config } = val;
+      const { width, title } = extMap;
       return {
         key: `HSummaryTable-${i}`,
         width,
@@ -79,8 +79,8 @@ class KSummaryTable extends Component {
           if (record.key === totalLineKey) return text;
           const HFormItemProps = {
             config,
-            params: {
-              ...params,
+            extMap: {
+              ...extMap,
               layout: null,
             },
             onChange: ({ id, value, type }) => {
@@ -112,7 +112,7 @@ class KSummaryTable extends Component {
 
     const cls = classnames({
       [rowClassName]: true,
-      'my-hsummarytable': checkTypesIsAllText(configs)
+      'my-hsummarytable': checkTypes(configs)
     });
 
     return cls;
@@ -135,8 +135,8 @@ class KSummaryTable extends Component {
   }
 }
 
-KSummaryTable.propTypes = {
-  configss: propTypes.arrayOf(propTypes.shape({
+HSummaryTable.propTypes = {
+  configs: propTypes.arrayOf(propTypes.shape({
     config: propTypes.object,
     params: propTypes.object,
   })),
@@ -147,5 +147,3 @@ KSummaryTable.propTypes = {
   totalPrecision: propTypes.number,
   totalLineKey: propTypes.string,
 };
-
-export default KSummaryTable;

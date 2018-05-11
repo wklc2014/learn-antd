@@ -1,3 +1,7 @@
+/**
+ *
+ */
+
 const addLoadingToEffects = (name, mirror) => {
   Object.keys(mirror.actions).forEach(namespace => {
     if (namespace === name) { return }

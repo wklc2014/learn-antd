@@ -10,12 +10,12 @@
     title: '',
 
     // 卡片配置
-    typeConfig: {
+    params: {
       layout: '',
     },
 
     // 卡片数据配置
-    dataConfig: [
+    configs: [
       {
         label: '',
         config: {
@@ -24,7 +24,7 @@
           api: {},
           ext: {},
         },
-        params: {},
+        extMap: {},
         path: '',
       }
     ],
@@ -37,12 +37,12 @@
     title: '',
 
     // 卡片配置
-    typeConfig: {
+    params: {
 
     },
 
     // 卡片数据配置
-    dataConfig: [
+    configs: [
       {
         config: {
           id: '',
@@ -52,7 +52,7 @@
             render: '',
           },
         },
-        params: {
+        extMap: {
           title: '',
           total: true,
         },

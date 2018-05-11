@@ -13,7 +13,7 @@ export default [
         ]
       }
     },
-    params: {
+    extMap: {
       layout: 'L0',
     }
   },
@@ -23,7 +23,7 @@ export default [
       id: 'user_name_2',
       type: 'date',
     },
-    params: {
+    extMap: {
       layout: 'L0',
     }
   },
@@ -43,7 +43,7 @@ export default [
         ]
       }
     },
-    params: {
+    extMap: {
       layout: 'L0',
     }
   },
@@ -59,7 +59,7 @@ export default [
         value: '222333',
       },
     },
-    params: {
+    extMap: {
       layout: 'L0',
       offset: true,
     }

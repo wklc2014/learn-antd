@@ -15,8 +15,16 @@ class DemoHForm extends Component {
   }
 
   onChange = ({ id, value }) => {
-    console.log('>>>', JSON.stringify({ id, value }));
-    actions._form.updateValues({ [id]: value })
+    console.log('>>>', { id, value });
+    const data_value = { [id]: value };
+    if (id === 'contactPhone_2') {
+      const values = {
+        '01': 13011114444,
+        '02': 13277778888,
+      }
+      data_value.contactPhone_1 = values[value];
+    }
+    actions._form.updateValues(data_value)
   }
 
   onReset = () => {

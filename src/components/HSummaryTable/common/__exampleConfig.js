@@ -19,13 +19,16 @@
     },
 
     // 表格相关配置
-    params: {
+    extMap: {
       // 宽度
       width: '10%',
+
       // 表格头
       title: '出险时间',
+
       // 表格是否汇总
       total: true,
+
       // 表格值经过计算
       // render 是一个函数体
       render: `return data.lossAmount * data.multiplier`,
