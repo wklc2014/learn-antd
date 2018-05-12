@@ -23,15 +23,14 @@ export default function OperateBtns (props) {
   const btnEle = btns.map((btn, i) => {
     const content = getPopoverContent(btn.value, values, onChange);
     const title = getPopoverTitle(btn.value);
-    const condition = btn.value === 'rotate' || btn.value === 'zoom';
     if (btn.value === 'rotate' || btn.value === 'zoom') {
       return (
         <Popover
+          key={i}
           content={content}
           overlayStyle={PopoverStyle}
           title={title}
           trigger="click"
-          key={i}
         >
           <Button disabled={btn.disabled}>{btn.label}</Button>
         </Popover>

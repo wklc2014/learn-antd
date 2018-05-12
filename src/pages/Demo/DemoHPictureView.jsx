@@ -5,11 +5,9 @@ import HPictureView from '../../components/HPictureView/HPictureView.jsx';
 
 import pic_1 from './common/images/pic-1.jpg';
 import pic_2 from './common/images/pic-2.jpg';
-import pic_3 from './common/images/pic-3.jpg';
-import pic_4 from './common/images/pic-4.jpg';
-import pic_5 from './common/images/pic-5.jpg';
-
-const paths = [pic_1, pic_2, pic_3, pic_4, 'error image path', pic_5];
+// import pic_3 from './common/images/pic-3.jpg';
+// import pic_4 from './common/images/pic-4.jpg';
+// import pic_5 from './common/images/pic-5.jpg';
 
 export default class DemoHPictureView extends Component {
 
@@ -53,14 +51,16 @@ export default class DemoHPictureView extends Component {
             <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
             <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
           </p>
-          <HPictureView
-            viewHeight="60vh"
-            picSrc={pic_1}
-            picWidth={this.state.width}
-            picRotate={this.state.rotate}
-            picPositionX={this.state.x}
-            picPositionY={this.state.y}
-          />
+          <div style={{ width: 400 }}>
+            <HPictureView
+              viewHeight={400}
+              picSrc={pic_1}
+              picWidth={this.state.width}
+              picRotate={this.state.rotate}
+              picPositionX={this.state.x}
+              picPositionY={this.state.y}
+            />
+          </div>
         </Card>
         <Modal
           visible={visible}
@@ -70,7 +70,7 @@ export default class DemoHPictureView extends Component {
           onCancel={this.onCancel}
         >
           <HPictureView
-            viewHeight="60vh"
+            viewHeight={400}
             picSrc={pic_2}
           />
         </Modal>

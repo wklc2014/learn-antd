@@ -43,6 +43,12 @@ export default class HPictureView extends Component {
       picOriginWidth: 0,
 
       /**
+       * 图片原始高度
+       * @type {Number}
+       */
+      picOriginHeight: 0,
+
+      /**
        * 图片最佳显示宽度
        * @type {Number}
        */
@@ -85,6 +91,7 @@ export default class HPictureView extends Component {
     const params = this.getRenderState({}, this.props);
     const isInit = !params.picWidth;
     this.planRender(picSrc, params, isInit);
+    window.addEventListener('resize', this.planWindowResize);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,6 +105,10 @@ export default class HPictureView extends Component {
       // 仅仅是其他 props 改变
       this.setState(params);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.planWindowResize);
   }
 
   /**
@@ -121,16 +132,38 @@ export default class HPictureView extends Component {
    * @param  {object} image [图片]
    * @return {object}       [图片最佳显示的宽度和高度]
    */
-  getPictureBestView = (image) => {
+  getPictureBestView = (originWidth, originHeight) => {
     const view_dom = this.inst;
+    if (!view_dom) {
+      return { width: originWidth, height: originHeight }
+    }
     const view_width = view_dom.clientWidth;
     const view_height = view_dom.clientHeight;
-    const image_width = image.width;
-    const image_height = image.height;
-    if (image_width > view_width || image_height > view_height) {
-
+    let image_width = originWidth;
+    let image_height = originHeight;
+    if (originWidth > view_width || originHeight > view_height) {
+      const rate = originWidth / originHeight;
+      image_width = view_width;
+      image_height = view_width / rate;
+      if (image_height > view_height) {
+        image_height = view_height;
+        image_width = view_height * rate;
+      }
     }
     return { width: image_width, height: image_height }
+  }
+
+  /**
+   * 窗口变化重置 picBestWidth
+   */
+  planWindowResize = () => {
+    const { picOriginWidth, picOriginHeight } = this.state;
+    if (picOriginWidth && picOriginHeight) {
+      const bestSize = this.getPictureBestView(picOriginWidth, picOriginHeight);
+      this.setState({
+        picBestWidth: bestSize.width,
+      });
+    }
   }
 
   /**
@@ -142,15 +175,18 @@ export default class HPictureView extends Component {
    */
   planRender = (src, params = {}, isInit = false) => {
     asyncLoadImage(src).then((image) => {
-      const picBestWidth = this.getPictureBestView(image);
+      const originWidth = image.width;
+      const originHeight = image.height;
+      const bestSize = this.getPictureBestView(originWidth, originHeight);
       const new_state = {
-        picOriginWidth: image.width,
-        picBestWidth,
+        picOriginWidth: originWidth,
+        picOriginHeight: originHeight,
+        picBestWidth: bestSize.width,
         ...params,
         picErrors: '',
       };
       if (isInit) {
-        new_state.picWidth = image.width;
+        new_state.picWidth = bestSize.width;
       }
       this.setState(new_state);
     }).catch((e) => {

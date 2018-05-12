@@ -1,36 +1,31 @@
-export const search_query = [
+export const __QueryFields = [
   {
+    label: '策略编号',
     config: {
       id: 'id',
       type: 'input',
     },
-    formItemParams: {
-      label: '策略编号',
-    },
   },
   {
+    label: '策略备注',
     config: {
       id: 'hitMemo',
       type: 'input',
     },
-    formItemParams: {
-      label: '策略备注',
-    },
   },
   {
+    label: '业务编号',
     config: {
       id: 'bizId',
       type: 'input',
     },
-    formItemParams: {
-      label: '业务编号',
-    },
   },
   {
+    label: '业务类型',
     config: {
       id: 'bizType',
       type: 'select',
-      extMap: {
+      ext: {
         data: [
           { value: '01', label: '拒赔' },
           { value: '02', label: '赔付' },
@@ -38,34 +33,27 @@ export const search_query = [
         ],
       },
     },
-    formItemParams: {
-      label: '业务类型',
-    },
   },
   {
+    label: '业务场景',
     config: {
       id: 'bizScene',
       type: 'input',
     },
-    formItemParams: {
-      label: '业务场景',
-    },
   },
   {
+    label: '命中时间',
     config: {
       id: 'hitTime',
       type: 'date',
-      params: {
+      api: {
         format: 'YYYY-MM-DD HH:mm:ss',
       }
-    },
-    formItemParams: {
-      label: '命中时间',
     },
   },
 ];
 
-export const search_result = [
+export const __QueryResult = [
   { title: '命中时间', dataIndex: 'hitTime', key: 'hitTime' },
   { title: '策略编号', dataIndex: 'id', key: 'id' },
   { title: '策略备注', dataIndex: 'hitMemo', key: 'hitMemo' },

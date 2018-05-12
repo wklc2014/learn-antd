@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { actions, connect } from 'mirrorx';
-import { Button, Form, Table } from 'antd';
+import { Button, Form, Table, Card } from 'antd';
 
-import KForm from '../../components/KForm/KForm.jsx';
-import { search_query, search_result } from './common/index.js';
+import HForm from '../../components/HForm/HForm.jsx';
+import { __QueryFields, __QueryResult } from './common/__ConfigQuery.js';
 
-class TestAjax extends Component {
+class DemoQuery extends Component {
 
   static defaultProps = {}
 
@@ -19,23 +19,19 @@ class TestAjax extends Component {
 
   onReset = () => {
     actions._ajax.update({ values: {} });
-    const ids = search_query.map((val => val.config.id));
-    this.inst.props.form.resetValues(ids);
   }
 
   render() {
     const { values, dataSource } = this.props;
 
     return (
-      <div style={{ padding: 16 }}>
+      <Card title="模型系统">
         <div>
-          <KForm
-            form={this.props.form}
-            wrappedComponentRef={(inst) => this.instance = inst}
-            configs={search_query}
+          <HForm
+            configs={__QueryFields}
+            cols={3}
             onChange={this.onChange}
             values={values}
-            columns={3}
           />
         </div>
         <div style={{ textAlign: 'right', marginBottom: 24 }}>
@@ -44,17 +40,17 @@ class TestAjax extends Component {
         </div>
         <div>
           <Table
-            columns={search_result}
+            columns={__QueryResult}
             dataSource={dataSource}
             bordered
           />
         </div>
-      </div>
+      </Card>
     )
   }
 }
 
-TestAjax.propTypes = {
+DemoQuery.propTypes = {
 
 }
 
@@ -65,6 +61,6 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-const Wraper = Form.create()(TestAjax);
+const Wraper = Form.create()(DemoQuery);
 
 export default connect(mapStateToProps)(Wraper);

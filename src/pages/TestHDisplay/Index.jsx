@@ -28,7 +28,7 @@ export default class TestHDisplay extends Component {
 
     return (
       <div>
-        <Card>
+        <Card bodyStyle={{ minHeight: 400 }}>
           <div>
             <Button onClick={this.handleClick}>切换</Button>
           </div>

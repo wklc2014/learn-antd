@@ -46,7 +46,7 @@ class DemoHForm extends Component {
           label: '登录',
         },
       },
-      params: {
+      extMap: {
         offset: true,
       }
     };
@@ -61,7 +61,7 @@ class DemoHForm extends Component {
             cols={2}
             onChange={this.onChange}
             values={this.props.values}
-            space={16}
+            itemSpace={16}
           />
           <p style={{ paddingBottom: 16 }}>
             <Button type="primary" onClick={this.onSubmit} style={{ marginRight: 16 }}>
@@ -78,8 +78,8 @@ class DemoHForm extends Component {
         <Card title="三种表单布局">
           <HForm
             configs={inlineGroupConfigs}
+            layout={formLayout}
             onChange={this.onChange}
-            type={formLayout}
             values={this.props.values}
           />
         </Card>
