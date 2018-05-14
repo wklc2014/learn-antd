@@ -55,10 +55,7 @@ export default class DemoHPictureView extends Component {
             <HPictureView
               viewHeight={400}
               picSrc={pic_1}
-              picWidth={this.state.width}
-              picRotate={this.state.rotate}
-              picPositionX={this.state.x}
-              picPositionY={this.state.y}
+              picBtns={false}
             />
           </div>
         </Card>

@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import lodash from 'lodash';
+import is from 'is_js';
 
 import ViewArea from './ViewArea.jsx';
 import OperateBtns from './OperateBtns.jsx';
@@ -266,20 +267,30 @@ export default class HPictureView extends Component {
    * 操作按钮
    */
   getPictureBtns = () => {
+    const { picBtns } = this.props;
     const { picErrors } = this.state;
-    const { picBtns = __operateBtns } = this.props;
-    return picBtns.map((btn) => {
-      let disabled = false;
-      switch (btn.value) {
-        case 'zoom':
-        case 'rotate':
-        case 'reset':
-          disabled = !!picErrors;
-          break;
-        default:
+    if (is.boolean(picBtns)) {
+      if (!picBtns) {
+        return [];
       }
-      return { ...btn, disabled };
-    })
+      return getBtns(__operateBtns);
+    }
+    return getBtns(picBtns);
+
+    function getBtns(array = []) {
+      return array.map((btn) => {
+        let disabled = false;
+        switch (btn.value) {
+          case 'zoom':
+          case 'rotate':
+          case 'reset':
+            disabled = !!picErrors;
+            break;
+          default:
+        }
+        return { ...btn, disabled };
+      })
+    }
   }
 
   /**
@@ -336,8 +347,11 @@ HPictureView.propTypes = {
   picRotate: propTypes.number,
   picPositionX: propTypes.number,
   picPositionY: propTypes.number,
-  picBtns: propTypes.shape({
-    value: propTypes.string.isRequired,
-    label: propTypes.string.isRequired,
-  }),
+  picBtns: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.shape({
+      value: propTypes.string.isRequired,
+      label: propTypes.string.isRequired,
+    })),
+    propTypes.bool,
+  ]),
 }
