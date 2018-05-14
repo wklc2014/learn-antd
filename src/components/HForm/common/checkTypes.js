@@ -7,9 +7,9 @@ export default function checkTypes(configs = []) {
   const notAllText = configs.some(val => {
     const { config } = val;
     if (is.array(config)) {
-      return config.some(v => v.type !== 'text');
+      return config.some(v => v.type !== 'text' && v.type !== 'imageView');
     } else {
-      return config.type !== 'text';
+      return config.type !== 'text' && config.type !== 'imageView';
     }
   })
   return !notAllText;

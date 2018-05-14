@@ -1,3 +1,9 @@
+import pic_1 from './images/pic-1.jpg';
+import pic_2 from './images/pic-2.jpg';
+import pic_3 from './images/pic-3.jpg';
+import pic_4 from './images/pic-4.jpg';
+import pic_5 from './images/pic-5.jpg';
+
 const statusRender = (text) => {
   const status_map = {
     '0': '已报案',
@@ -50,6 +56,9 @@ export const __detailConfig = [
           id: 'claimCancelReason',
           type: 'text',
         },
+        extMap: {
+          colspan: 2,
+        },
         path: 'data.source.claimCancelReason'
       },
       {
@@ -92,6 +101,17 @@ export const __detailConfig = [
         },
         path: 'data.source.claimApplyAmount'
       },
+      {
+        label: '理赔图片',
+        config: {
+          id: 'claimImage',
+          type: 'imageView',
+        },
+        extMap: {
+          colspan: 3,
+        },
+        path: 'data.source.claimImage',
+      }
     ]
   },
   {
@@ -158,6 +178,9 @@ export const __detailConfig = [
         config: {
           id: 'plicyNo',
           type: 'text',
+          api: {
+            disabled: true,
+          }
         },
         extMap: {
           title: '保单号',
@@ -183,12 +206,33 @@ export const __detailConfig = [
       },
       {
         config: {
+          id: 'plicyBase',
+          type: 'text',
+        },
+        extMap: {
+          title: '赔付基数',
+          total: true,
+        },
+      },
+      {
+        config: {
+          id: 'coefficient',
+          type: 'text',
+        },
+        extMap: {
+          title: '赔付系数',
+          total: true,
+        },
+      },
+      {
+        config: {
           id: 'plicyAmount',
           type: 'text',
         },
         extMap: {
           title: '赔付金额',
           total: true,
+          render: `return data.plicyBase * data.coefficient`,
         },
       },
       {
@@ -252,13 +296,20 @@ export const __detailDataSource = {
     source: {
       claimReportNo: '201804271100300606540500133526',
       status: '0',
-      rejectReason: '',
-      claimCancelReason: '',
+      rejectReason: '反骗赔',
+      claimCancelReason: '在编写处理字符串的程序或网页时，经常有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。',
       outBizNo: '1524819493078-8009-30.55.56.232-1220122576',
       comName: '人保财险',
-      accidentDesc: '',
-      accidentAddress: '',
+      accidentDesc: '匹配除换行符以外的任意字符',
+      accidentAddress: '四川成都',
       claimApplyAmount: '0.01',
+      claimImage: [
+        { path: pic_1 },
+        { path: pic_2 },
+        { path: pic_3 },
+        { path: pic_4 },
+        { path: pic_5 },
+      ],
       claimerData: [
         {
           claimerUid: '2088102011188220',
@@ -280,23 +331,26 @@ export const __detailDataSource = {
           plicyCardNo: '5102832938128328272',
           plicyPhone: '13000000000',
           plicyAddress: '四川省成都市',
-          plicyAmount: '22',
+          coefficient: '22',
+          plicyBase: '2',
         },
         {
           plicyNo: 'SF78199DF30SDFDF2F',
           plicyPerson: '赵某某',
           plicyCardNo: '5102832938128328272',
           plicyPhone: '13000000000',
-          plicyAmount: '12',
           plicyAddress: '四川省成都市',
+          coefficient: '12',
+          plicyBase: '2',
         },
         {
           plicyNo: 'SF78199DF30SDFDF2F',
           plicyPerson: '赵某某',
           plicyCardNo: '5102832938128328272',
           plicyPhone: '13000000000',
-          plicyAmount: '10',
           plicyAddress: '四川省成都市',
+          coefficient: '10',
+          plicyBase: '2',
         },
       ]
     }

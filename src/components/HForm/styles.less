@@ -1,6 +1,6 @@
 .my-hform-all-text {
   .ant-form-item {
-    margin-bottom: 0 !important;
+    margin-bottom: 8px !important;
   }
 }
 
@@ -13,5 +13,24 @@ span.my-hform-text {
   .ant-checkbox-group-item {
     line-height: 2;
     padding: 7px 0 8px;
+  }
+}
+
+.my-image-view-item {
+  .my-image-view-item-box {
+    &:after{
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 80px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    cursor: pointer;
   }
 }

@@ -10,7 +10,8 @@ import React from 'react';
 import is from 'is_js';
 import { Button, Cascader, TreeSelect, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
-import utils from '../../../common/utils/utils.js';
+import MyFetchInput from './MyFetchInput.jsx';
+import MyImageView from './MyImageView.jsx';
 
 const { TextArea, Search } = Input;
 const { Option } = Select;
@@ -187,13 +188,17 @@ export default function renderFormItemByType(props) {
    * 在自定义组件内部自行处理
    */
 
-  // else if (type === 'fetchInput') {
+  else if (type === 'fetchInput') {
+    return <MyFetchInput {...props} />;
+  }
 
-  // }
+  else if (type === 'imageView') {
+    return <MyImageView {...props} />;
+  }
 
   else {
     // 无法处理的表单元素类型
-    utils.errorLogs(`没有与之相对应表单元素类型${type}`);
+    console.error(`没有与之相对应表单元素类型${type}`);
     return null;
   }
 }

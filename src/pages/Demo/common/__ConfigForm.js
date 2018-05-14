@@ -486,10 +486,45 @@ export const __configs = [
         allowClear: true,
       },
       ext: {
-        url: 'fetch',
+        service: 'fetch',
       }
     },
   },
+  {
+    label: '图片显示',
+    config: {
+      id: 'imageView',
+      type: 'imageView',
+      api: {
+        rowApi: {
+
+        },
+        colApi: {
+          span: 3,
+        },
+        toolTipApi: {
+          placement: 'topRight',
+        },
+        hPictureViewApi: {
+          picWidth: 100,
+        },
+        modalApi: {
+
+        },
+        boxStyle: {
+          width: '100%',
+          // height: '80px',
+          borderRaduis: '5px',
+        }
+      },
+      ext: {
+
+      },
+    },
+    extMap: {
+      colspan: 2,
+    },
+  }
 ];
 
 export const __register = [
