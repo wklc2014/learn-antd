@@ -8,7 +8,7 @@
  */
 import React from 'react';
 import is from 'is_js';
-import { Button, Cascader, TreeSelect, Checkbox, DatePicker, Input, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
+import { Input, Button, Cascader, TreeSelect, Checkbox, DatePicker, InputNumber, Radio, Rate, Select, Slider, Switch, TimePicker } from 'antd';
 
 import MyFetchInput from './MyFetchInput.jsx';
 import MyImageView from './MyImageView.jsx';
@@ -36,9 +36,11 @@ export default function renderFormItemByType(props) {
   const inputType = ['input', 'textarea', 'search', 'radio', 'radioButton']; // 5
   const baseTypes = ['rate', 'slider', 'switch', 'number', 'checkbox', 'select', 'treeSelect', 'cascader', 'date', 'range', 'month', 'time']; // 12
   if (is.inArray(type, inputType)) {
-    Object.assign(new_api, { onChange: (e) => onChange(e.target.value) });
+    Object.assign(new_api, {
+      onChange: (e) => onChange(e.target.value),
+    });
   } else if (is.inArray(type, baseTypes)) {
-    Object.assign(new_api, { onChange });
+    Object.assign(new_api, { onChange, value });
   }
 
   /**

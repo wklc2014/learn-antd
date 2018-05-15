@@ -1,3 +1,6 @@
+/**
+ * 图片展示
+ */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { Row, Col, Tooltip, Modal } from 'antd';
@@ -34,7 +37,7 @@ export default class MyImageView extends Component {
 
   render() {
     const { picSrc, visible } = this.state;
-    const { ext, value, api = {} } = this.props;
+    const { value, api = {} } = this.props;
     const {
       toolTipApi= {},
       rowApi = {},
@@ -51,11 +54,11 @@ export default class MyImageView extends Component {
         ...colApi,
         key,
         className: 'my-image-view-item',
-      }
+      };
       const new_box_style = {
         ...boxStyle,
         backgroundImage: `url(${path})`,
-      }
+      };
       return (
         <Col {...ColProps}>
           <Tooltip {...toolTipApi} title="点击显示详图">
@@ -66,7 +69,7 @@ export default class MyImageView extends Component {
             />
           </Tooltip>
         </Col>
-      )
+      );
     })
 
     return (

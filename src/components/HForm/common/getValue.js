@@ -10,9 +10,9 @@ export default function getValue ({ value, ext = {} }) {
 
   // 大小写转换
   if (toUpperCase && is.string(value)) {
-    new_value = value.toUpperCase();
+    // new_value = value.toUpperCase();
   } else if (toLowerCase && is.string(value)) {
-    new_value = value.toLowerCase();
+    // new_value = value.toLowerCase();
   }
 
   return new_value;
