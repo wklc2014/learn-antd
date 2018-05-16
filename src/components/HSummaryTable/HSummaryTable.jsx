@@ -41,7 +41,7 @@ export default class HSummaryTable extends Component {
     totalLineKey: 'ts',
 
     /**
-     * antd 表格默认配置
+     * antd 表格配置
      * @type {Object}
      */
     tableApi: {},
@@ -64,12 +64,12 @@ export default class HSummaryTable extends Component {
     const { configs, totalLineKey } = this.props;
     return configs.filter(val => {
       // 过滤出隐藏的表格列
-      const { extMap = {} } = val;
-      const { isHide } = extMap;
+      const { params = {} } = val;
+      const { isHide } = params;
       return !isHide;
     }).map((val, i) => {
-      const { extMap = {}, config } = val;
-      const { width, title } = extMap;
+      const { config, extMap = {}, params = {} } = val;
+      const { width, title } = params;
       return {
         key: `HSummaryTable-${i}`,
         width,
@@ -138,6 +138,7 @@ export default class HSummaryTable extends Component {
 HSummaryTable.propTypes = {
   configs: propTypes.arrayOf(propTypes.shape({
     config: propTypes.object,
+    extMap: propTypes.object,
     params: propTypes.object,
   })),
   dataSource: propTypes.array.isRequired,

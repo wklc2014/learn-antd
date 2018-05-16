@@ -6,7 +6,7 @@ import configs from './common/__ConfigFormLayout.js';
 
 function DemoHFormLayout({ form }) {
   return (
-    <Card title="表单元素自定义">
+    <Card title="演示表单组栅格化布局">
       <HForm
         configs={configs}
         cols={4}

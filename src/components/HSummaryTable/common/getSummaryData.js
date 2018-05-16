@@ -14,16 +14,16 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
   const new_dataSource = [...dataSource];
 
   configs.forEach(val => {
-    const { extMap = {}, config = {} } = val || {};
+    const { params = {}, config = {} } = val || {};
     const { id } = config;
 
     new_dataSource.forEach((data) => {
 
       // 计算行
-      if (extMap.render) {
+      if (params.render) {
         try {
           // eslint-disable-next-line
-          const num = new Function('data', extMap.render)(data);
+          const num = new Function('data', params.render)(data);
           if (is.not.nan(num)) {
             data[id] = lodash.round(parseFloat(num), precision);
           }
@@ -32,7 +32,7 @@ export default function getSummaryData(configs = [], dataSource = [], precision 
       }
 
       // 汇总列
-      if (extMap.total) {
+      if (params.total) {
         if (summary_line[id] === undefined) {
           summary_line[id] = 0;
         }

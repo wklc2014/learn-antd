@@ -6,7 +6,6 @@ import { NavLink, withRouter } from 'mirrorx';
 import HDisplay from '../../components/HDisplay/HDisplay.jsx';
 
 const MyNavLink = ({ route = {}, location }) => {
-
   const { pathname } = location;
 
   const { icon, className, path, label } = route;

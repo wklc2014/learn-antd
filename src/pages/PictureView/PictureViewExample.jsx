@@ -3,23 +3,16 @@ import { Modal, Button, Card } from 'antd';
 
 import HPictureView from '../../components/HPictureView/HPictureView.jsx';
 
-import pic_1 from './common/images/pic-1.jpg';
-import pic_2 from './common/images/pic-2.jpg';
-// import pic_3 from './common/images/pic-3.jpg';
-// import pic_4 from './common/images/pic-4.jpg';
-// import pic_5 from './common/images/pic-5.jpg';
+import pic_1 from '../../common/images/pic-1.jpg';
+import pic_2 from '../../common/images/pic-2.jpg';
 
-export default class DemoHPictureView extends Component {
+export default class PictureViewExample extends Component {
 
   static defaultProps = {}
 
   constructor(props) {
     super(props);
     this.state = {
-      width: 300,
-      rotate: 45,
-      x: 20,
-      y: 10,
       visible: false,
     }
   }
@@ -32,12 +25,6 @@ export default class DemoHPictureView extends Component {
     this.setState({ visible: false });
   }
 
-  onChange = (stateKey) => {
-    this.setState({
-      [stateKey]: this.state[stateKey] + 1
-    });
-  }
-
   render() {
     const { visible } = this.state;
 
@@ -46,29 +33,26 @@ export default class DemoHPictureView extends Component {
         <Card>
           <p>
             <Button style={{ marginRight: 8 }} onClick={this.onBtnClick}>切换</Button>
-            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('width')}>增加宽度</Button>
-            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('rotate')}>增加旋转角度</Button>
-            <Button style={{ marginRight: 8 }} onClick={() => this.onChange('x')}>增加 x 坐标</Button>
-            <Button onClick={() => this.onChange('y')}>增加 y 坐标</Button>
           </p>
           <div style={{ width: 400 }}>
             <HPictureView
               viewHeight={400}
               picSrc={pic_1}
-              picBtns={false}
+              picBtns
             />
           </div>
         </Card>
         <Modal
           visible={visible}
           title="审核凭证"
-          width="95vw"
+          width="90vw"
           footer={false}
           onCancel={this.onCancel}
         >
           <HPictureView
             viewHeight={400}
             picSrc={pic_2}
+            picBtns
           />
         </Modal>
       </div>

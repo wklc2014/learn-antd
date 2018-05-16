@@ -20,12 +20,14 @@ export default class HPictureView extends Component {
   static defaultProps = {
     wraperStyle: {},
     viewHeight: 400,
-    picSrc: [],
+    picSrc: '',
     picWidth: 0,
     picRotate: 0,
     picPositionX: 0,
     picPositionY: 0,
     picZoomRate: 3,
+    picRotateRate: 3,
+    picBtns: false,
   }
 
   constructor(props) {
@@ -347,6 +349,8 @@ HPictureView.propTypes = {
   picRotate: propTypes.number,
   picPositionX: propTypes.number,
   picPositionY: propTypes.number,
+  picRotateRate: propTypes.number,
+  picZoomRate: propTypes.number,
   picBtns: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.shape({
       value: propTypes.string.isRequired,

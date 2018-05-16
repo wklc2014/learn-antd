@@ -3,7 +3,7 @@
  */
 [
   {
-    // 表格显示元素
+    // 表单元素配置
     config: {
       id: 'accident_time',
       type: 'date',
@@ -13,13 +13,16 @@
       },
       ext: {
         rules: [
-          { required: true, message: '出险时间必填' }
+          { required: true, message: '出险时间必填' },
         ],
       },
     },
 
-    // 表格相关配置
-    extMap: {
+    // 表单元素扩展配置
+    extMap: {},
+
+    // 表格扩展配置
+    params: {
       // 宽度
       width: '10%',
 
@@ -32,6 +35,9 @@
       // 表格值经过计算
       // render 是一个函数体
       render: `return data.lossAmount * data.multiplier`,
-    }
+
+      // 隐藏
+      isHide: false,
+    },
   },
 ]

@@ -1,11 +1,11 @@
 /**
  * _form model state
  */
-import pic_1 from '../../pages/Demo/common/images/pic-1.jpg';
-import pic_2 from '../../pages/Demo/common/images/pic-2.jpg';
-import pic_3 from '../../pages/Demo/common/images/pic-3.jpg';
-import pic_4 from '../../pages/Demo/common/images/pic-4.jpg';
-import pic_5 from '../../pages/Demo/common/images/pic-5.jpg';
+import pic_1 from '../../common/images/pic-1.jpg';
+import pic_2 from '../../common/images/pic-2.jpg';
+import pic_3 from '../../common/images/pic-3.jpg';
+import pic_4 from '../../common/images/pic-4.jpg';
+import pic_5 from '../../common/images/pic-5.jpg';
 
 export default {
   values: {

@@ -1,42 +1,47 @@
 /**
  * 侧边导航内容
  */
-import React, { Component } from 'react';
-import { Menu } from 'antd';
+import React, { Component, Fragment } from 'react';
+import { Menu, Icon } from 'antd';
+import is from 'is_js';
 import { withRouter } from 'mirrorx';
 
 import Logo from '../../components/Logo/Logo.jsx';
 import MyNavLink from './MyNavLink.jsx';
 
-import sidebarRoutes from '../../common/configs/sidebarRoutes.js';
+import routeConfig from '../../common/configs/routeConfig.js';
 
 const { SubMenu, Item } = Menu;
 
+function getSubMenuTitle(title = {}) {
+  if (is.object(title)) {
+    const { icon, label } = title;
+    return (
+      <Fragment>
+        <Icon type={icon} />
+        <span>{label}</span>
+      </Fragment>
+    );
+  }
+  return title;
+}
+
 class Sidebar extends Component {
-  static defaultProps = {
+  static defaultProps = {}
 
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      openKeys: ['0'],
-    }
-  }
-
-  onOpenChange = (openKeys) => {
-    this.setState({ openKeys });
+  getSidebarRoutes = () => {
+    return routeConfig.filter(route => route.isSidebar);
   }
 
   render() {
-    const { openKeys } = this.state;
     const { collapsed, location } = this.props;
     const { pathname } = location;
 
-    const menuItemEle = sidebarRoutes.filter((route) => route.isSidebar).map((route, i) => {
+    const menuItemEle = this.getSidebarRoutes().map((route, i) => {
+      const title = getSubMenuTitle(route.title);
       if (route.subMenus) {
         return (
-          <SubMenu title={route.title} key={i}>
+          <SubMenu title={title} key={route.key}>
             {route.subMenus.map((r, j) => <Item key={r.path}><MyNavLink route={r} /></Item>)}
           </SubMenu>
         )
@@ -49,11 +54,8 @@ class Sidebar extends Component {
         <Logo collapsed={collapsed} />
         <Menu
           theme="dark"
-          mode="inline"
-          inlineCollapsed
+          mode="vertical"
           selectedKeys={[pathname]}
-          openKeys={openKeys}
-          onOpenChange={this.onOpenChange}
         >
           {menuItemEle}
         </Menu>

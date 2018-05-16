@@ -16,4 +16,5 @@ export default function getValue ({ value, ext = {} }) {
   }
 
   return new_value;
+
 }

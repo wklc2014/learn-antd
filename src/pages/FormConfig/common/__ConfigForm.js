@@ -350,7 +350,6 @@ export const __configs = [
             { required: true, message: '出险描述必填' }
           ],
           span: 16,
-          toUpperCase: true,
         }
       },
       {

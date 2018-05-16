@@ -5,7 +5,7 @@ import { Card } from 'antd';
 import HSummaryTable from '../../components/HSummaryTable/HSummaryTable.jsx';
 import configs from './common/__ConfigSummaryTable.js';
 
-class TestHSummaryTable extends Component {
+class SummaryTableExample extends Component {
 
   static defaultProps = {
   }
@@ -37,4 +37,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(TestHSummaryTable);
+export default connect(mapStateToProps)(SummaryTableExample);

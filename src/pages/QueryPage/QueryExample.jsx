@@ -5,7 +5,7 @@ import { Button, Form, Table, Card } from 'antd';
 import HForm from '../../components/HForm/HForm.jsx';
 import { __QueryFields, __QueryResult } from './common/__ConfigQuery.js';
 
-class DemoQuery extends Component {
+class QueryExample extends Component {
 
   static defaultProps = {}
 
@@ -50,7 +50,7 @@ class DemoQuery extends Component {
   }
 }
 
-DemoQuery.propTypes = {
+QueryExample.propTypes = {
 
 }
 
@@ -61,6 +61,6 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-const Wraper = Form.create()(DemoQuery);
+const Wraper = Form.create()(QueryExample);
 
 export default connect(mapStateToProps)(Wraper);

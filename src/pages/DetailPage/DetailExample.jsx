@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import HDetail from '../../components/HDetail/HDetail.jsx';
 import { __detailConfig, __detailDataSource } from './common/__ConfigDetail.js';
 
-export default class DemoHDetail extends Component {
+export default class DetailExample extends Component {
 
   static defaultProps = {}
 
@@ -21,6 +21,6 @@ export default class DemoHDetail extends Component {
 
 }
 
-DemoHDetail.propTypes = {
+DetailExample.propTypes = {
 
 }

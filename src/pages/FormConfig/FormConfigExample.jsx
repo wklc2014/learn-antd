@@ -8,14 +8,14 @@ import { Button, Card } from 'antd';
 import HForm from '../../components/HForm/HForm.jsx';
 import { __configs, __register } from './common/__ConfigForm.js';
 
-class DemoHForm extends Component {
+class FormConfigExample extends Component {
 
   static defaultProps = {
     values: {},
   }
 
   onChange = ({ id, value }) => {
-    console.log('>>>', { id, value });
+    // console.log('>>>', { id, value });
     const data_value = { [id]: value };
     if (id === 'contactPhone_2') {
       const values = {
@@ -94,4 +94,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(DemoHForm);
+export default connect(mapStateToProps)(FormConfigExample);

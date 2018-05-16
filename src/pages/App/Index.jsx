@@ -8,7 +8,7 @@ export default class Index extends Component {
   static defaultProps = {}
 
   handleClick = () => {
-    actions.routing.push('/demo/form');
+    actions.routing.push('/form/info');
   }
 
   render() {

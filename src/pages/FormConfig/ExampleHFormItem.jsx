@@ -5,7 +5,7 @@ import moment from 'moment';
 import HFormItem from '../../components/HForm/HFormItem.jsx';
 import ConfigHFormItem from './common/__ConfigFormItem.js';
 
-class DemoHFormItem extends Component {
+class ExampleHFormItem extends Component {
 
   static defaultProps = {
 
@@ -30,7 +30,7 @@ class DemoHFormItem extends Component {
     const { values } = this.state;
 
     return (
-      <Card title="表单元素自定义">
+      <Card title="演示单个 HFormItem 组件调用">
         <Form>
           <HFormItem {...ConfigHFormItem[0]} values={values} onChange={this.onChange} />
           <HFormItem {...ConfigHFormItem[1]} values={values} onChange={this.onChange} />
@@ -42,4 +42,4 @@ class DemoHFormItem extends Component {
   }
 }
 
-export default DemoHFormItem;
+export default ExampleHFormItem;

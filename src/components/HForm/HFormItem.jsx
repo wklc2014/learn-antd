@@ -110,7 +110,7 @@ export default class HFormItem extends Component {
       .map((val, i) => {
         const key = `formItem-${i}`;
         const { ext = {} } = val;
-        const { span = 24, pright } = ext;
+        const { span = 24, pright, center } = ext;
         const ColProps = { key, span, style: {} };
 
         // 计算 Col 右边内间距
@@ -118,6 +118,10 @@ export default class HFormItem extends Component {
           ColProps.style.paddingRight = pright;
         } else if (i < config.length - 1) {
           ColProps.style.paddingRight = 8;
+        }
+
+        if (center) {
+          ColProps.style.textAlign = 'center';
         }
 
         const HFormItemContentProps = {
