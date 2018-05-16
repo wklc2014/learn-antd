@@ -207,13 +207,15 @@ export default class HPictureView extends Component {
    */
   onMouseWheel = (event) => {
     event.preventDefault();
-    const { picZoomRate } = this.props;
+    const { picZoomRate, picRotateRate } = this.props;
+    const { picRotate } = this.state;
+    const { shiftKey } = event;
     const picZoom = this.getPicZoom();
-    if (event.deltaY > 0) {
-      this.operating('zoom', picZoom - picZoomRate);
-    } else {
-      this.operating('zoom', picZoom + picZoomRate);
-    }
+    const type = shiftKey ? 'rotate' : 'zoom';
+    const value = shiftKey
+      ? picRotate + (picRotateRate * (event.deltaX > 0 ? -1 : 1))
+      : picZoom + (picZoomRate * (event.deltaY > 0 ? -1 : 1));
+    this.operating(type, value);
   }
 
   /**
