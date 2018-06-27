@@ -1,25 +1,22 @@
 /**
  * 主体布局组件
  */
-import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
 import propTypes from 'prop-types';
-import getPageTitle from './common/getPageTitle.js';
 
-export default function Index (props) {
-  const { children, location } = props;
+import withTitle from './components/withTitle.js';
+import MainLayout from './components/MainLayout.jsx';
+
+function Index(props) {
+  const { location } = props;
   const { pathname } = location;
 
-  const pageTitle = getPageTitle(pathname);
-
-  return (
-    <Fragment>
-      <Helmet>
-        <title>{pageTitle}</title>
-      </Helmet>
-      {children}
-    </Fragment>
-  )
+  switch (pathname) {
+    case '/example':
+      return <MainLayout {...props} />;
+    case '/':
+    default:
+      return <div>other</div>;
+  }
 }
 
 Index.propTypes = {
@@ -28,3 +25,5 @@ Index.propTypes = {
 
 Index.defaultProps = {
 }
+
+export default withTitle(Index);
