@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env PORT=7000 BROWSER=none umi dev",
+    "start": "cross-env PORT=3000 BROWSER=none umi dev",
     "build": "umi build"
   },
   "repository": {

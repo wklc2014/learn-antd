@@ -5,16 +5,12 @@ export default {
     ["umi-plugin-routes", {
       "exclude": [
         /models/,
+        /model/,
         /services/,
+        /service/,
+        /components/,
         /common/
       ]
     }]
-  ],
-  "proxy": {
-    "/proxy": {
-      "target": "http://jsonplaceholder.typicode.com/",
-      "changeOrigin": true,
-      "pathRewrite": { "^/proxy" : "" }
-    }
-  }
+  ]
 }

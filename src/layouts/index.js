@@ -4,18 +4,18 @@
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import propTypes from 'prop-types';
-import getPageTitleByPathname from './common/getPageTitleByPathname.js';
+import getPageTitle from './common/getPageTitle.js';
 
 export default function Index (props) {
   const { children, location } = props;
   const { pathname } = location;
 
-  const page_title = getPageTitleByPathname(pathname);
+  const pageTitle = getPageTitle(pathname);
 
   return (
     <Fragment>
       <Helmet>
-        <title>{page_title}</title>
+        <title>{pageTitle}</title>
       </Helmet>
       {children}
     </Fragment>
@@ -23,9 +23,8 @@ export default function Index (props) {
 }
 
 Index.propTypes = {
-  location: propTypes.object,
+  location: propTypes.object.isRequired,
 }
 
 Index.defaultProps = {
-  location: {},
 }

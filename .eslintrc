@@ -69,6 +69,9 @@
      */
     "no-class-assign": "error",
 
+    // 禁止定义未使用
+    "no-unused-vars": "warn",
+
     /**
      * 不允许类成员里有重复的名称
      */
@@ -171,10 +174,10 @@
     "no-else-return": "error",
 
     // 强制一行的最大长度
-    "max-len": ["error", 80],
+    "max-len": ["warn", 80],
 
     // 强制最大行数
-    "max-lines": ["error", 500],
+    "max-lines": ["warn", 500],
 
     // 强制 function 定义中最多允许的参数数量
     "max-params": ["error", 3],
@@ -221,7 +224,7 @@
     ],
 
     // 标识符不能以_开头或结尾
-    "no-underscore-dangle": ["warn"],
+    "no-underscore-dangle": ["off"],
 
     /**
      * 避免箭头函数和比较式混淆
@@ -231,7 +234,7 @@
       "allowParens": false
     }],
 
-    // // 不允许使用嵌套的三元表达式
+    // 不允许使用嵌套的三元表达式
     "no-nested-ternary": "warn",
 
     // 禁止 var 声明 与外层作用域的变量同名
@@ -271,7 +274,7 @@
     "import/no-unresolved": "off",
 
     // Prefer a default export if module exports a single name
-    "import/prefer-default-export": "error",
+    "import/prefer-default-export": "warn",
 
     // Enforce all aria-* props are valid.
     "jsx-a11y/aria-props": "error",
@@ -295,10 +298,10 @@
     "jsx-a11y/role-supports-aria-props": "error",
 
     // Enforce that non-interactive, visible elements (such as <div>) that have click handlers use the role attribute
-    "jsx-a11y/no-static-element-interactions": "error",
+    "jsx-a11y/no-static-element-interactions": "off",
 
     // Enforce a clickable non-interactive element has at least one keyboard event listener.
-    "jsx-a11y/click-events-have-key-events": "error",
+    "jsx-a11y/click-events-have-key-events": "off",
 
     // Non-interactive elements should not be assigned mouse or keyboard event listeners.
     "jsx-a11y/no-noninteractive-element-interactions": "error",
@@ -307,7 +310,7 @@
     "jsx-a11y/anchor-is-valid": "error",
 
     // Prevent missing props validation in a React component definition
-    "react/prop-types": ["error", { "ignore": ["children", "dispatch"] }],
+    "react/prop-types": ["warn", { "ignore": ["children", "dispatch"] }],
 
     // Forbid certain propTypes
     "react/forbid-prop-types": ["error", { "forbid": [] }],
@@ -321,7 +324,7 @@
     ],
 
     // Restrict file extensions that may contain JSX
-    "react/jsx-filename-extension": [1, { "extensions": [".js"]}],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"]}],
 
     // Prevent usage of unsafe target='_blank'
     "react/jsx-no-target-blank": "error",
@@ -339,7 +342,7 @@
     "react/style-prop-object": "error",
 
     // Prevent extra closing tags for components without children (fixable)
-    "react/self-closing-comp": "error",
+    "react/self-closing-comp": "warn",
 
     // Validate closing bracket location in JSX (fixable)
     "react/jsx-closing-bracket-location": [
@@ -354,16 +357,13 @@
     "react/no-multi-comp": ["error", { "ignoreStateless": true }],
 
     // Prevent using Array index in key props
-    "react/no-array-index-key": "error",
+    "react/no-array-index-key": "off",
 
     /**
      * 要求构造函数首字母大写
      * 要求调用 new 操作符时有首字母大小的函数，
      * 允许调用首字母大写的函数时没有 new 操作符。
      */
-    "new-cap": "error",
-
-    // 禁止定义未使用
-    "no-unused-vars": "off"
+    "new-cap": "error"
   }
 }

@@ -1,29 +1,46 @@
-import lodash from 'lodash';
-import * as exampleServices from '../services/example.js';
+import { message } from 'antd';
+import exampleServices from '../services/example.js';
 
 export default {
 
   state: {
     count: 12,
+    list: [],
   },
 
   subscriptions: {
-    setup({ dispatch, history }) {  // eslint-disable-line
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname, query }) => {
+        if (pathname === '/example') {
+          dispatch({ type: 'fetch', payload: query });
+        }
+      });
     },
   },
 
   effects: {
-    *fetch({ payload: { type, list } }, { call, put }) {  // eslint-disable-line
-      const type_capitalize = lodash.capitalize(type);
-      const services_name = `query${type_capitalize}`
-      const resp = yield call(exampleServices[services_name], { list });
-      yield put({ type: 'save' });
+    * fetch({ payload }, { call, put }) {
+      const resp = yield call(exampleServices);
+      const { success, data, msg } = resp;
+      if (!success || !data) {
+        message.destroy();
+        message.error(msg || '接口错误');
+      }
+      yield put({ type: 'update', payload: { list: data || [] } });
     },
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload };
+    increase(state) {
+      const { count } = state;
+      return { ...state, count: count + 1 };
+    },
+    reduce(state) {
+      const { count } = state;
+      return { ...state, count: count - 1 };
+    },
+    update(state, { payload }) {
+      return { ...state, ...payload };
     },
   },
 

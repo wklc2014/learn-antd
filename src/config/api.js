@@ -4,25 +4,19 @@
  *
  * 提示：给每一个接口地址添加详细说明
  */
-import env from './env.js';
+const CONFIGS = require('./index.js');
 
-function getDomainByEnv(_env) {
-  switch (_env) {
-    case 'prod':
-      return '';
-    case 'dev':
-      return '';
-    case 'test':
-      return '';
-    case 'mock':
-      return '/mock';
-    default:
+function getDomain() {
+  if (CONFIGS.mock) {
+    return '/mock';
   }
+
+  return '';
 }
 
-const domain = getDomainByEnv(env);
+const domain = getDomain();
 
-export default {
-  example: `${domain}/example`,
-  users: `${domain}/users`,
+module.exports = {
+  // 测试接口，proxy and mock
+  example: `${domain}/example.json`,
 }

@@ -1,3 +1,5 @@
-import mock from './mock/mock_config.js';
+import mockConfig from './mock/index.js';
 
-export default mock;
+const CONFIGS = require('./src/config/index.js');
+
+export default CONFIGS.mock ? mockConfig : {};

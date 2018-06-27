@@ -1,9 +1,10 @@
+/**
+ * dva 配置文件
+ */
 import { message } from 'antd';
 import { createLogger } from 'redux-logger';
 
-import env from './config/env.js';
-
-const is_dev = env === 'dev' || env === 'mock';
+const CONFIGS = require('./config/index.js');
 
 // eslint-disable-next-line
 export function config() {
@@ -15,7 +16,7 @@ export function config() {
     },
   }
 
-  if (is_dev) {
+  if (CONFIGS.logger) {
     Object.assign(dva_options, {
       onAction: createLogger({
         collapsed: true,
