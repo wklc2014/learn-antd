@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import Link from 'umi/link';
 import propTypes from 'prop-types';
 import { Button } from 'antd';
 
@@ -31,6 +32,7 @@ function Index(props) {
   return (
     <div style={divStyle}>
       <p>Example Page</p>
+      <p><Link to="/">返回首页</Link></p>
       <p>{props.count}</p>
       <p>
         <Button type="primary" onClick={increase}>增加</Button>
