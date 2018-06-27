@@ -14,3 +14,10 @@ export default function Logo(props) {
     </section>
   )
 }
+
+Logo.propTypes = {
+  collapsed: propTypes.bool.isRequired,
+}
+
+Logo.defaultProps = {
+}
