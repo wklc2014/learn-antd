@@ -5,9 +5,9 @@
 export default function getPageTitle(pathname) {
   switch (pathname) {
     case '/example':
-      return 'example - 理赔天平';
+      return 'example';
     case '/':
     default:
-      return '理赔天平';
+      return '首页';
   }
 }
