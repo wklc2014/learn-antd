@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import propTypes from 'prop-types';
-import { Button } from 'antd';
+import { Button, Card } from 'antd';
 
 function Index(props) {
 
@@ -18,10 +18,6 @@ function Index(props) {
     })
   }
 
-  const divStyle = {
-    padding: 16,
-  }
-
   const cityListEle = props.list.map((d, i) => {
     const text = `${d.name} - ${d.sex}`;
     return (
@@ -30,7 +26,7 @@ function Index(props) {
   })
 
   return (
-    <div style={divStyle}>
+    <Card title="测试页面">
       <p>Example Page</p>
       <p><Link to="/">返回首页</Link></p>
       <p>{props.count}</p>
@@ -40,8 +36,8 @@ function Index(props) {
       <p>
         <Button type="primary" onClick={reduce}>减少</Button>
       </p>
-      <ul>{cityListEle}</ul>
-    </div>
+      <ol>{cityListEle}</ol>
+    </Card>
   )
 }
 

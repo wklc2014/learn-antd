@@ -7,7 +7,7 @@ import withTitle from './components/withTitle.js';
 import MainLayout from './components/MainLayout.jsx';
 
 function Index(props) {
-  const { location } = props;
+  const { location, children } = props;
   const { pathname } = location;
 
   switch (pathname) {
@@ -15,7 +15,7 @@ function Index(props) {
       return <MainLayout {...props} />;
     case '/':
     default:
-      return <div>other</div>;
+      return children;
   }
 }
 
