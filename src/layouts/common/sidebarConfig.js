@@ -1,7 +1,6 @@
 /**
  * 侧边导航配置
  */
-
 export default [
   {
     hide: false,
