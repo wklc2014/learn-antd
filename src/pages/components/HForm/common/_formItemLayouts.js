@@ -2,7 +2,8 @@
  * FormItem 表单元素默认布局
  */
 // 通过增加 label 宽度，相应减少 wrapper 宽度
-// 来完整适配 label 标签字数较多的场景
+// 来完整适配 label 标签字数多少的场景
+
 export const L0 = {
   labelCol: { xs: 24, sm: 6  },
   wrapperCol: { xs: 24, sm: 18 },

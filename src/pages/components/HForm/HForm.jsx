@@ -24,45 +24,45 @@ export default function HForm(props) {
      * 表单一行显示表单元素的个数
      * @type {Number}
      */
-    cols = 1,
+    cols,
 
     /**
      * 表单配置数组
      * @type {Array}
      */
-    configs = [],
+    configs,
 
     /**
      * 表单布局类型
      * 支持 antd 提供的表单布局 horizontal vertical inline 三种
      * @type {String}
      */
-    layout = 'horizontal',
+    layout,
 
     /**
      * 表单元素布局
      * antd 提供的栅格布局
      * @type {String or object}
      */
-    itemLayout = '',
+    itemLayout,
 
     /**
      * 表单元素间隔距离
      * @type {Number}
      */
-    itemSpace = 0,
+    itemSpace,
 
     /**
      * 可控表单搜集表单值的 onChange 事件
      * @type {func}
      */
-    onChange = () => {},
+    onChange,
 
     /**
      * 表单值
      * @type {Object}
      */
-    values = {},
+    values,
   } = props;
 
   const ChildrenEle = configs.map((val, i) => {
@@ -128,6 +128,13 @@ HForm.propTypes = {
     propTypes.string,
   ]),
   itemSpace: propTypes.number,
-  onChange: propTypes.func,
-  values: propTypes.object,
+  onChange: propTypes.func.isRequired,
+  values: propTypes.object.isRequired,
 };
+
+HForm.defaultProps = {
+  cols: 1,
+  layout: 'horizontal',
+  itemLayout: '',
+  itemSpace: 0,
+}

@@ -1,7 +1,7 @@
 /**
  * 获取表单元素的 data 属性
  */
-import __chineseCities from './__chineseCities.js';
+import _chineseCities from './_chineseCities.js';
 
 export default function getData({ type, ext = {} }) {
   const { data, city } = ext;
@@ -10,8 +10,8 @@ export default function getData({ type, ext = {} }) {
   switch (type) {
     case 'cascader':
     case 'treeSelect':
-      if (city && __chineseCities[city]) {
-        new_data = [...__chineseCities[city]];
+      if (city && _chineseCities[city]) {
+        new_data = [..._chineseCities[city]];
       }
       break;
     default:

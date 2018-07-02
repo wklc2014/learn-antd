@@ -10,7 +10,11 @@ let timeout;
 
 export default class MyFetchInput extends Component {
 
-  static defaultProps = {}
+  static defaultProps = {
+    ext: {},
+    api: {},
+    value: '',
+  }
 
   constructor(props) {
     super(props);
@@ -41,7 +45,7 @@ export default class MyFetchInput extends Component {
         const data = resp.success ? resp.data : [];
         that.setState({ data: data || [] })
       } catch (e) {
-        // eslint-disabled
+        // eslint-disable-next-line
         console.log(`MyFetchInput ${e} : ${service}`);
       }
     }
@@ -66,6 +70,8 @@ export default class MyFetchInput extends Component {
 }
 
 MyFetchInput.propTypes = {
-  ext: propTypes.object.isRequired,
+  api: propTypes.object,
+  ext: propTypes.object,
   onChange: propTypes.func.isRequired,
+  value: propTypes.any,
 }

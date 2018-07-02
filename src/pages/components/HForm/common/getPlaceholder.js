@@ -21,30 +21,42 @@ export default function getPlaceholder({ type, placeholder, label, id }) {
     return '';
   }
 
-  let new_placeholder = '';
+  let newPlaceholder = '';
 
-  const inputType = ['input', 'textarea', 'search', 'number', 'fetchInput'];
-  const selectType = ['select', 'treeSelect', 'cascader', 'date', 'month', 'time'];
+  const inputType = [
+    'input',
+    'textarea',
+    'search',
+    'number',
+    'fetchInput',
+  ];
+
+  const selectType = [
+    'select',
+    'treeSelect',
+    'cascader',
+    'date',
+    'month',
+    'time',
+  ];
 
   // 预定义 placeholder 属性
-  let pre_placeholder = '';
+  let prePlaceholder = '';
   if (is.inArray(type, inputType)) {
-    pre_placeholder = placeholder || `请输入${label || id}`;
+    prePlaceholder = placeholder || `请输入${label || id}`;
   } else if (is.inArray(type, selectType)) {
-    pre_placeholder = placeholder || `请选择${label || id}`;
-  } else if (type === 'range') {
-
+    prePlaceholder = placeholder || `请选择${label || id}`;
   }
 
   if (type === 'range') {
     // 区间时间的 placeholder 属性是个数组
     // 单独处理 range 类型
-    new_placeholder = placeholder || [`开始${label || id}`, `开始${label || id}`];
+    newPlaceholder = placeholder || [`开始${label || id}`, `开始${label || id}`];
   } else {
     // 否则不处理
     // 直接采用预定义 placeholder
-    new_placeholder = pre_placeholder;
+    newPlaceholder = prePlaceholder;
   }
 
-  return new_placeholder;
+  return newPlaceholder;
 }

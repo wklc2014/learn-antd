@@ -8,7 +8,7 @@ import * as CLASS_NAMES from './common/__classNames.js';
 
 const ButtonGroup = Button.Group;
 
-export default function OperateBtns (props) {
+export default function ActionBtns (props) {
 
   const {
     btns = [],
@@ -54,14 +54,14 @@ export default function OperateBtns (props) {
   )
 }
 
-OperateBtns.propTypes = {
+ActionBtns.propTypes = {
   btns: propTypes.array,
   rotate: propTypes.number,
   zoom: propTypes.number,
   onChange: propTypes.func.isRequired,
 }
 
-OperateBtns.defaultProps = {
+ActionBtns.defaultProps = {
   btns: [],
   rotate: 0,
   zoom: 100,

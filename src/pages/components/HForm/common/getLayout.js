@@ -1,6 +1,6 @@
 import is from 'is_js';
 
-import __formLayouts from './__formLayouts.js';
+import _formLayouts from './_formLayouts.js';
 
 /**
  * 获取 FormItem 表单元素的删格布局
@@ -10,6 +10,7 @@ import __formLayouts from './__formLayouts.js';
  * @return {object}               表单元素栅格化布局属性
  */
 export function getFormItemLayout(formLayout = '', cols = 1, colspan = 1) {
+
   if (formLayout !== 'horizontal') {
     // 只有当表单布局为 horizontal 时，
     // 表单元素才采用栅格布局
@@ -19,44 +20,48 @@ export function getFormItemLayout(formLayout = '', cols = 1, colspan = 1) {
   // 一个表单元素最多横跨列数，最多和表单组列数相同
   const newColspan = Math.min(cols, colspan);
 
-  if (cols === 4) {
-    return [
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 12 },
-        wrapperCol: { xs: 24, sm: 18, md: 18, lg: 18, xl: 12 },
-      },
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 3,  xl: 6   },
-        wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 18  },
-      },
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 2,  xl: 4   },
-        wrapperCol: { xs: 24, sm: 18, md: 21, lg: 22, xl: 20  },
-      },
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 2,  xl: 3   },
-        wrapperCol: { xs: 24, sm: 18, md: 21, lg: 22, xl: 21 },
-      },
-    ][newColspan - 1];
-  } else if (cols === 3 || cols === 2) {
-    return [
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 6   },
-        wrapperCol: { xs: 24, sm: 18, md: 18, lg: 18, xl: 18  },
-      },
-      {
-        labelCol:   { xs: 24, sm: 3,  md: 3,  lg: 3,  xl: 3   },
-        wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 21  },
-      },
-      {
-        labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 3,  xl: 2   },
-        wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 22  },
-      },
-    ][newColspan - 1];
-  }
-  return {
-    labelCol:   { xs: 24, sm: 6   },
-    wrapperCol: { xs: 24, sm: 16  },
+  switch (cols) {
+    case 4:
+      return [
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 12 },
+          wrapperCol: { xs: 24, sm: 18, md: 18, lg: 18, xl: 12 },
+        },
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 3,  xl: 6   },
+          wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 18  },
+        },
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 2,  xl: 4   },
+          wrapperCol: { xs: 24, sm: 18, md: 21, lg: 22, xl: 20  },
+        },
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 2,  xl: 3   },
+          wrapperCol: { xs: 24, sm: 18, md: 21, lg: 22, xl: 21  },
+        },
+      ][newColspan - 1];
+    case 3:
+    case 2:
+      return [
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 6,  lg: 6,  xl: 6   },
+          wrapperCol: { xs: 24, sm: 18, md: 18, lg: 18, xl: 18  },
+        },
+        {
+          labelCol:   { xs: 24, sm: 3,  md: 3,  lg: 3,  xl: 3   },
+          wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 21  },
+        },
+        {
+          labelCol:   { xs: 24, sm: 6,  md: 3,  lg: 3,  xl: 2   },
+          wrapperCol: { xs: 24, sm: 18, md: 21, lg: 21, xl: 22  },
+        },
+      ][newColspan - 1];
+    case 1:
+    default:
+      return {
+        labelCol:   { xs: 24, sm: 6   },
+        wrapperCol: { xs: 24, sm: 16  },
+      }
   }
 }
 
@@ -66,33 +71,35 @@ export function getFormItemLayout(formLayout = '', cols = 1, colspan = 1) {
  * 常见如按钮
  */
 export function getFormItemOffset(formItemLayout = {}, offset = false) {
+
   // 如果不需要设置 offset 属性，则直接返回表单元素布局
   if (!offset) return formItemLayout;
 
   // 给表单元素布局对象 formItemLayout 的 wrapperCol 值添加 offset 属性
-  const new_formItemLayout = {};
+  const newFormItemLayout = {};
   Object.keys(formItemLayout).forEach((val) => {
     const { labelCol = {}, wrapperCol = {} } = formItemLayout;
     if (val === 'labelCol') {
-      new_formItemLayout.wrapperCol = setWrapperOffset(labelCol, wrapperCol);
+      newFormItemLayout.wrapperCol = setWrapperOffset(labelCol, wrapperCol);
     }
   })
-  return new_formItemLayout;
+
+  return newFormItemLayout;
 }
 
 // 给一个布局对象的 wrapperCol 属性添加 offset 属性
 function setWrapperOffset(labelCol = {}, wrapperCol = {}) {
-  const new_wrapperCol = {};
+  const newWrapperCol = {};
   Object.keys(labelCol).forEach((id) => {
     const x = labelCol[id];
     const y = wrapperCol[id] || 0;
     if (x > 0 && x < 24) {
-      new_wrapperCol[id] = { span: y || x, offset: x };
+      newWrapperCol[id] = { span: y || x, offset: x };
     } else {
-      new_wrapperCol[id] = x;
+      newWrapperCol[id] = x;
     }
   })
-  return new_wrapperCol;
+  return newWrapperCol;
 }
 
 /**
@@ -136,8 +143,8 @@ export function getGridLayout(cols = 1, colspan = 1) {
  * @return {string} 表单布局类型
  */
 export function getFormLayout(formLayout) {
-  if (is.inArray(formLayout, __formLayouts)) {
+  if (is.inArray(formLayout, _formLayouts)) {
     return formLayout;
   }
-  return __formLayouts[0];
+  return _formLayouts[0];
 }

@@ -1,7 +1,8 @@
+/* eslint-disable max-lines */
 /**
  * 中国城市数据
  */
-const __chineseCities = [
+const _chineseCities = [
   {
     city: [
       {
@@ -4700,7 +4701,7 @@ const __chineseCities = [
 ];
 
 // 全国
-const quanGuo = __chineseCities.map((v) => {
+const quanGuo = _chineseCities.map((v) => {
 
   const children = v.city.map((m) => {
     const area = m.area.map(n => ({ value: n, label: n }));
@@ -4711,26 +4712,30 @@ const quanGuo = __chineseCities.map((v) => {
 });
 
 // 上海
-const shangHai = __chineseCities.filter(city => city.name === '上海市').map((v) => {
+const shangHai = _chineseCities
+  .filter(city => city.name === '上海市')
+  .map((v) => {
 
-  const children = v.city.map((m) => {
-    const area = m.area.map(n => ({ value: n, label: n }));
-    return { value: m.name, label: m.name, children: area }
-  })
+    const children = v.city.map((m) => {
+      const area = m.area.map(n => ({ value: n, label: n }));
+      return { value: m.name, label: m.name, children: area }
+    })
 
-  return { value: v.name, label: v.name, children }
-});
+    return { value: v.name, label: v.name, children }
+  });
 
 // 北京
-const beiJing = __chineseCities.filter(city => city.name === '北京市').map((v) => {
+const beiJing = _chineseCities
+  .filter(city => city.name === '北京市')
+  .map((v) => {
 
-  const children = v.city.map((m) => {
-    const area = m.area.map(n => ({ value: n, label: n }));
-    return { value: m.name, label: m.name, children: area }
-  })
+    const children = v.city.map((m) => {
+      const area = m.area.map(n => ({ value: n, label: n }));
+      return { value: m.name, label: m.name, children: area }
+    })
 
-  return { value: v.name, label: v.name, children }
-});
+    return { value: v.name, label: v.name, children }
+  });
 
 export default {
   beiJing,

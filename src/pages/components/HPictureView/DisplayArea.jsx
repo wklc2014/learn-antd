@@ -6,9 +6,7 @@ import propTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import { Alert } from 'antd';
 
-import * as CLASS_NAMES from './common/__classNames.js';
-
-export default function ViewArea(props) {
+export default function DisplayArea(props) {
 
   const {
     src,
@@ -24,7 +22,7 @@ export default function ViewArea(props) {
 
   if (!!errors) {
     return (
-      <div className={CLASS_NAMES.__box}>
+      <div className="h-picture-view-box">
         <Alert message={errors} showIcon type="error" />
       </div>
     )
@@ -41,16 +39,16 @@ export default function ViewArea(props) {
   }
 
   return (
-    <div className={CLASS_NAMES.__box}>
+    <div className="h-picture-view-box">
       <Draggable
         position={{ x: positionX, y: positionY }}
         onDrag={onDrag}
-        handle={`.${CLASS_NAMES.__handle}`}
+        handle=".h-picture-view-handle"
       >
-        <div className={CLASS_NAMES.__drag}>
-          <div className={CLASS_NAMES.__pic} style={picStyle} />
+        <div className="h-picture-view-drag">
+          <div className="h-picture-view-pic" style={picStyle} />
           <div
-            className={CLASS_NAMES.__handle}
+            className="h-picture-view-handle"
             onWheel={onWheel}
             onDoubleClick={onDoubleClick}
             style={handleStyle}
@@ -61,7 +59,7 @@ export default function ViewArea(props) {
   )
 }
 
-ViewArea.propTypes = {
+DisplayArea.propTypes = {
   src: propTypes.string.isRequired,
   width: propTypes.number.isRequired,
   rotate: propTypes.number,
@@ -73,7 +71,7 @@ ViewArea.propTypes = {
   onDrag: propTypes.func.isRequired,
 }
 
-ViewArea.defaultProps = {
+DisplayArea.defaultProps = {
   rotate: 0,
   positionX: 0,
   positionY: 0,

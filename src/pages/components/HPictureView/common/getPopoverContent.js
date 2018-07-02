@@ -8,10 +8,12 @@ import React from 'react';
 import { Row, Col, Slider, InputNumber } from 'antd';
 
 export default function getPopoverContent(type, values, onChange) {
+
   const SliderProps = {
     onChange: e => onChange(type, e),
     value: values[type],
   };
+
   const InputNumberProps = {
     ...SliderProps,
     precision: 2,
@@ -20,6 +22,7 @@ export default function getPopoverContent(type, values, onChange) {
       width: '100%',
     },
   }
+
   if (type === 'rotate') {
     SliderProps.marks = {
       '0': '0',

@@ -7,14 +7,16 @@
 import is from 'is_js';
 
 export default function getStyle({ type, ext = {}, style = {} }) {
+
   const { toUpperCase, toLowerCase } = ext;
-  const new_style = {};
+
+  const newStyle = {};
 
   // css 大小写处理
   if (toUpperCase) {
-    Object.assign(new_style, { textTransform: 'uppercase' });
+    Object.assign(newStyle, { textTransform: 'uppercase' });
   } else if (toLowerCase) {
-    Object.assign(new_style, { textTransform: 'lowercase' });
+    Object.assign(newStyle, { textTransform: 'lowercase' });
   }
 
   // 部分表单元素类型默认设置 width: 100%
@@ -28,18 +30,18 @@ export default function getStyle({ type, ext = {}, style = {} }) {
     case 'select':
     case 'editor':
     case 'treeSelect':
-      Object.assign(new_style, { width: '100%' });
+      Object.assign(newStyle, { width: '100%' });
       break;
     default:
   }
 
   // 最后合并表单元素配置的属性
-  Object.assign(new_style, style);
+  Object.assign(newStyle, style);
 
   // 空样式不返回
-  if (is.empty(new_style)) {
+  if (is.empty(newStyle)) {
     return null;
   }
 
-  return new_style;
+  return newStyle;
 }

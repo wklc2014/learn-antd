@@ -6,12 +6,10 @@ import propTypes from 'prop-types';
 import lodash from 'lodash';
 import is from 'is_js';
 
-import ViewArea from './ViewArea.jsx';
-import OperateBtns from './OperateBtns.jsx';
-
+import DisplayArea from './DisplayArea.jsx';
+import ActionBtns from './ActionBtns.jsx';
 import asyncLoadImage from './common/asyncLoadImage.js';
-import __operateBtns from './common/__operateBtns.js';
-import * as CLASS_NAMES from './common/__classNames.js';
+import _actionBtns from './common/_actionBtns.js';
 
 import './styles.less';
 
@@ -97,7 +95,7 @@ export default class HPictureView extends Component {
     window.addEventListener('resize', this.planWindowResize);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { picSrc: prevSrc } = this.props;
     const { picSrc: nextSrc } = nextProps;
     const params = this.getRenderState(this.props, nextProps);
@@ -280,7 +278,7 @@ export default class HPictureView extends Component {
       if (!picBtns) {
         return [];
       }
-      return getBtns(__operateBtns);
+      return getBtns(_actionBtns);
     }
     return getBtns(picBtns);
 
@@ -309,18 +307,30 @@ export default class HPictureView extends Component {
   }
 
   render() {
-    const { picSrc, wraperStyle, viewHeight } = this.props;
-    const { picWidth, picRotate, picErrors, picPositionX, picPositionY } = this.state;
+    const {
+      picSrc,
+      wraperStyle,
+      viewHeight,
+    } = this.props;
+
+    const {
+      picWidth,
+      picRotate,
+      picErrors,
+      picPositionX,
+      picPositionY,
+    } = this.state;
+
     const zoom = this.getPicZoom();
     const picBtns = this.getPictureBtns();
 
     return (
-      <section className={CLASS_NAMES.__wraper} style={wraperStyle}>
+      <section className="h-picture-view-wraper" style={wraperStyle}>
         <div
           style={{ height: viewHeight }}
           ref={inst => this.inst = inst}
         >
-          <ViewArea
+          <DisplayArea
             src={picSrc}
             width={picWidth}
             rotate={picRotate}
@@ -332,7 +342,7 @@ export default class HPictureView extends Component {
             onWheel={this.onMouseWheel}
           />
         </div>
-        <OperateBtns
+        <ActionBtns
           rotate={picRotate}
           zoom={zoom}
           btns={picBtns}

@@ -70,10 +70,16 @@ export default class MyImageView extends Component {
           </Tooltip>
         </Col>
       );
-    })
+    });
+
+    const RowProps = {
+      gutter: 8,
+      ...rowApi,
+      type: 'flex',
+    }
 
     return (
-      <Row gutter={8} {...rowApi} type="flex">
+      <Row {...RowProps}>
         {imageEle}
         <Modal
           title="详图"

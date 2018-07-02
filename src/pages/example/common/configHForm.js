@@ -1,7 +1,8 @@
+/* eslint-disable max-lines */
 import moment from 'moment';
 
 // 用户调查字段配置
-export const __configs = [
+export const _configs = [
   {
     label: '用户姓名',
     extMap: {
@@ -208,9 +209,9 @@ export const __configs = [
         showTime: true,
         format: 'YYYY-MM-DD HH:mm:ss',
         ranges: {
-          '一周内': [moment().subtract(7, 'days'), moment()],
-          '一月内': [moment().subtract(1, 'months'), moment()],
-          '三月内': [moment().subtract(3, 'months'), moment()],
+          一周内: [moment().subtract(7, 'days'), moment()],
+          一月内: [moment().subtract(1, 'months'), moment()],
+          三月内: [moment().subtract(3, 'months'), moment()],
         },
       },
     },
@@ -426,12 +427,12 @@ export const __configs = [
       type: 'slider',
       api: {
         marks: {
-          0: 'A',
-          20: 'B',
-          40: 'C',
-          60: 'D',
-          80: 'E',
-          100: 'F',
+          '0': 'A',
+          '20': 'B',
+          '40': 'C',
+          '60': 'D',
+          '80': 'E',
+          '100': 'F',
         },
       },
     },
@@ -527,7 +528,7 @@ export const __configs = [
   },
 ];
 
-export const __register = [
+export const _register = [
   {
     label: '表单布局',
     config: {

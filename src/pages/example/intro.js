@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-// import propTypes from 'prop-types';
+import React from 'react';
 import { Card, Table } from 'antd';
 
 import {
   getColumns,
-  __HFormApi,
-  __HFormConfigsApi,
-  __HFormConfigsConfigApi,
-  __HFormConfigsConfigExtApi,
-  __HFormConfigsExtMapApi,
+  _hFormApi,
+  _hFormConfigsApi,
+  _hFormConfigsConfigApi,
+  _hFormConfigsConfigExtApi,
+  _hFormConfigsExtMapApi,
 } from './common/index.js';
 
 export default function Intro(props) {
@@ -35,7 +34,7 @@ export default function Intro(props) {
             <Table
               {...commonTableProps}
               columns={getColumns()}
-              dataSource={__HFormApi}
+              dataSource={_hFormApi}
             />
           </div>
           <div style={box_style}>
@@ -44,7 +43,7 @@ export default function Intro(props) {
             <Table
               {...commonTableProps}
               columns={getColumns()}
-              dataSource={__HFormConfigsApi}
+              dataSource={_hFormConfigsApi}
             />
           </div>
           <div style={box_style}>
@@ -52,16 +51,17 @@ export default function Intro(props) {
             <Table
               {...commonTableProps}
               columns={getColumns('extMap_')}
-              dataSource={__HFormConfigsExtMapApi}
+              dataSource={_hFormConfigsExtMapApi}
             />
           </div>
           <div style={box_style}>
             <h3>HForm.configs.config</h3>
-            <p>可以是 object 或 array，如果是 object，则采用以下配置，如果是 array，则数据每个元素都采用以下配置</p>
+            <p>可以是 object 或 array，如果是 object，
+            则采用以下配置，如果是 array，则数据每个元素都采用以下配置</p>
             <Table
               {...commonTableProps}
               columns={getColumns('config_')}
-              dataSource={__HFormConfigsConfigApi}
+              dataSource={_hFormConfigsConfigApi}
             />
           </div>
           <div style={box_style}>
@@ -73,7 +73,7 @@ export default function Intro(props) {
             <Table
               {...commonTableProps}
               columns={getColumns('ext_')}
-              dataSource={__HFormConfigsConfigExtApi}
+              dataSource={_hFormConfigsConfigExtApi}
             />
           </div>
         </Card>

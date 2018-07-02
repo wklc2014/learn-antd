@@ -11,7 +11,7 @@ import HFormItemContent from './HFormItemContent.jsx';
 
 import { getFormItemOffset } from './common/getLayout.js';
 import { getFormItemValidate } from './common/getValidate.js';
-import * as __formItemLayouts from './common/__formItemLayouts.js';
+import * as _formItemLayouts from './common/_formItemLayouts.js';
 
 const FormItem = Form.Item;
 
@@ -83,7 +83,7 @@ export default class HFormItem extends Component {
     if (is.object(layout)) {
       return getFormItemOffset(layout, offset);
     } else if (is.string(layout)) {
-      const new_layout = __formItemLayouts[layout] || __formItemLayouts.L0;
+      const new_layout = _formItemLayouts[layout] || _formItemLayouts.L0;
       return getFormItemOffset(new_layout, offset);
     }
   }
@@ -99,9 +99,9 @@ export default class HFormItem extends Component {
     const formItemlayout = this.getFormItemLayout();
 
     // 如果 config 是对象, 则转换成数组, 统一处理
-    const new_config = is.array(config) ? config : [config];
+    const newConfig = is.array(config) ? config : [config];
 
-    const ChildrenEle = new_config
+    const ChildrenEle = newConfig
       // 过滤表单输入元素的隐藏字段
       .filter((val) => {
         const { ext = {} } = val;
@@ -139,7 +139,11 @@ export default class HFormItem extends Component {
       });
 
     // 表单元素的验证
-    const formItemValidate = getFormItemValidate({ values, config: new_config, touched });
+    const formItemValidate = getFormItemValidate({
+      values,
+      config: newConfig,
+      touched,
+    });
 
     // 表单元素的扩展字段
     const { space, extra, colon } = extMap;
@@ -167,7 +171,7 @@ HFormItem.propTypes = {
   config: propTypes.oneOfType([
     propTypes.object,
     propTypes.array,
-  ]),
+  ]).isRequired,
   label: propTypes.string,
   extMap: propTypes.object,
   onChange: propTypes.func,

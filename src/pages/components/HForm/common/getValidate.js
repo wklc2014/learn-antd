@@ -12,12 +12,12 @@ const rulesMessage = {
   phone: '手机号码',
 }
 
-export function getFormItemValidate({ values, config = [], touched = false }) {
+export function getFormItemValidate({ values, configs = [], touched = false }) {
 
-  const __validate = {};
+  const _validate = {};
 
-  config.slice(0, 2).some((val, i) => {
-    let check_error = false;
+  configs.slice(0, 2).some((val, i) => {
+    let isError = false;
 
     const { id, ext = {} } = val;
     const { rules } = ext;
@@ -28,28 +28,28 @@ export function getFormItemValidate({ values, config = [], touched = false }) {
       const value = values[id];
 
       // 验证是否必填
-      __validate.required = rules.some(rule => rule.required);
+      _validate.required = rules.some(rule => rule.required);
 
       if (touched) {
         const { rules } = ext;
         // 验证规则一条没通过后, 就不再验证
-        check_error = rules.some((rule) => {
+        isError = rules.some((rule) => {
           const result = validateRule(rule, value);
           if (result) {
-            Object.assign(__validate, result);
+            Object.assign(_validate, result);
           }
           return !!result;
         });
       }
     }
-    return check_error;
+    return isError;
   })
 
   // console.log("__validate", __validate);
-  return __validate;
+  return _validate;
 }
 
-export function getFormItemErrors({ value, config }) {
+export function getFormItemErrors({ value, configs }) {
 }
 
 function validateRule(rule, value) {

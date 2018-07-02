@@ -4,12 +4,21 @@
 import is from 'is_js';
 
 export default function checkTypes(configs = []) {
+
   const notAllText = configs.some((val) => {
+
     const { config } = val;
+
     if (is.array(config)) {
-      return config.some(v => v.type !== 'text' && v.type !== 'imageView');
+      return config.some(v => condition(v));
     }
-    return config.type !== 'text' && config.type !== 'imageView';
+
+    return condition(config);
   })
+
   return !notAllText;
+}
+
+function condition(config) {
+  return config.type !== 'text' && config.type !== 'imageView';
 }

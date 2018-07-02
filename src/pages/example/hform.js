@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Button, Card } from 'antd';
 
 import HForm from '../components/HForm/HForm.jsx';
-import { __configs, __register } from './common/configHForm.js';
+import { _configs, _register } from './common/configHForm.js';
 
 class ExampleHForm extends Component {
 
@@ -52,13 +52,13 @@ class ExampleHForm extends Component {
       },
     };
 
-    const inlineGroupConfigs = [...__register, btnConfig];
+    const inlineGroupConfigs = [..._register, btnConfig];
 
     return (
       <div>
         <Card title="多种表单输入类型" style={{ marginBottom: 24 }}>
           <HForm
-            configs={__configs}
+            configs={_configs}
             cols={2}
             onChange={this.onChange}
             values={this.props.values}

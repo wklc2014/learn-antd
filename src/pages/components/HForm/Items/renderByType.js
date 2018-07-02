@@ -116,13 +116,21 @@ export default function renderFormItemByType(props) {
 
   else if (type === 'checkbox') {
     // 多选框
-    return <div className="my-hform-checkbox-group"><CheckboxGroup {...new_api} /></div>;
+    return (
+      <div className="my-hform-checkbox-group">
+        <CheckboxGroup {...new_api} />
+      </div>
+    );
   }
 
   else if (type === 'select') {
     // 下拉选择框
     if (is.array(ext.data)) {
-      const Children = ext.data.map((v, i) => <Option key={i} value={v.value}>{v.label}</Option>);
+      const Children = ext.data.map((v, i) => (
+        <Option key={i} value={v.value}>
+          {v.label}
+        </Option>
+      ));
       return <Select {...new_api}>{Children}</Select>;
     }
   }
@@ -150,7 +158,11 @@ export default function renderFormItemByType(props) {
   else if (type === 'radio') {
     // 单选框
     if (is.array(ext.data)) {
-      const Children = ext.data.map((v, i) => <Radio key={i} value={v.value}>{v.label}</Radio>);
+      const Children = ext.data.map((v, i) => (
+        <Radio key={i} value={v.value}>
+          {v.label}
+        </Radio>
+      ));
       return <RadioGroup {...new_api}>{Children}</RadioGroup>;
     }
   }
@@ -158,7 +170,11 @@ export default function renderFormItemByType(props) {
   else if (type === 'radioButton') {
     // 单选按钮
     if (is.array(ext.data)) {
-      const Children = ext.data.map((v, i) => <RadioButton key={i} value={v.value}>{v.label}</RadioButton>);
+      const Children = ext.data.map((v, i) => (
+        <RadioButton key={i} value={v.value}>
+          {v.label}
+        </RadioButton>
+      ));
       return <RadioGroup {...new_api}>{Children}</RadioGroup>;
     }
   }
@@ -187,7 +203,13 @@ export default function renderFormItemByType(props) {
     // 树形选择控件
     // 设置一个默认高度
     // 以及默认[treeData]参数从[ext.data]取
-    return <TreeSelect dropdownStyle={{ maxHeight: 300 }} treeData={ext.data} {...new_api} />;
+    return (
+      <TreeSelect
+        dropdownStyle={{ maxHeight: 300 }}
+        treeData={ext.data}
+        {...new_api}
+      />
+    );
   }
 
   else if (type === 'button') {
@@ -236,6 +258,7 @@ export default function renderFormItemByType(props) {
 
   else {
     // 无法处理的表单元素类型
+    // eslint-disable-next-line
     console.error(`没有与之相对应表单元素类型${type}`);
     return null;
   }

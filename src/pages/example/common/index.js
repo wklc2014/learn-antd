@@ -30,7 +30,7 @@ export function getColumns(prefix = '') {
   ]
 }
 // HForm 组件 api
-export const __HFormApi = [
+export const _hFormApi = [
   {
     id: '1',
     params: 'configs',
@@ -83,7 +83,7 @@ export const __HFormApi = [
 ]
 
 // HForm.configs
-export const __HFormConfigsApi = [
+export const _hFormConfigsApi = [
   {
     id: '1',
     params: 'label',
@@ -108,7 +108,7 @@ export const __HFormConfigsApi = [
 ]
 
 // HForm.configs.config
-export const __HFormConfigsConfigApi = [
+export const _hFormConfigsConfigApi = [
   {
     id: '1',
     config_params: 'id',
@@ -140,7 +140,7 @@ export const __HFormConfigsConfigApi = [
 ]
 
 // HForm.configs.extMap
-export const __HFormConfigsExtMapApi = [
+export const _hFormConfigsExtMapApi = [
   {
     id: '1',
     extMap_params: 'layout',
@@ -193,7 +193,7 @@ export const __HFormConfigsExtMapApi = [
 ]
 
 // HForm.configs.config.ext
-export const __HFormConfigsConfigExtApi = [
+export const _hFormConfigsConfigExtApi = [
   {
     id: '1',
     ext_params: 'span',
