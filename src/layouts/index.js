@@ -1,29 +1,19 @@
-/**
- * 主体布局组件
- */
-import propTypes from 'prop-types';
+import React from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Home from '../pages/home/index.js';
 
-import withTitle from './components/withTitle.js';
-import MainLayout from './components/MainLayout.jsx';
-
-function Index(props) {
-  const { location, children } = props;
-  const { pathname } = location;
-
-  switch (pathname) {
-    case '/example':
-      return <MainLayout {...props} />;
-    case '/':
-    default:
-      return children;
-  }
+function Layouts({ children }) {
+  return (
+    <div>
+      <Route path="/" exact component={Home} />
+    </div>
+  )
 }
 
-Index.propTypes = {
-  location: propTypes.object.isRequired,
-}
+const App = props => (
+  <Router>
+    <Layouts />
+  </Router>
+);
 
-Index.defaultProps = {
-}
-
-export default withTitle(Index);
+export default App;
