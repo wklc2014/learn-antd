@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Demo from '../../components/antd-form/example/demo.js';
+// import Demo from '../../components/hform/v3/example_demo.js';
+import Demo from '../../components/hform/v4/example_demo.js';
 
 function Home(props) {
 
